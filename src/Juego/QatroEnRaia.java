@@ -38,7 +38,7 @@ public class QatroEnRaia {
 
 				correcto = false;// al principio toma como que el usuario introduce mal los datos
 
-				columna = pedirInteger("Inroduzca la columna");// pide en que columna querra colocar la ficha
+				columna = pedirInteger("Inroduzca la columna: ");// pide en que columna querra colocar la ficha
 				posValida = validarPosicion(tablero, columna); // valida si la fila y columna introducida son correctas
 				if (posValida) {
 					if (columnaConHueco(tablero, columna, vacio)) {// valida si no hay alguna ficha ya puesta en esa
