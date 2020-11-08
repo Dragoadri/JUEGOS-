@@ -71,7 +71,10 @@ public class Snake extends JFrame {
 		for (int i = 0; i < lista.size(); i++) {
 			Point p = lista.get(i);
 			// error--------------------------------------------------
-			
+			if (snake.x == p.x && snake.y == p.y) {
+				gameOver = true;
+			//-------------------------------------------------------
+			}
 		}
 	}
 
