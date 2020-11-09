@@ -67,7 +67,7 @@ public class Snake extends JFrame {
 
 		if ((snake.x > (comida.x - 10)) && (snake.x < (comida.x + 10)) && (snake.y > (comida.y - 10))//si la cabeza de la snake se encuentra con la manzana
 				&& (snake.y < (comida.y + 10))) {
-			comida = new Point((int) (Math.random() * 640), (int) (Math.random() * 480));// como ya ha comido la manzana se crea otra en un lugar diferente
+			comida = new Point((int) (Math.random() * 600), (int) (Math.random() * 400));// como ya ha comido la manzana se crea otra en un lugar diferente
 			lista.add(0, new Point(snake.x, snake.y));// añade un cuadradito mas al cuerpo de la snake
 		}
 
@@ -157,7 +157,7 @@ public class Snake extends JFrame {
 							}
 						} else if (direccion == KeyEvent.VK_LEFT) {// si se pulsa la tecla para ir a la izq
 							snake.x -= widthPoint;// se decrementa en 10 la pos de snake.x
-							if (snake.x < 0) {// si la snake se va por la izq
+							if (snake.x < 5) {// si la snake se va por la izq
 								snake.x = width - widthPoint;// aparece en la derecha
 							}
 							
