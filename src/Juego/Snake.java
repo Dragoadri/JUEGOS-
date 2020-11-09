@@ -20,7 +20,7 @@ public class Snake extends JFrame {
 	int widthPoint = 10, heightPoint = 10;
 	ImagenSnake imagenSnake;
 	int direccion = KeyEvent.VK_LEFT;
-	long frecuencia = 25;// velocidad de la serpiente
+	long frecuencia = 35;// velocidad de la serpiente
 
 	public Snake() {
 		setTitle("Snake");
@@ -69,12 +69,13 @@ public class Snake extends JFrame {
 		}
 
 		for (int i = 0; i < lista.size(); i++) {
+			if(i>1) {
 			Point p = lista.get(i);
 			// error--------------------------------------------------
-			if (snake.x == p.x && snake.y == p.y) {
+			if (snake.x == p.x  && snake.y == p.y ) {
 				gameOver = true;
 			//-------------------------------------------------------
-			}
+			}}
 		}
 	}
 
