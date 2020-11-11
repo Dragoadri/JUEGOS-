@@ -1,6 +1,5 @@
 package Ajedrez;
 
-import javax.swing.JFrame;
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,6 +16,8 @@ public class Juego extends JFrame{
 	
 // Constructor
 public Juego() {
+	
+	
 	setTitle("Ajedrez");
 	setSize(width,height);
 	
@@ -28,6 +29,14 @@ public Juego() {
 	Teclas teclas= new Teclas();
 	this.addKeyListener(teclas);
 	
-	setVisible(true);
+
+	
+	Tablero tablero= new Tablero();
+	tablero.setSize(50, 100);
+	// añade lo que sea tablero y ademas el fondo de la ventana
+    this.getContentPane().add(tablero);//.setBackground(Color.yellow);
+	
+    
+	this.setVisible(true);
 }
 }
