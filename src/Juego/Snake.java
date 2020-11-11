@@ -19,7 +19,7 @@ public class Snake extends JFrame {
 	int widthPoint = 10, heightPoint = 10;// se usara para determinar el tamaño de un cuadrado
 	ImagenSnake imagenSnake;
 	int direccion = KeyEvent.VK_LEFT;// se usara para dterminar la direccion de la snake
-	long frecuencia = 45;// velocidad de actualizacion (velocidad de serpiente)
+	long frecuencia = 35;// velocidad de actualizacion (velocidad de serpiente)
 
 	public Snake() {
 		setTitle("Snake");// titulo de laventana
