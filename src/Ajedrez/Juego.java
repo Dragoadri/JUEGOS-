@@ -25,18 +25,25 @@ public Juego() {
 	this.setLocation(dim.width / 2 - width / 2, dim.height / 2 - height / 2);// para poner la ventana del juego en todo el medio
 	
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	this.setLayout(null);
+	
+	
+	Tablero tablero= new Tablero();
+	tablero.setBounds(0,0,500,500);
+	this.add(tablero);
 	
 	Teclas teclas= new Teclas();
 	this.addKeyListener(teclas);
 	
-
 	
-	Tablero tablero= new Tablero();
-	tablero.setSize(50, 100);
-	// añade lo que sea tablero y ademas el fondo de la ventana
-    this.getContentPane().add(tablero);//.setBackground(Color.yellow);
+	
+
+	// aï¿½ade lo que sea tablero y ademas el fondo de la ventana
+    
 	
     
 	this.setVisible(true);
 }
+
 }
+

@@ -6,21 +6,18 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Tablero extends JPanel {
+public class Tablero extends JPanel   {
 
 	public Tablero() {
 		JPanel panel = new JPanel();
-		JLabel etiqueta = new JLabel();
-
+		panel.setLayout(null);
 		
+		
+		JLabel etiqueta = new JLabel("hola");
 		etiqueta.setLayout(null);
-		
-	
-		panel.setBackground(Color.red);
-		
-		etiqueta.setLocation(10, 20);
-		etiqueta.setText("Hola");
-		
+		etiqueta.setBounds(100, 100, 500, 500);
+		etiqueta.setBackground(Color.black);
+		etiqueta.setOpaque(true);
 		
 		
 		this.add(etiqueta);
