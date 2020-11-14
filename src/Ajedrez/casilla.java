@@ -1,10 +1,10 @@
 package Ajedrez;
 
 public class casilla {
-	private String color;
-	private String posicion;
-	private boolean casillaOcupada;
-	private String nombre;
+	private String color;// color de la casilla
+	private String posicion;// posicion de manera N-N
+	private boolean casillaOcupada;// para ver si la casilla tiene pieza o no encima
+	private String nombre;// posicion de manera LetraNumero ejemplo: A1, G5...
 
 	public casilla() {
 
