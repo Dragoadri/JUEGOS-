@@ -1,5 +1,5 @@
 
-package Juego;
+package Snake;
 
 import javax.swing.*;
 import java.awt.Color;

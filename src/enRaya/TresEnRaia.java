@@ -1,5 +1,5 @@
 
-package Juego;
+package enRaya;
 
 import java.util.Scanner;
 
