@@ -19,7 +19,7 @@ public class Tablero extends JFrame {
 	 */
 	Casilla tablero[][] = new Casilla[8][8];// array con nombre tablero y con variables de tipo casilla
 	Pieza pieza;
-	JButton boton;
+	JButton boton [][]= new JButton [8][8];
 	// 8x8= 64 lugares en el array
 
 	public Tablero() {
@@ -31,6 +31,8 @@ public class Tablero extends JFrame {
 		colocarCasillas();// crea el boton de cada casilla y su color
 		
 	}
+	
+	public void aniadirFichaRandom() {}
 
 	public void colocarCasillas() {
 		Container contentpane = getContentPane();
@@ -42,12 +44,12 @@ public class Tablero extends JFrame {
 
 				if ((f % 2 == 0 && c % 2 != 0) || (f % 2 != 0 && c % 2 == 0)) {
 
-					contentpane.add(boton = new JButton());
-					boton.setBackground(Color.black);
+					contentpane.add(boton[f][c] = new JButton());
+					boton[f][c].setBackground(Color.black);
 
 				} else {
-					contentpane.add(boton = new JButton());
-					boton.setBackground(Color.white);
+					contentpane.add(boton[f][c] = new JButton());
+					boton[f][c].setBackground(Color.white);
 				}
 
 				agregarFicha(f, c,posicion);
@@ -59,71 +61,71 @@ public class Tablero extends JFrame {
 		if (f == 1) {
 			ImageIcon peonNegro = new ImageIcon("./img/piezasNegras/peon.png");
 			
-			boton.setIcon(peonNegro);
+			boton[f][c].setIcon(peonNegro);
 			pieza = new Pieza("negro", "peon",posicion, true);
 			tablero[f][c].setCasillaOcupada(true);
 		} else if (f == 6) {
 			ImageIcon peonBlanco = new ImageIcon("./img/piezasBlancas/peon.png");
-			boton.setIcon(peonBlanco);
+			boton[f][c].setIcon(peonBlanco);
 			pieza = new Pieza("blanca", "peon",posicion, true);
 			tablero[f][c].setCasillaOcupada(true);
 		} else if (c == 0 || c == 7) {
 			if (f == 0) {
 				ImageIcon torreNegro = new ImageIcon("./img/piezasNegras/torre.png");
-				boton.setIcon(torreNegro);
+				boton[f][c].setIcon(torreNegro);
 				pieza = new Pieza("negro", "torre",posicion, true);
 				tablero[f][c].setCasillaOcupada(true);
 			} else if (f == 7) {
 				ImageIcon torreBlanco = new ImageIcon("./img/piezasBlancas/torre.png");
-				boton.setIcon(torreBlanco);
+				boton[f][c].setIcon(torreBlanco);
 				pieza = new Pieza("blanco", "torre",posicion, true);
 				tablero[f][c].setCasillaOcupada(true);
 			}
 		} else if (c == 1 || c == 6) {
 			if (f == 0) {
 				ImageIcon caballoNegro = new ImageIcon("./img/piezasNegras/caballo.png");
-				boton.setIcon(caballoNegro);
+				boton[f][c].setIcon(caballoNegro);
 				pieza = new Pieza("negro", "caballo",posicion, true);
 				tablero[f][c].setCasillaOcupada(true);
 			} else if (f == 7) {
 				ImageIcon caballoBlanco = new ImageIcon("./img/piezasBlancas/caballo.png");
-				boton.setIcon(caballoBlanco);
+				boton[f][c].setIcon(caballoBlanco);
 				pieza = new Pieza("blanco", "caballo",posicion, true);
 				tablero[f][c].setCasillaOcupada(true);
 			}
 		} else if (c == 2 || c == 5) {
 			if (f == 0) {
 				ImageIcon alfilNegro = new ImageIcon("./img/piezasNegras/alfil.png");
-				boton.setIcon(alfilNegro);
+				boton[f][c].setIcon(alfilNegro);
 				pieza = new Pieza("negro", "alfil",posicion, true);
 				tablero[f][c].setCasillaOcupada(true);
 			} else if (f == 7) {
 				ImageIcon alfilBlanco = new ImageIcon("./img/piezasBlancas/alfil.png");
-				boton.setIcon(alfilBlanco);
+				boton[f][c].setIcon(alfilBlanco);
 				pieza = new Pieza("blanca", "alfil",posicion, true);
 				tablero[f][c].setCasillaOcupada(true);
 			}
 		} else if (c == 3) {
 			if (f == 0) {
 				ImageIcon reinaNegro = new ImageIcon("./img/piezasNegras/reina.png");
-				boton.setIcon(reinaNegro);
+				boton[f][c].setIcon(reinaNegro);
 				pieza = new Pieza("negro", "reina",posicion, true);
 				tablero[f][c].setCasillaOcupada(true);
 			} else if (f == 7) {
 				ImageIcon reinaBlanco = new ImageIcon("./img/piezasBlancas/reina.png");
-				boton.setIcon(reinaBlanco);
+				boton[f][c].setIcon(reinaBlanco);
 				pieza = new Pieza("blanca", "reina",posicion, true);
 				tablero[f][c].setCasillaOcupada(true);
 			}
 		} else if (c == 4) {
 			if (f == 0) {
 				ImageIcon reyNegro = new ImageIcon("./img/piezasNegras/rey.png");
-				boton.setIcon(reyNegro);
+				boton[f][c].setIcon(reyNegro);
 				pieza = new Pieza("negro", "rey",posicion, true);
 				tablero[f][c].setCasillaOcupada(true);
 			} else if (f == 7) {
 				ImageIcon reyBlanco = new ImageIcon("./img/piezasBlancas/rey.png");
-				boton.setIcon(reyBlanco);
+				boton[f][c].setIcon(reyBlanco);
 				pieza = new Pieza("blanca", "rey",posicion, true);
 				tablero[f][c].setCasillaOcupada(true);
 			}
