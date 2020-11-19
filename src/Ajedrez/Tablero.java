@@ -27,13 +27,13 @@ public class Tablero extends JFrame {
 		setTitle("Ajedrez");
 		setBounds(0, 500, 600, 600);
 		setVisible(true);
-		agregarCasillas();
+		
 
 		Container contentpane = getContentPane();
 		contentpane.setLayout(new GridLayout(8, 8));
 
+		agregarCasillas();
 		for (int f = 0; f < tablero.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
-			System.out.println();
 			for (int c = 0; c < tablero[f].length; c++) {
 				String posicion = tablero[f][c].getNombre();
 
@@ -53,9 +53,11 @@ public class Tablero extends JFrame {
 		}
 	}
 
+	
 	public void agregarFicha(int f, int c ,String posicion) {
 		if (f == 1) {
 			ImageIcon peonNegro = new ImageIcon("./img/piezasNegras/peon.png");
+			
 			boton.setIcon(peonNegro);
 			pieza = new Pieza("negro", "peon",posicion, true);
 			tablero[f][c].setCasillaOcupada(true);
@@ -138,6 +140,7 @@ public class Tablero extends JFrame {
 																				// par y la otra impar
 																				// independientemente del orden:
 					casilla.setColor("negro");// la casilla sera negra
+					
 				} else {
 					casilla.setColor("blanco");// si no se cumple eso , es decir ambos N-N son o par o impar, la casilla
 												// sera blanca
