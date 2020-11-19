@@ -27,12 +27,15 @@ public class Tablero extends JFrame {
 		setTitle("Ajedrez");
 		setBounds(0, 500, 600, 600);
 		setVisible(true);
+		crearCasillas();// crea las casillas el array
+		colocarCasillas();// crea el boton de cada casilla y su color
 		
+	}
 
+	public void colocarCasillas() {
 		Container contentpane = getContentPane();
 		contentpane.setLayout(new GridLayout(8, 8));
-
-		agregarCasillas();
+		
 		for (int f = 0; f < tablero.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
 			for (int c = 0; c < tablero[f].length; c++) {
 				String posicion = tablero[f][c].getNombre();
@@ -52,8 +55,6 @@ public class Tablero extends JFrame {
 			}
 		}
 	}
-
-	
 	public void agregarFicha(int f, int c ,String posicion) {
 		if (f == 1) {
 			ImageIcon peonNegro = new ImageIcon("./img/piezasNegras/peon.png");
@@ -130,7 +131,7 @@ public class Tablero extends JFrame {
 
 	}
 
-	public void agregarCasillas() {// metodo de añadir Casillas al ARRAY
+	public void crearCasillas() {// metodo de crear Casillas en el ARRAY
 
 		for (int f = 0; f < tablero.length; f++) {// para recorrer las filas
 			for (int c = 0; c < tablero[f].length; c++) {// para recorrer las columnas
