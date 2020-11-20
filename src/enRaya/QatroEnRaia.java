@@ -76,20 +76,19 @@ public class QatroEnRaia {
 	}
 
 	public static void mostrarMatriz(char matriz[][], int indexIndi) {
-		System.out.print("     |");
+		System.out.print("|");
 
 		for (int i = 0; i <= matriz.length; i++) {
 			System.out.print(i + "|");
 		}
 
 		System.out.println("");
-		System.out.print("      ");
 		// indicador
 		String[] indicaador = new String[matriz.length + 1];
 		for (int i = 0; i <= matriz.length; i++) {
 			indicaador[i] = "  ";
 			if (i == indexIndi) {
-				indicaador[i] = "!";
+				indicaador[i] = " !";
 			}
 
 			System.out.print(indicaador[i]);
@@ -97,7 +96,7 @@ public class QatroEnRaia {
 
 		for (int i = 0; i < matriz.length; i++) {
 			System.out.println("");
-			System.out.print("|" + i + "|  |");
+			System.out.print("|");
 			for (int j = 0; j < matriz[0].length; j++) {
 
 				System.out.print(matriz[i][j] + "|");

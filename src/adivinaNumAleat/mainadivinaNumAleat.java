@@ -20,12 +20,12 @@ public class mainadivinaNumAleat {
 			}
 			if (introducido > aleatorio) {
 				mayor = introducido;
-				System.out.println("Tu numero es MAYOR que el numero aleatorio por lo tanto el rango se reduce a"
+				System.out.println("Tu numero es MAYOR que el numero aleatorio por lo tanto el rango se reduce a: "
 						+ mayor + "-" + 0);
 
 			} else if (introducido < aleatorio) {
 				menor = introducido;
-				System.out.println("Tu numero es MENOR que el numero aleatorio por lo tanto el rango se reduce a" + 100
+				System.out.println("Tu numero es MENOR que el numero aleatorio por lo tanto el rango se reduce a: " + 100
 						+ "-" + menor);
 			}
 			System.out.print("Introduce un numero al azar entre " + menor + " y " + mayor + " ->");
