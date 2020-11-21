@@ -17,10 +17,9 @@ public class Tablero extends JFrame {
 	/**
 	 * Lisatado de las casillas que componen el tablero
 	 */
-	Casilla tablero[][] = new Casilla[8][8];// array con nombre tablero y con variables de tipo casilla
-	Pieza pieza;
-	JButton boton [][]= new JButton [8][8];
-	// 8x8= 64 lugares en el array
+	private static Casilla tablero[][] = new Casilla[8][8];// array con nombre tablero y con variables de tipo casilla
+	private static Pieza piezas[] = new Pieza[12];
+	private static JButton boton[][] = new JButton[8][8];
 
 	public Tablero() {
 
@@ -28,16 +27,119 @@ public class Tablero extends JFrame {
 		setBounds(0, 500, 600, 600);
 		setVisible(true);
 		crearCasillas();// crea las casillas el array
+		crearPiezas();
 		colocarCasillas();// crea el boton de cada casilla y su color
-		
-	}
-	
-	public void aniadirFichaRandom() {}
 
+	}
+
+	/**
+	 * crea todas las piezas del ajedrez con sus atributos color,nombre e imagen de
+	 * la pieza
+	 */
+	public void crearPiezas() {
+
+		ImageIcon imgPeonNegro = new ImageIcon("./img/piezasNegras/peon.png");
+		Pieza peonNegro = new Pieza("negro", "peon", imgPeonNegro);
+
+		ImageIcon imgPeonBlanco = new ImageIcon("./img/piezasBlancas/peon.png");
+		Pieza peonBlanco = new Pieza("blanca", "peon", imgPeonBlanco);
+
+		ImageIcon imgTorreNegro = new ImageIcon("./img/piezasNegras/torre.png");
+		Pieza torreNegro = new Pieza("negro", "torre", imgTorreNegro);
+
+		ImageIcon imgTorreBlanco = new ImageIcon("./img/piezasBlancas/torre.png");
+		Pieza torreBlanco = new Pieza("blanco", "torre", imgTorreBlanco);
+
+		ImageIcon imgCaballoNegro = new ImageIcon("./img/piezasNegras/caballo.png");
+		Pieza caballoNegro = new Pieza("negro", "caballo", imgCaballoNegro);
+
+		ImageIcon imgCaballoBlanco = new ImageIcon("./img/piezasBlancas/caballo.png");
+		Pieza caballoBlanco = new Pieza("blanco", "caballo", imgCaballoBlanco);
+
+		ImageIcon imgAlfilNegro = new ImageIcon("./img/piezasNegras/alfil.png");
+		Pieza alfilNegro = new Pieza("negro", "alfil", imgAlfilNegro);
+
+		ImageIcon imgAlfilBlanco = new ImageIcon("./img/piezasBlancas/alfil.png");
+		Pieza alfilBlanco = new Pieza("blanca", "alfil", imgAlfilBlanco);
+
+		ImageIcon imgReinaNegro = new ImageIcon("./img/piezasNegras/reina.png");
+		Pieza reinaNegro = new Pieza("negro", "reina", imgReinaNegro);
+
+		ImageIcon imgReinaBlanco = new ImageIcon("./img/piezasBlancas/reina.png");
+		Pieza reinaBlanco = new Pieza("blanca", "reina", imgReinaBlanco);
+
+		ImageIcon imgReyNegro = new ImageIcon("./img/piezasNegras/rey.png");
+		Pieza reyNegro = new Pieza("negro", "rey", imgReyNegro);
+
+		ImageIcon imgReyBlanco = new ImageIcon("./img/piezasBlancas/rey.png");
+		Pieza reyBlanco = new Pieza("blanca", "rey", imgReyBlanco);
+
+		for (int i = 0; i < piezas.length; i++) {
+			switch (i) {
+
+			case 0:
+				piezas[i] = peonNegro;
+				break;
+
+			case 1:
+				piezas[i] = peonBlanco;
+				break;
+
+			case 2:
+				piezas[i] = torreNegro;
+				break;
+			case 3:
+				piezas[i] = torreBlanco;
+				break;
+			case 4:
+				piezas[i] = caballoNegro;
+				break;
+			case 5:
+				piezas[i] = caballoBlanco;
+				break;
+			case 6:
+				piezas[i] = alfilNegro;
+				break;
+			case 7:
+				piezas[i] = alfilBlanco;
+				break;
+			case 8:
+				piezas[i] = reinaNegro;
+				break;
+			case 9:
+				piezas[i] = reinaBlanco;
+				break;
+			case 10:
+				piezas[i] = reyNegro;
+				break;
+			case 11:
+				piezas[i] = reyBlanco;
+				break;
+
+			}
+		}
+	}
+
+	/**
+	 * añade una imagen de la pieza que introduzcas en la casilla que introduzcas
+	 * 
+	 * @param f
+	 * @param c
+	 * @param pieza
+	 */
+	public void aniadirFichaRandom(int f, int c, Pieza pieza) {
+
+		boton[f][c].setIcon(pieza.getImagen());
+	}
+
+	/**
+	 * Coloca las casillas, las colorea y ademas tambien se agregan las fichas a
+	 * cada casilla
+	 */
 	public void colocarCasillas() {
 		Container contentpane = getContentPane();
 		contentpane.setLayout(new GridLayout(8, 8));
-		
+
 		for (int f = 0; f < tablero.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
 			for (int c = 0; c < tablero[f].length; c++) {
 				String posicion = tablero[f][c].getNombre();
@@ -52,87 +154,100 @@ public class Tablero extends JFrame {
 					boton[f][c].setBackground(Color.white);
 				}
 
-				agregarFicha(f, c,posicion);
+				agregarFicha(f, c, posicion);
 
 			}
 		}
 	}
-	public void agregarFicha(int f, int c ,String posicion) {
+
+	/**
+	 * Se agregan las fichas al tablero POR PRIMERA VEZ y se les asigna una
+	 * posicion, el estado VIVA y se marca la casilla como OCUPADA
+	 * 
+	 * @param f
+	 * @param c
+	 * @param posicion
+	 */
+	public void agregarFicha(int f, int c, String posicion) {
 		if (f == 1) {
-			ImageIcon peonNegro = new ImageIcon("./img/piezasNegras/peon.png");
-			
-			boton[f][c].setIcon(peonNegro);
-			pieza = new Pieza("negro", "peon",posicion, true);
+			boton[f][c].setIcon(piezas[0].getImagen());
+			piezas[0].setPosicion(posicion);
+			piezas[0].setViva(true);
 			tablero[f][c].setCasillaOcupada(true);
 		} else if (f == 6) {
-			ImageIcon peonBlanco = new ImageIcon("./img/piezasBlancas/peon.png");
-			boton[f][c].setIcon(peonBlanco);
-			pieza = new Pieza("blanca", "peon",posicion, true);
+			ImageIcon imgPeonBlanco = new ImageIcon("./img/piezasBlancas/peon.png");
+			boton[f][c].setIcon(piezas[1].getImagen());
+			piezas[1].setPosicion(posicion);
+			piezas[1].setViva(true);
 			tablero[f][c].setCasillaOcupada(true);
 		} else if (c == 0 || c == 7) {
 			if (f == 0) {
-				ImageIcon torreNegro = new ImageIcon("./img/piezasNegras/torre.png");
-				boton[f][c].setIcon(torreNegro);
-				pieza = new Pieza("negro", "torre",posicion, true);
+				boton[f][c].setIcon(piezas[2].getImagen());
+				piezas[2].setPosicion(posicion);
+				piezas[2].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
 			} else if (f == 7) {
-				ImageIcon torreBlanco = new ImageIcon("./img/piezasBlancas/torre.png");
-				boton[f][c].setIcon(torreBlanco);
-				pieza = new Pieza("blanco", "torre",posicion, true);
+				boton[f][c].setIcon(piezas[3].getImagen());
+				piezas[3].setPosicion(posicion);
+				piezas[3].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
 			}
 		} else if (c == 1 || c == 6) {
 			if (f == 0) {
-				ImageIcon caballoNegro = new ImageIcon("./img/piezasNegras/caballo.png");
-				boton[f][c].setIcon(caballoNegro);
-				pieza = new Pieza("negro", "caballo",posicion, true);
+				boton[f][c].setIcon(piezas[4].getImagen());
+				piezas[4].setPosicion(posicion);
+				piezas[4].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
 			} else if (f == 7) {
-				ImageIcon caballoBlanco = new ImageIcon("./img/piezasBlancas/caballo.png");
-				boton[f][c].setIcon(caballoBlanco);
-				pieza = new Pieza("blanco", "caballo",posicion, true);
+				boton[f][c].setIcon(piezas[5].getImagen());
+				piezas[5].setPosicion(posicion);
+				piezas[5].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
 			}
 		} else if (c == 2 || c == 5) {
 			if (f == 0) {
-				ImageIcon alfilNegro = new ImageIcon("./img/piezasNegras/alfil.png");
-				boton[f][c].setIcon(alfilNegro);
-				pieza = new Pieza("negro", "alfil",posicion, true);
+				boton[f][c].setIcon(piezas[6].getImagen());
+				piezas[6].setPosicion(posicion);
+				piezas[6].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
 			} else if (f == 7) {
-				ImageIcon alfilBlanco = new ImageIcon("./img/piezasBlancas/alfil.png");
-				boton[f][c].setIcon(alfilBlanco);
-				pieza = new Pieza("blanca", "alfil",posicion, true);
+				boton[f][c].setIcon(piezas[7].getImagen());
+				piezas[7].setPosicion(posicion);
+				piezas[7].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
 			}
 		} else if (c == 3) {
 			if (f == 0) {
-				ImageIcon reinaNegro = new ImageIcon("./img/piezasNegras/reina.png");
-				boton[f][c].setIcon(reinaNegro);
-				pieza = new Pieza("negro", "reina",posicion, true);
+				boton[f][c].setIcon(piezas[8].getImagen());
+				piezas[8].setPosicion(posicion);
+				piezas[8].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
 			} else if (f == 7) {
-				ImageIcon reinaBlanco = new ImageIcon("./img/piezasBlancas/reina.png");
-				boton[f][c].setIcon(reinaBlanco);
-				pieza = new Pieza("blanca", "reina",posicion, true);
+				boton[f][c].setIcon(piezas[9].getImagen());
+				piezas[9].setPosicion(posicion);
+				piezas[9].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
 			}
 		} else if (c == 4) {
 			if (f == 0) {
-				ImageIcon reyNegro = new ImageIcon("./img/piezasNegras/rey.png");
-				boton[f][c].setIcon(reyNegro);
-				pieza = new Pieza("negro", "rey",posicion, true);
+				boton[f][c].setIcon(piezas[10].getImagen());
+				piezas[10].setPosicion(posicion);
+				piezas[10].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
 			} else if (f == 7) {
-				ImageIcon reyBlanco = new ImageIcon("./img/piezasBlancas/rey.png");
-				boton[f][c].setIcon(reyBlanco);
-				pieza = new Pieza("blanca", "rey",posicion, true);
+				boton[f][c].setIcon(piezas[11].getImagen());
+				piezas[11].setPosicion(posicion);
+				piezas[11].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
 			}
 		}
 
 	}
 
+	/**
+	 * Crea las casillas y las asigna cual es la posicion de 2 maneras , metodo
+	 * numerico (N-N) y metodo letras (A0)
+	 */
 	public void crearCasillas() {// metodo de crear Casillas en el ARRAY
 
 		for (int f = 0; f < tablero.length; f++) {// para recorrer las filas
@@ -143,7 +258,7 @@ public class Tablero extends JFrame {
 																				// par y la otra impar
 																				// independientemente del orden:
 					casilla.setColor("negro");// la casilla sera negra
-					
+
 				} else {
 					casilla.setColor("blanco");// si no se cumple eso , es decir ambos N-N son o par o impar, la casilla
 												// sera blanca
@@ -164,6 +279,9 @@ public class Tablero extends JFrame {
 
 	}
 
+	/**
+	 * Metodo para controlar POR CONSOLA cada casilla
+	 */
 	public void getCasillas() {// metodo para obtener todas las casillas creadas
 
 		for (int f = 0; f < tablero.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)

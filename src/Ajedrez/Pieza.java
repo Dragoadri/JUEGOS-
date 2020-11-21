@@ -1,32 +1,38 @@
 package Ajedrez;
 
+import javax.swing.ImageIcon;
+
 public class Pieza {
 	private String color;
 	private String nombrePieza;
 	private String posicion;
+	private ImageIcon Imagen;
 	private boolean viva;
 
-
-	
-
-	public Pieza(String color, String nombrePieza, String posicion, boolean viva) {
-		super();
+	public Pieza(String color, String nombrePieza, ImageIcon imagen) {
+		
 		this.color = color;
 		this.nombrePieza = nombrePieza;
-		this.posicion = posicion;
-		this.viva = viva;
+
+		Imagen = imagen;
+
 	}
-	
+
+	public ImageIcon getImagen() {
+		return Imagen;
+	}
+
+	public void setImagen(ImageIcon imagen) {
+		Imagen = imagen;
+	}
 
 	public String getPosicion() {
 		return posicion;
 	}
 
-
 	public void setPosicion(String posicion) {
 		this.posicion = posicion;
 	}
-
 
 	public String getNombrePieza() {
 		return nombrePieza;
