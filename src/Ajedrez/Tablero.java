@@ -17,9 +17,9 @@ public class Tablero extends JFrame {
 	/**
 	 * Lisatado de las casillas que componen el tablero
 	 */
-	private static Casilla tablero[][] = new Casilla[8][8];// array con nombre tablero y con variables de tipo casilla
-	private static Pieza piezas[] = new Pieza[12];
-	private static JButton boton[][] = new JButton[8][8];
+	public static Casilla tablero[][] = new Casilla[8][8];// array con nombre tablero y con variables de tipo casilla
+	public static Pieza piezas[] = new Pieza[13];
+	public static JButton[][] boton = new JButton[8][8];
 
 	public Tablero() {
 
@@ -29,7 +29,7 @@ public class Tablero extends JFrame {
 		crearCasillas();// crea las casillas el array
 		crearPiezas();
 		colocarCasillas();// crea el boton de cada casilla y su color
-
+		
 	}
 
 	/**
@@ -74,6 +74,9 @@ public class Tablero extends JFrame {
 		ImageIcon imgReyBlanco = new ImageIcon("./img/piezasBlancas/rey.png");
 		Pieza reyBlanco = new Pieza("blanca", "rey", imgReyBlanco);
 
+		ImageIcon imgVacio = new ImageIcon("...");
+		Pieza vacio = new Pieza("none", "...", null);
+
 		for (int i = 0; i < piezas.length; i++) {
 			switch (i) {
 
@@ -115,6 +118,9 @@ public class Tablero extends JFrame {
 			case 11:
 				piezas[i] = reyBlanco;
 				break;
+			case 12:
+				piezas[i] = vacio;
+				break;
 
 			}
 		}
@@ -148,13 +154,16 @@ public class Tablero extends JFrame {
 
 					contentpane.add(boton[f][c] = new JButton());
 					boton[f][c].setBackground(Color.black);
+					tablero[f][c].setColor("negro");
 
 				} else {
 					contentpane.add(boton[f][c] = new JButton());
 					boton[f][c].setBackground(Color.white);
+					tablero[f][c].setColor("blanco");
 				}
 
 				agregarFicha(f, c, posicion);
+				tablero[f][c].setPosicion(Integer.toString(f) + "-" + Integer.toString(c));
 
 			}
 		}
@@ -174,72 +183,118 @@ public class Tablero extends JFrame {
 			piezas[0].setPosicion(posicion);
 			piezas[0].setViva(true);
 			tablero[f][c].setCasillaOcupada(true);
+			tablero[f][c].setPieza(piezas[0]);
 		} else if (f == 6) {
-			ImageIcon imgPeonBlanco = new ImageIcon("./img/piezasBlancas/peon.png");
 			boton[f][c].setIcon(piezas[1].getImagen());
 			piezas[1].setPosicion(posicion);
 			piezas[1].setViva(true);
 			tablero[f][c].setCasillaOcupada(true);
+			tablero[f][c].setPieza(piezas[1]);
 		} else if (c == 0 || c == 7) {
 			if (f == 0) {
 				boton[f][c].setIcon(piezas[2].getImagen());
 				piezas[2].setPosicion(posicion);
 				piezas[2].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
+				tablero[f][c].setPieza(piezas[2]);
 			} else if (f == 7) {
 				boton[f][c].setIcon(piezas[3].getImagen());
 				piezas[3].setPosicion(posicion);
 				piezas[3].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
+				tablero[f][c].setPieza(piezas[3]);
+			} else {
+
+				piezas[12].setPosicion(posicion);
+				piezas[12].setViva(false);
+				tablero[f][c].setCasillaOcupada(false);
+				tablero[f][c].setPieza(piezas[12]);
 			}
+
 		} else if (c == 1 || c == 6) {
 			if (f == 0) {
 				boton[f][c].setIcon(piezas[4].getImagen());
 				piezas[4].setPosicion(posicion);
 				piezas[4].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
+				tablero[f][c].setPieza(piezas[4]);
 			} else if (f == 7) {
 				boton[f][c].setIcon(piezas[5].getImagen());
 				piezas[5].setPosicion(posicion);
 				piezas[5].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
+				tablero[f][c].setPieza(piezas[5]);
+			} else {
+
+				piezas[12].setPosicion(posicion);
+				piezas[12].setViva(false);
+				tablero[f][c].setCasillaOcupada(false);
+				tablero[f][c].setPieza(piezas[12]);
 			}
+
 		} else if (c == 2 || c == 5) {
 			if (f == 0) {
 				boton[f][c].setIcon(piezas[6].getImagen());
 				piezas[6].setPosicion(posicion);
 				piezas[6].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
+				tablero[f][c].setPieza(piezas[6]);
 			} else if (f == 7) {
 				boton[f][c].setIcon(piezas[7].getImagen());
 				piezas[7].setPosicion(posicion);
 				piezas[7].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
+				tablero[f][c].setPieza(piezas[7]);
+			} else {
+
+				piezas[12].setPosicion(posicion);
+				piezas[12].setViva(false);
+				tablero[f][c].setCasillaOcupada(false);
+				tablero[f][c].setPieza(piezas[12]);
 			}
+
 		} else if (c == 3) {
 			if (f == 0) {
 				boton[f][c].setIcon(piezas[8].getImagen());
 				piezas[8].setPosicion(posicion);
 				piezas[8].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
+				tablero[f][c].setPieza(piezas[8]);
 			} else if (f == 7) {
 				boton[f][c].setIcon(piezas[9].getImagen());
 				piezas[9].setPosicion(posicion);
 				piezas[9].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
+				tablero[f][c].setPieza(piezas[9]);
+			} else {
+
+				piezas[12].setPosicion(posicion);
+				piezas[12].setViva(false);
+				tablero[f][c].setCasillaOcupada(false);
+				tablero[f][c].setPieza(piezas[12]);
 			}
+
 		} else if (c == 4) {
 			if (f == 0) {
 				boton[f][c].setIcon(piezas[10].getImagen());
 				piezas[10].setPosicion(posicion);
 				piezas[10].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
+				tablero[f][c].setPieza(piezas[10]);
 			} else if (f == 7) {
 				boton[f][c].setIcon(piezas[11].getImagen());
 				piezas[11].setPosicion(posicion);
 				piezas[11].setViva(true);
 				tablero[f][c].setCasillaOcupada(true);
+				tablero[f][c].setPieza(piezas[11]);
+			} else {
+
+				piezas[12].setPosicion(posicion);
+				piezas[12].setViva(false);
+				tablero[f][c].setCasillaOcupada(false);
+				tablero[f][c].setPieza(piezas[12]);
 			}
+
 		}
 
 	}
@@ -252,26 +307,29 @@ public class Tablero extends JFrame {
 
 		for (int f = 0; f < tablero.length; f++) {// para recorrer las filas
 			for (int c = 0; c < tablero[f].length; c++) {// para recorrer las columnas
-				Casilla casilla = new Casilla();// por cada iteracion se crea una nueva casilla donde:
 
+				Casilla casilla = new Casilla();
 				if ((f % 2 == 0 && c % 2 != 0) || (f % 2 != 0 && c % 2 == 0)) {// si de la manera N-N una de ellas es
 																				// par y la otra impar
-																				// independientemente del orden:
-					casilla.setColor("negro");// la casilla sera negra
+					casilla.setColor("negro");// la casilla sera negra// independientemente del orden:
 
 				} else {
-					casilla.setColor("blanco");// si no se cumple eso , es decir ambos N-N son o par o impar, la casilla
-												// sera blanca
+					casilla.setColor("blanco");
+					// si no se cumple eso , es decir ambos N-N son o par o impar, la casilla
+					// sera blanca
 
 				}
-				casilla.setPosicion(Integer.toString(f) + "-" + Integer.toString(c));// aqui se escribe la posicion de
-																						// la casilla que sera en N-N y
-																						// se pasa a string
+				casilla.setPosicion(Integer.toString(f) + "-" + Integer.toString(c));
+				// aqui se escribe la posicion de
+				// la casilla que sera en N-N y
+				// se pasa a string
 				char letra = (char) (65 + f);// usamos el ASCII ya que 64+f al principio sera A despues B, despues C...
-												// asi para asignar las FILAS
-				casilla.setNombre(Character.toString(letra) + Integer.toString(c));// aqui se unen las filas en letra
-																					// con su columna Por ejemplo la
-																					// primera sera A1 y la ultima H8
+				String nombre = Character.toString(letra) + Integer.toString(c);
+
+				casilla.setNombre(nombre);// asi para asignar las FILAS
+				// aqui se unen las filas en letra
+				// con su columna Por ejemplo la
+				// primera sera A1 y la ultima H8
 
 				tablero[f][c] = casilla;// se añade esta casilla al ARRAy tablero y tendremos en total 64 casillas
 			}
@@ -293,9 +351,24 @@ public class Tablero extends JFrame {
 				 * if(tablero[f][c].getColor()=="blanco"){ System.out.print("      "); }
 				 */
 
-				System.out.print(tablero[f][c].getNombre() + "-" + tablero[f][c].getColor() + " | ");
+				//System.out.print(tablero[f][c].getNombre() + "," + tablero[f][c].getPosicion() + ","
+						//+ tablero[f][c].getPieza().getNombrePieza() + "-" + tablero[f][c].getPieza().getColor());
+
 			}
 		}
+
+	}
+
+	public static Casilla[][] getTablero() {
+		return tablero;
+	}
+
+	public static Pieza[] getPiezas() {
+		return piezas;
+	}
+
+	public static JButton getBoton(int f, int c) {
+		return boton[f][c];
 	}
 
 }
