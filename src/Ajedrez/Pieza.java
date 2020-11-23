@@ -9,13 +9,15 @@ public class Pieza {
 	private ImageIcon Imagen;
 	private boolean viva;
 
-	public Pieza(String color, String nombrePieza, ImageIcon imagen) {
-		
+	
+
+	public Pieza(String color, String nombrePieza, String posicion, ImageIcon imagen, boolean viva) {
+		super();
 		this.color = color;
 		this.nombrePieza = nombrePieza;
-
+		this.posicion = posicion;
 		Imagen = imagen;
-
+		this.viva = viva;
 	}
 
 	public ImageIcon getImagen() {

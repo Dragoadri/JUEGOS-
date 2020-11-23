@@ -18,7 +18,7 @@ public class Tablero extends JFrame {
 	 * Lisatado de las casillas que componen el tablero
 	 */
 	public static Casilla tablero[][] = new Casilla[8][8];// array con nombre tablero y con variables de tipo casilla
-	public static Pieza piezas[] = new Pieza[13];
+	public static Pieza piezas[] = new Pieza[33];
 	public static JButton[][] boton = new JButton[8][8];
 
 	public Tablero() {
@@ -29,7 +29,7 @@ public class Tablero extends JFrame {
 		crearCasillas();// crea las casillas el array
 		crearPiezas();
 		colocarCasillas();// crea el boton de cada casilla y su color
-		
+		getCasillas();
 	}
 
 	/**
@@ -38,92 +38,157 @@ public class Tablero extends JFrame {
 	 */
 	public void crearPiezas() {
 
-		ImageIcon imgPeonNegro = new ImageIcon("./img/piezasNegras/peon.png");
-		Pieza peonNegro = new Pieza("negro", "peon", imgPeonNegro);
+		peonesNegros();
 
-		ImageIcon imgPeonBlanco = new ImageIcon("./img/piezasBlancas/peon.png");
-		Pieza peonBlanco = new Pieza("blanca", "peon", imgPeonBlanco);
+		torresNegros();
 
-		ImageIcon imgTorreNegro = new ImageIcon("./img/piezasNegras/torre.png");
-		Pieza torreNegro = new Pieza("negro", "torre", imgTorreNegro);
+		caballosNegros();
 
-		ImageIcon imgTorreBlanco = new ImageIcon("./img/piezasBlancas/torre.png");
-		Pieza torreBlanco = new Pieza("blanco", "torre", imgTorreBlanco);
+		alfilesNegros();
 
-		ImageIcon imgCaballoNegro = new ImageIcon("./img/piezasNegras/caballo.png");
-		Pieza caballoNegro = new Pieza("negro", "caballo", imgCaballoNegro);
+		reinaNegro();
 
-		ImageIcon imgCaballoBlanco = new ImageIcon("./img/piezasBlancas/caballo.png");
-		Pieza caballoBlanco = new Pieza("blanco", "caballo", imgCaballoBlanco);
+		reyNegro();
 
-		ImageIcon imgAlfilNegro = new ImageIcon("./img/piezasNegras/alfil.png");
-		Pieza alfilNegro = new Pieza("negro", "alfil", imgAlfilNegro);
+		peonesBlancos();
 
-		ImageIcon imgAlfilBlanco = new ImageIcon("./img/piezasBlancas/alfil.png");
-		Pieza alfilBlanco = new Pieza("blanca", "alfil", imgAlfilBlanco);
+		torresBlancos();
 
-		ImageIcon imgReinaNegro = new ImageIcon("./img/piezasNegras/reina.png");
-		Pieza reinaNegro = new Pieza("negro", "reina", imgReinaNegro);
+		caballosBlancos();
 
-		ImageIcon imgReinaBlanco = new ImageIcon("./img/piezasBlancas/reina.png");
-		Pieza reinaBlanco = new Pieza("blanca", "reina", imgReinaBlanco);
+		alfilesBlancos();
 
-		ImageIcon imgReyNegro = new ImageIcon("./img/piezasNegras/rey.png");
-		Pieza reyNegro = new Pieza("negro", "rey", imgReyNegro);
+		reinaBlanco();
 
+		reyBlanco();
+
+		piezas[32] = new Pieza("...", "...", "...", null, false);
+
+	}
+
+	public void reyBlanco() {
 		ImageIcon imgReyBlanco = new ImageIcon("./img/piezasBlancas/rey.png");
-		Pieza reyBlanco = new Pieza("blanca", "rey", imgReyBlanco);
+		piezas[31] = new Pieza("blanco", "rey", "7-4", imgReyBlanco, true);
 
-		ImageIcon imgVacio = new ImageIcon("...");
-		Pieza vacio = new Pieza("none", "...", null);
+	}
 
-		for (int i = 0; i < piezas.length; i++) {
-			switch (i) {
+	public void reinaBlanco() {
+		ImageIcon imgReinaBlanco = new ImageIcon("./img/piezasBlancas/reina.png");
+		piezas[30] = new Pieza("blanco", "reina", "7-3", imgReinaBlanco, true);
+	}
 
-			case 0:
-				piezas[i] = peonNegro;
-				break;
-
-			case 1:
-				piezas[i] = peonBlanco;
-				break;
-
-			case 2:
-				piezas[i] = torreNegro;
-				break;
-			case 3:
-				piezas[i] = torreBlanco;
-				break;
-			case 4:
-				piezas[i] = caballoNegro;
-				break;
-			case 5:
-				piezas[i] = caballoBlanco;
-				break;
-			case 6:
-				piezas[i] = alfilNegro;
-				break;
-			case 7:
-				piezas[i] = alfilBlanco;
-				break;
-			case 8:
-				piezas[i] = reinaNegro;
-				break;
-			case 9:
-				piezas[i] = reinaBlanco;
-				break;
-			case 10:
-				piezas[i] = reyNegro;
-				break;
-			case 11:
-				piezas[i] = reyBlanco;
-				break;
-			case 12:
-				piezas[i] = vacio;
-				break;
-
+	public void alfilesBlancos() {
+		for (int i = 28; i < 30; i++) {
+			String posicion;
+			if (i == 28) {
+				posicion = "7-2";
+			} else {
+				posicion = "7-5";
 			}
+			ImageIcon imgAlfilBlanco = new ImageIcon("./img/piezasBlancas/alfil.png");
+			piezas[i] = new Pieza("blanco", "alfil", posicion, imgAlfilBlanco, true);
+
 		}
+	}
+
+	public void caballosBlancos() {
+		for (int i = 26; i < 28; i++) {
+			String posicion;
+			if (i == 26) {
+				posicion = "7-1";
+			} else {
+				posicion = "7-6";
+			}
+			ImageIcon imgCaballoBlanco = new ImageIcon("./img/piezasBlancas/caballo.png");
+			piezas[i] = new Pieza("blanco", "caballo", posicion, imgCaballoBlanco, true);
+
+		}
+	}
+
+	public void torresBlancos() {
+		for (int i = 24; i < 26;i++) {
+			String posicion = "7-0";
+			if (i == 25) {
+				posicion = "7-7";
+			}
+			ImageIcon imgTorreBlanco = new ImageIcon("./img/piezasBlancas/torre.png");
+			piezas[i] = new Pieza("blanco", "torre", posicion, imgTorreBlanco, true);
+			
+			
+		}
+	}
+
+	public void peonesBlancos() {
+		for (int i = 16; i < 24; i++) {
+
+			String posicion = "6-" + Integer.toString(i - 16);
+			ImageIcon imgPeonBlanco = new ImageIcon("./img/piezasBlancas/peon.png");
+			piezas[i] = new Pieza("blanco", "peon", posicion, imgPeonBlanco, true);
+
+		}
+
+	}
+
+	public void peonesNegros() {
+		for (int i = 0; i < 8; i++) {
+
+			String posicion = "1-" + Integer.toString(i);
+			ImageIcon imgPeonNegro = new ImageIcon("./img/piezasNegras/peon.png");
+			piezas[i] = new Pieza("negro", "peon", posicion, imgPeonNegro, true);
+
+		}
+
+	}
+
+	public void torresNegros() {
+		for (int i = 8; i < 10; i++) {
+			String posicion;
+			if (i == 9) {
+				posicion = "0-0";
+			} else {
+				posicion = "0-7";
+			}
+			ImageIcon imgTorreNegro = new ImageIcon("./img/piezasNegras/torre.png");
+			piezas[i] = new Pieza("negro", "torre", posicion, imgTorreNegro, true);
+		}
+	}
+
+	public void caballosNegros() {
+		for (int i = 10; i < 12; i++) {
+			String posicion;
+			if (i == 10) {
+				posicion = "0-1";
+			} else {
+				posicion = "0-6";
+			}
+			ImageIcon imgCaballoNegro = new ImageIcon("./img/piezasNegras/caballo.png");
+			piezas[i] = new Pieza("negro", "caballo", posicion, imgCaballoNegro, true);
+
+		}
+	}
+
+	public void alfilesNegros() {
+		for (int i = 12; i < 14; i++) {
+			String posicion;
+			if (i == 12) {
+				posicion = "0-2";
+			} else {
+				posicion = "0-5";
+			}
+			ImageIcon imgAlfilNegro = new ImageIcon("./img/piezasNegras/alfil.png");
+			piezas[i] = new Pieza("negro", "alfil", posicion, imgAlfilNegro, true);
+
+		}
+	}
+
+	public void reinaNegro() {
+		ImageIcon imgReinaNegro = new ImageIcon("./img/piezasNegras/reina.png");
+		piezas[14] = new Pieza("negro", "reina", "0-3", imgReinaNegro, true);
+	}
+
+	public void reyNegro() {
+		ImageIcon imgReyNegro = new ImageIcon("./img/piezasNegras/rey.png");
+		piezas[15] = new Pieza("negro", "rey", "0-3", imgReyNegro, true);
 	}
 
 	/**
@@ -179,120 +244,112 @@ public class Tablero extends JFrame {
 	 */
 	public void agregarFicha(int f, int c, String posicion) {
 		if (f == 1) {
-			boton[f][c].setIcon(piezas[0].getImagen());
-			piezas[0].setPosicion(posicion);
-			piezas[0].setViva(true);
-			tablero[f][c].setCasillaOcupada(true);
-			tablero[f][c].setPieza(piezas[0]);
+			for (int i = 0; i < 8; i++) {
+
+				boton[f][c].setIcon(piezas[i].getImagen());
+				tablero[f][c].setCasillaOcupada(true);
+				tablero[f][c].setPieza(piezas[i]);
+			}
 		} else if (f == 6) {
-			boton[f][c].setIcon(piezas[1].getImagen());
-			piezas[1].setPosicion(posicion);
-			piezas[1].setViva(true);
-			tablero[f][c].setCasillaOcupada(true);
-			tablero[f][c].setPieza(piezas[1]);
+			for (int i = 16; i < 24; i++) {
+				boton[f][c].setIcon(piezas[i].getImagen());
+				tablero[f][c].setCasillaOcupada(true);
+				tablero[f][c].setPieza(piezas[i]);
+			}
 		} else if (c == 0 || c == 7) {
 			if (f == 0) {
-				boton[f][c].setIcon(piezas[2].getImagen());
-				piezas[2].setPosicion(posicion);
-				piezas[2].setViva(true);
-				tablero[f][c].setCasillaOcupada(true);
-				tablero[f][c].setPieza(piezas[2]);
+
+				for (int i = 8; i < 10; i++) {
+					boton[f][c].setIcon(piezas[i].getImagen());
+
+					tablero[f][c].setCasillaOcupada(true);
+					tablero[f][c].setPieza(piezas[i]);
+				}
 			} else if (f == 7) {
-				boton[f][c].setIcon(piezas[3].getImagen());
-				piezas[3].setPosicion(posicion);
-				piezas[3].setViva(true);
-				tablero[f][c].setCasillaOcupada(true);
-				tablero[f][c].setPieza(piezas[3]);
+				for (int i = 24; i < 26; i++) {
+					boton[f][c].setIcon(piezas[i].getImagen());
+
+					tablero[f][c].setCasillaOcupada(true);
+					tablero[f][c].setPieza(piezas[i]);
+				}
 			} else {
 
-				piezas[12].setPosicion(posicion);
-				piezas[12].setViva(false);
 				tablero[f][c].setCasillaOcupada(false);
-				tablero[f][c].setPieza(piezas[12]);
+				tablero[f][c].setPieza(piezas[32]);
 			}
 
 		} else if (c == 1 || c == 6) {
 			if (f == 0) {
-				boton[f][c].setIcon(piezas[4].getImagen());
-				piezas[4].setPosicion(posicion);
-				piezas[4].setViva(true);
-				tablero[f][c].setCasillaOcupada(true);
-				tablero[f][c].setPieza(piezas[4]);
+				for (int i = 10; i < 12; i++) {
+					boton[f][c].setIcon(piezas[i].getImagen());
+					tablero[f][c].setCasillaOcupada(true);
+					tablero[f][c].setPieza(piezas[i]);
+				}
 			} else if (f == 7) {
-				boton[f][c].setIcon(piezas[5].getImagen());
-				piezas[5].setPosicion(posicion);
-				piezas[5].setViva(true);
-				tablero[f][c].setCasillaOcupada(true);
-				tablero[f][c].setPieza(piezas[5]);
+				for (int i = 26; i < 28; i++) {
+					boton[f][c].setIcon(piezas[i].getImagen());
+
+					tablero[f][c].setCasillaOcupada(true);
+					tablero[f][c].setPieza(piezas[i]);
+				}
 			} else {
 
-				piezas[12].setPosicion(posicion);
-				piezas[12].setViva(false);
 				tablero[f][c].setCasillaOcupada(false);
-				tablero[f][c].setPieza(piezas[12]);
+				tablero[f][c].setPieza(piezas[32]);
 			}
 
 		} else if (c == 2 || c == 5) {
 			if (f == 0) {
-				boton[f][c].setIcon(piezas[6].getImagen());
-				piezas[6].setPosicion(posicion);
-				piezas[6].setViva(true);
-				tablero[f][c].setCasillaOcupada(true);
-				tablero[f][c].setPieza(piezas[6]);
+				for (int i = 12; i < 14; i++) {
+					boton[f][c].setIcon(piezas[i].getImagen());
+
+					tablero[f][c].setCasillaOcupada(true);
+					tablero[f][c].setPieza(piezas[i]);
+				}
 			} else if (f == 7) {
-				boton[f][c].setIcon(piezas[7].getImagen());
-				piezas[7].setPosicion(posicion);
-				piezas[7].setViva(true);
-				tablero[f][c].setCasillaOcupada(true);
-				tablero[f][c].setPieza(piezas[7]);
+				for (int i = 28; i < 30; i++) {
+					boton[f][c].setIcon(piezas[i].getImagen());
+
+					tablero[f][c].setCasillaOcupada(true);
+					tablero[f][c].setPieza(piezas[i]);
+				}
 			} else {
 
-				piezas[12].setPosicion(posicion);
-				piezas[12].setViva(false);
 				tablero[f][c].setCasillaOcupada(false);
-				tablero[f][c].setPieza(piezas[12]);
+				tablero[f][c].setPieza(piezas[32]);
 			}
 
 		} else if (c == 3) {
 			if (f == 0) {
-				boton[f][c].setIcon(piezas[8].getImagen());
-				piezas[8].setPosicion(posicion);
-				piezas[8].setViva(true);
+				boton[f][c].setIcon(piezas[14].getImagen());
 				tablero[f][c].setCasillaOcupada(true);
-				tablero[f][c].setPieza(piezas[8]);
+				tablero[f][c].setPieza(piezas[14]);
 			} else if (f == 7) {
-				boton[f][c].setIcon(piezas[9].getImagen());
-				piezas[9].setPosicion(posicion);
-				piezas[9].setViva(true);
+				boton[f][c].setIcon(piezas[30].getImagen());
+
 				tablero[f][c].setCasillaOcupada(true);
-				tablero[f][c].setPieza(piezas[9]);
+				tablero[f][c].setPieza(piezas[30]);
 			} else {
 
-				piezas[12].setPosicion(posicion);
-				piezas[12].setViva(false);
 				tablero[f][c].setCasillaOcupada(false);
-				tablero[f][c].setPieza(piezas[12]);
+				tablero[f][c].setPieza(piezas[32]);
 			}
 
 		} else if (c == 4) {
 			if (f == 0) {
-				boton[f][c].setIcon(piezas[10].getImagen());
-				piezas[10].setPosicion(posicion);
-				piezas[10].setViva(true);
+				boton[f][c].setIcon(piezas[15].getImagen());
+
 				tablero[f][c].setCasillaOcupada(true);
-				tablero[f][c].setPieza(piezas[10]);
+				tablero[f][c].setPieza(piezas[15]);
 			} else if (f == 7) {
-				boton[f][c].setIcon(piezas[11].getImagen());
-				piezas[11].setPosicion(posicion);
-				piezas[11].setViva(true);
+				boton[f][c].setIcon(piezas[31].getImagen());
+
 				tablero[f][c].setCasillaOcupada(true);
-				tablero[f][c].setPieza(piezas[11]);
+				tablero[f][c].setPieza(piezas[31]);
 			} else {
 
-				piezas[12].setPosicion(posicion);
-				piezas[12].setViva(false);
 				tablero[f][c].setCasillaOcupada(false);
-				tablero[f][c].setPieza(piezas[12]);
+				tablero[f][c].setPieza(piezas[32]);
 			}
 
 		}
@@ -351,8 +408,7 @@ public class Tablero extends JFrame {
 				 * if(tablero[f][c].getColor()=="blanco"){ System.out.print("      "); }
 				 */
 
-				//System.out.print(tablero[f][c].getNombre() + "," + tablero[f][c].getPosicion() + ","
-						//+ tablero[f][c].getPieza().getNombrePieza() + "-" + tablero[f][c].getPieza().getColor());
+				System.out.print(tablero[f][c].getPieza().getPosicion()+ "|");
 
 			}
 		}
