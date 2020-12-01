@@ -4,31 +4,36 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Juego {
-	private static int turno;
+	private int turno;
 
 	public Juego() {
-		turno = 1;
+		setTurno(1);
 
 		Tablero t1 = new Tablero();
-		moverPieza(1);
+		moverPieza();
 
 	}
 
-	public void moverPieza(int turno) {
+	public void moverPieza() {
 		
-			for (int f = 0; f < Tablero.tablero.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
-				for (int c = 0; c < Tablero.tablero[f].length; c++) {
-					if (turno == 1 && Tablero.tablero[f][c].getPieza().getColor() == "blanco") {
-						Tablero.boton[f][c].addActionListener(new BotonPulsadoListener());
-						setTurno(2);
-					} else if (turno == 2 && Tablero.tablero[f][c].getPieza().getColor() == "negro") {
-						Tablero.boton[f][c].addActionListener(new BotonPulsadoListener());
-						setTurno(1);
-					
+/*
+		for (int f = 0; f < Tablero.tablero.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
+			for (int c = 0; c < Tablero.tablero[f].length; c++) {
+				if (this.turno == 1 && Tablero.tablero[f][c].getPieza().getColor() == "blanco") {
+					Tablero.boton[f][c].addActionListener(new BotonPulsadoListener());
+					System.out.println("Hola");
+				} else if (this.turno == 2 && Tablero.tablero[f][c].getPieza().getColor() == "negro"&&Tablero.tablero[f][c].getPieza().getNombrePieza()=="peon" ) {
+					Tablero.boton[f][c].addActionListener(new BotonPulsadoListener());
 
 				}
+				if (this.turno==1) {
+					setTurno(2);
+				}else if (this.turno==2) {
+					setTurno(1);
+				}
+
 			}
-		}
+		}*/
 
 	}
 
@@ -36,7 +41,7 @@ public class Juego {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			System.out.println(("Has pulsado el boton "));
 		}
 	}
@@ -45,7 +50,7 @@ public class Juego {
 		return turno;
 	}
 
-	public static void setTurno(int turno0) {
+	public void setTurno(int turno0) {
 		turno = turno0;
 	}
 

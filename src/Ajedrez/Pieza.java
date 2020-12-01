@@ -9,15 +9,46 @@ public class Pieza {
 	private ImageIcon Imagen;
 	private boolean viva;
 
-	
-
-	public Pieza(String color, String nombrePieza, String posicion, ImageIcon imagen, boolean viva) {
+	public Pieza(String color, String nombrePieza) {
 		super();
 		this.color = color;
 		this.nombrePieza = nombrePieza;
-		this.posicion = posicion;
-		Imagen = imagen;
-		this.viva = viva;
+		this.viva = true;
+		if (color.equals("negro")) {
+			if (nombrePieza.equals("peon")) {
+				this.Imagen = new ImageIcon("./img/piezasNegras/peon.png");
+
+			} else if (nombrePieza.equals("torre")) {
+				this.Imagen = new ImageIcon("./img/piezasNegras/torre.png");
+
+			} else if (nombrePieza.equals("caballo")) {
+				this.Imagen = new ImageIcon("./img/piezasNegras/caballo.png");
+
+			} else if (nombrePieza.equals("alfil")) {
+				this.Imagen = new ImageIcon("./img/piezasNegras/alfil.png");
+
+			} else if (nombrePieza.equals("reina")) {
+				this.Imagen = new ImageIcon("./img/piezasNegras/reina.png");
+
+			} else if (nombrePieza.equals("rey")) {
+				this.Imagen = new ImageIcon("./img/piezasNegras/rey.png");
+			}
+		} else if (color.equals("blanco")) {
+			if (nombrePieza.equals("peon")) {
+				this.Imagen = new ImageIcon("./img/piezasBlancas/peon.png");
+			} else if (nombrePieza.equals("torre")) {
+				this.Imagen = new ImageIcon("./img/piezasBlancas/torre.png");
+			} else if (nombrePieza.equals("caballo")) {
+				this.Imagen = new ImageIcon("./img/piezasBlancas/caballo.png");
+			} else if (nombrePieza.equals("alfil")) {
+				this.Imagen = new ImageIcon("./img/piezasBlancas/alfil.png");
+			} else if (nombrePieza.equals("reina")) {
+				this.Imagen = new ImageIcon("./img/piezasBlancas/reina.png");
+			} else if (nombrePieza.equals("rey")) {
+				this.Imagen = new ImageIcon("./img/piezasBlancas/rey.png");
+			}
+		}
+
 	}
 
 	public ImageIcon getImagen() {
