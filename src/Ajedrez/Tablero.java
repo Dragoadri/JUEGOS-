@@ -116,7 +116,7 @@ public class Tablero extends JFrame {
 			}
 		} else if (c == 4) {
 			if (f == 0) {
-				casilla[f][c].setPieza(new Pieza("negro", "rey", posicion));
+				 casilla[f][c].setPieza(new Pieza("negro", "rey", posicion));
 			} else if (f == 7) {
 				casilla[f][c].setPieza(new Pieza("blanco", "rey", posicion));
 			}
