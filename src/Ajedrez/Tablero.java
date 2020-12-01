@@ -37,11 +37,8 @@ public class Tablero extends JFrame {
 	 */
 	public void crearPiezas() {
 
-		
-
 	}
 
-	
 	/**
 	 * añade una imagen de la pieza que introduzcas en la casilla que introduzcas
 	 * 
@@ -64,7 +61,7 @@ public class Tablero extends JFrame {
 
 		for (int f = 0; f < casilla.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
 			for (int c = 0; c < casilla[f].length; c++) {
-				String posicion = casilla[f][c].getNombre();
+				String posicion = casilla[f][c].getPosicion();
 
 				if ((f % 2 == 0 && c % 2 != 0) || (f % 2 != 0 && c % 2 == 0)) {
 
@@ -94,9 +91,37 @@ public class Tablero extends JFrame {
 	 * @param posicion
 	 */
 	public void agregarFicha(int f, int c, String posicion) {
-		if (f==1) {
-			
+
+		if (f == 1) {
+			casilla[f][c].setPieza(new Pieza("negro", "peon", posicion));
+		} else if (f == 6) {
+			casilla[f][c].setPieza(new Pieza("blanco", "peon", posicion));
+		} else if (f == 0 && (c == 0 || c == 7)) {
+			casilla[f][c].setPieza(new Pieza("negro", "torre", posicion));
+		} else if (f == 7 && (c == 0 || c == 7)) {
+			casilla[f][c].setPieza(new Pieza("blanco", "torre", posicion));
+		} else if (f == 0 && (c == 1 || c == 6)) {
+			casilla[f][c].setPieza(new Pieza("negro", "caballo", posicion));
+		} else if (f == 7 && (c == 1 || c == 6)) {
+			casilla[f][c].setPieza(new Pieza("blanco", "caballo", posicion));
+		} else if (f == 0 && (c == 2 || c == 5)) {
+			casilla[f][c].setPieza(new Pieza("negro", "alfil", posicion));
+		} else if (f == 7 && (c == 2 || c == 5)) {
+			casilla[f][c].setPieza(new Pieza("blanco", "alfil", posicion));
+		} else if (c == 3) {
+			if (f == 0) {
+				casilla[f][c].setPieza(new Pieza("negro", "reina", posicion));
+			} else if (f == 7) {
+				casilla[f][c].setPieza(new Pieza("blanco", "reina", posicion));
+			}
+		} else if (c == 4) {
+			if (f == 0) {
+				casilla[f][c].setPieza(new Pieza("negro", "rey", posicion));
+			} else if (f == 7) {
+				casilla[f][c].setPieza(new Pieza("blanco", "rey", posicion));
+			}
 		}
+		boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 	}
 
 	/**
@@ -151,11 +176,12 @@ public class Tablero extends JFrame {
 				 * if(tablero[f][c].getColor()=="blanco"){ System.out.print("      "); }
 				 */
 
-				System.out.print(casilla[f][c].getPosicion()+ "|");
+				// System.out.print(casilla[f][c].getPosicion()+ "|");
 
 			}
 		}
-
+		System.out.println(casilla[7][5].getPieza().getNombrePieza()+casilla[7][5].getPieza().getPosicion());
+		System.out.println(casilla[7][2].getPieza().getNombrePieza()+casilla[7][2].getPieza().getPosicion());
 	}
 
 	public static Casilla[][] getTablero() {

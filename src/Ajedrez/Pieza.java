@@ -9,10 +9,11 @@ public class Pieza {
 	private ImageIcon Imagen;
 	private boolean viva;
 
-	public Pieza(String color, String nombrePieza) {
+	public Pieza(String color, String nombrePieza,String posicion) {
 		super();
 		this.color = color;
 		this.nombrePieza = nombrePieza;
+		this.posicion= posicion;
 		this.viva = true;
 		if (color.equals("negro")) {
 			if (nombrePieza.equals("peon")) {
@@ -47,6 +48,8 @@ public class Pieza {
 			} else if (nombrePieza.equals("rey")) {
 				this.Imagen = new ImageIcon("./img/piezasBlancas/rey.png");
 			}
+		}else {
+			this.Imagen = new ImageIcon("./impiezasBlancas/rey.png");
 		}
 
 	}
