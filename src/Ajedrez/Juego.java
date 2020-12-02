@@ -19,7 +19,7 @@ public class Juego {
 
 		for (int f = 0; f < Tablero.casilla.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
 			for (int c = 0; c < Tablero.casilla[f].length; c++) {
-				if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("...")) {
+				if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("alfil")) {
 					Tablero.boton[f][c].addActionListener(new BotonPulsadoListener());
 					System.out.println(Tablero.casilla[f][c].getPieza().getPosicion());
 				} 

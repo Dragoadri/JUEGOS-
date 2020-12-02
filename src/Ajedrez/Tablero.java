@@ -1,15 +1,12 @@
 package Ajedrez;
 
 import java.awt.Color;
-import java.awt.Component;
+
 import java.awt.Container;
 import java.awt.GridLayout;
-import java.awt.HeadlessException;
-import java.awt.Image;
-import java.util.ArrayList;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -28,7 +25,7 @@ public class Tablero extends JFrame {
 		crearCasillas();// crea las casillas el array
 		crearPiezas();
 		colocarCasillas();// crea el boton de cada casilla y su color
-		getCasillas();
+
 	}
 
 	/**
