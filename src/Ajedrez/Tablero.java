@@ -94,36 +94,46 @@ public class Tablero extends JFrame {
 
 		if (f == 1) {
 			casilla[f][c].setPieza(new Pieza("negro", "peon", posicion));
+			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 6) {
 			casilla[f][c].setPieza(new Pieza("blanco", "peon", posicion));
+			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 0 && (c == 0 || c == 7)) {
 			casilla[f][c].setPieza(new Pieza("negro", "torre", posicion));
+			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 7 && (c == 0 || c == 7)) {
 			casilla[f][c].setPieza(new Pieza("blanco", "torre", posicion));
+			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 0 && (c == 1 || c == 6)) {
 			casilla[f][c].setPieza(new Pieza("negro", "caballo", posicion));
+			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 7 && (c == 1 || c == 6)) {
 			casilla[f][c].setPieza(new Pieza("blanco", "caballo", posicion));
+			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 0 && (c == 2 || c == 5)) {
 			casilla[f][c].setPieza(new Pieza("negro", "alfil", posicion));
+			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 7 && (c == 2 || c == 5)) {
 			casilla[f][c].setPieza(new Pieza("blanco", "alfil", posicion));
+			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (c == 3) {
 			if (f == 0) {
 				casilla[f][c].setPieza(new Pieza("negro", "reina", posicion));
+				boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 			} else if (f == 7) {
 				casilla[f][c].setPieza(new Pieza("blanco", "reina", posicion));
+				boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 			}
 		} else if (c == 4) {
 			if (f == 0) {
 				casilla[f][c].setPieza(new Pieza("negro", "rey", posicion));
+				boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 			} else if (f == 7) {
 				casilla[f][c].setPieza(new Pieza("blanco", "rey", posicion));
+				boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 			}
-		} else {
-			//cuando la casilla esta vacia
 		}
-		boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
+
 	}
 
 	/**
