@@ -16,24 +16,17 @@ public class Juego {
 
 	public void moverPieza() {
 		
-/*
-		for (int f = 0; f < Tablero.tablero.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
-			for (int c = 0; c < Tablero.tablero[f].length; c++) {
-				if (this.turno == 1 && Tablero.tablero[f][c].getPieza().getColor() == "blanco") {
-					Tablero.boton[f][c].addActionListener(new BotonPulsadoListener());
-					System.out.println("Hola");
-				} else if (this.turno == 2 && Tablero.tablero[f][c].getPieza().getColor() == "negro"&&Tablero.tablero[f][c].getPieza().getNombrePieza()=="peon" ) {
-					Tablero.boton[f][c].addActionListener(new BotonPulsadoListener());
 
-				}
-				if (this.turno==1) {
-					setTurno(2);
-				}else if (this.turno==2) {
-					setTurno(1);
-				}
+		for (int f = 0; f < Tablero.casilla.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
+			for (int c = 0; c < Tablero.casilla[f].length; c++) {
+				if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("...")) {
+					Tablero.boton[f][c].addActionListener(new BotonPulsadoListener());
+					System.out.println(Tablero.casilla[f][c].getPieza().getPosicion());
+				} 
+				
 
 			}
-		}*/
+		}
 
 	}
 
@@ -42,7 +35,7 @@ public class Juego {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			System.out.println(("Has pulsado el boton "));
+			System.out.println("Has pulsado el boton");
 		}
 	}
 
