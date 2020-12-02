@@ -116,10 +116,12 @@ public class Tablero extends JFrame {
 			}
 		} else if (c == 4) {
 			if (f == 0) {
-				 casilla[f][c].setPieza(new Pieza("negro", "rey", posicion));
+				casilla[f][c].setPieza(new Pieza("negro", "rey", posicion));
 			} else if (f == 7) {
 				casilla[f][c].setPieza(new Pieza("blanco", "rey", posicion));
 			}
+		} else {
+			//cuando la casilla esta vacia
 		}
 		boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 	}
@@ -180,8 +182,8 @@ public class Tablero extends JFrame {
 
 			}
 		}
-		System.out.println(casilla[7][5].getPieza().getNombrePieza()+casilla[7][5].getPieza().getPosicion());
-		System.out.println(casilla[7][2].getPieza().getNombrePieza()+casilla[7][2].getPieza().getPosicion());
+		System.out.println(casilla[7][5].getPieza().getNombrePieza() + casilla[7][5].getPieza().getPosicion());
+		System.out.println(casilla[7][2].getPieza().getNombrePieza() + casilla[7][2].getPieza().getPosicion());
 	}
 
 	public static Casilla[][] getTablero() {
