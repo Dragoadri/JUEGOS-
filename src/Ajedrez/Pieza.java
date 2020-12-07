@@ -6,14 +6,18 @@ public class Pieza {
 	private String color;
 	private String nombrePieza;
 	private String posicion;
+	private int fila;
+	private int columna;
 	private ImageIcon Imagen;
 	private boolean viva;
 
-	public Pieza(String color, String nombrePieza, String posicion) {
+	public Pieza(String color, String nombrePieza, String posicion,int fila,int columna) {
 		super();
 		this.color = color;
 		this.nombrePieza = nombrePieza;
 		this.posicion = posicion;
+		this.fila = fila;
+		this.columna =columna;
 		this.viva = true;
 		if (color.equals("negro")) {
 			if (nombrePieza.equals("peon")) {
@@ -47,6 +51,22 @@ public class Pieza {
 			this.Imagen = new ImageIcon("./img/color/transparencia.png");
 		}
 
+	}
+
+	public int getFila() {
+		return fila;
+	}
+
+	public void setFila(int fila) {
+		this.fila = fila;
+	}
+
+	public int getColumna() {
+		return columna;
+	}
+
+	public void setColumna(int columna) {
+		this.columna = columna;
 	}
 
 	public ImageIcon getImagen() {

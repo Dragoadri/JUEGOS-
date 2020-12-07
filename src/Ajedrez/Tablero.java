@@ -90,45 +90,45 @@ public class Tablero extends JFrame {
 	public void agregarFicha(int f, int c, String posicion) {
 
 		if (f == 1) {
-			casilla[f][c].setPieza(new Pieza("negro", "peon", posicion));
+			casilla[f][c].setPieza(new Pieza("negro", "peon", posicion,f,c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 6) {
-			casilla[f][c].setPieza(new Pieza("blanco", "peon", posicion));
+			casilla[f][c].setPieza(new Pieza("blanco", "peon", posicion,f,c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 0 && (c == 0 || c == 7)) {
-			casilla[f][c].setPieza(new Pieza("negro", "torre", posicion));
+			casilla[f][c].setPieza(new Pieza("negro", "torre", posicion,f,c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 7 && (c == 0 || c == 7)) {
-			casilla[f][c].setPieza(new Pieza("blanco", "torre", posicion));
+			casilla[f][c].setPieza(new Pieza("blanco", "torre", posicion,f,c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 0 && (c == 1 || c == 6)) {
-			casilla[f][c].setPieza(new Pieza("negro", "caballo", posicion));
+			casilla[f][c].setPieza(new Pieza("negro", "caballo", posicion,f,c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 7 && (c == 1 || c == 6)) {
-			casilla[f][c].setPieza(new Pieza("blanco", "caballo", posicion));
+			casilla[f][c].setPieza(new Pieza("blanco", "caballo", posicion,f,c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 0 && (c == 2 || c == 5)) {
-			casilla[f][c].setPieza(new Pieza("negro", "alfil", posicion));
+			casilla[f][c].setPieza(new Pieza("negro", "alfil", posicion,f,c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (f == 7 && (c == 2 || c == 5)) {
-			casilla[f][c].setPieza(new Pieza("blanco", "alfil", posicion));
+			casilla[f][c].setPieza(new Pieza("blanco", "alfil", posicion,f,c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (c == 3 && f == 0) {
 
-			casilla[f][c].setPieza(new Pieza("negro", "reina", posicion));
+			casilla[f][c].setPieza(new Pieza("negro", "reina", posicion,f,c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (c == 3 && f == 7) {
-			casilla[f][c].setPieza(new Pieza("blanco", "reina", posicion));
+			casilla[f][c].setPieza(new Pieza("blanco", "reina", posicion,f,c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (c == 4 && f == 0) {
 
-			casilla[f][c].setPieza(new Pieza("negro", "rey", posicion));
+			casilla[f][c].setPieza(new Pieza("negro", "rey", posicion,f,c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (c == 4 && f == 7) {
-			casilla[f][c].setPieza(new Pieza("blanco", "rey", posicion));
+			casilla[f][c].setPieza(new Pieza("blanco", "rey", posicion,f,c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else {
-			casilla[f][c].setPieza(new Pieza("...", "...", posicion));
+			casilla[f][c].setPieza(new Pieza("...", "...", posicion,f,c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		}
 
@@ -190,8 +190,7 @@ public class Tablero extends JFrame {
 
 			}
 		}
-		System.out.println(casilla[7][5].getPieza().getNombrePieza() + casilla[7][5].getPieza().getPosicion());
-		System.out.println(casilla[7][2].getPieza().getNombrePieza() + casilla[7][2].getPieza().getPosicion());
+		
 	}
 
 	public static Casilla[][] getTablero() {
