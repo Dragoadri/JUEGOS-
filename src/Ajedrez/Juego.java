@@ -19,7 +19,7 @@ public class Juego {
 
 		for (int f = 0; f < Tablero.casilla.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
 			for (int c = 0; c < Tablero.casilla[f].length; c++) {
-				if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("alfil")) {
+				if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("reina")) {
 
 					Tablero.boton[f][c].addActionListener(new BotonPulsadoListener(f, c));
 
@@ -44,12 +44,6 @@ public class Juego {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Has pulsado el boton " + Tablero.casilla[f][c].getPieza().getPosicion());
 
-			for (int i = 0; i <Tablero.casilla[f].length; i++) {
-				Tablero.boton[f+i][c-i].setBackground(Color.blue);
-				
-			}
-			
-			
 			/*
 			 * Peon Negro Tablero.boton[f+1][c].setBackground(Color.blue);
 			 * 
@@ -100,7 +94,60 @@ public class Juego {
 			 * 
 			 * }
 			 * 
-			 * Alfil Tablero.boton[f+i][c+i].setBackground(Color.blue);
+			 * Alfil for (int i = 0; i < Tablero.casilla[f].length; i++) { if (i > 0) {
+			 * Tablero.boton[f + i][c + i].setBackground(Color.blue); } if
+			 * (Tablero.casilla[f + i][c + i].getPieza().getColumna() == 7 ||
+			 * Tablero.casilla[f + i][c + i].getPieza().getFila() == 7) { i =
+			 * Tablero.casilla[f].length; } } for (int i = 0; i < Tablero.casilla[f].length;
+			 * i++) { if (i > 0) { Tablero.boton[f + i][c - i].setBackground(Color.blue); }
+			 * 
+			 * if (Tablero.casilla[f + i][c - i].getPieza().getColumna() == 0 ||
+			 * Tablero.casilla[f + i][c - i].getPieza().getFila() == 7) { i =
+			 * Tablero.casilla[f].length; } } for (int i = 0; i < Tablero.casilla[f].length;
+			 * i++) { if (i > 0) { Tablero.boton[f - i][c + i].setBackground(Color.blue); }
+			 * if (Tablero.casilla[f - i][c + i].getPieza().getColumna() == 7 ||
+			 * Tablero.casilla[f - i][c + i].getPieza().getFila() == 0) { i =
+			 * Tablero.casilla[f].length; } } for (int i = 0; i < Tablero.casilla[f].length;
+			 * i++) { if (i > 0) { Tablero.boton[f - i][c - i].setBackground(Color.blue); }
+			 * if (Tablero.casilla[f - i][c - i].getPieza().getColumna() == 0 ||
+			 * Tablero.casilla[f - i][c - i].getPieza().getFila() == 0) { i =
+			 * Tablero.casilla[f].length; } }
+			 * 
+			 * Reina for (int i = 0; i < Tablero.casilla[f].length -
+			 * Tablero.casilla[f][c].getPieza().getColumna(); i++) { Tablero.boton[f][c +
+			 * i].setBackground(Color.blue);
+			 * 
+			 * } for (int i = 0; i <= Tablero.casilla[f][c].getPieza().getColumna(); i++) {
+			 * Tablero.boton[f][c - i].setBackground(Color.blue);
+			 * 
+			 * } for (int i = 0; i < Tablero.casilla[f].length -
+			 * Tablero.casilla[f][c].getPieza().getFila(); i++) { Tablero.boton[f +
+			 * i][c].setBackground(Color.blue);
+			 * 
+			 * } for (int i = 0; i <= Tablero.casilla[f][c].getPieza().getFila(); i++) {
+			 * Tablero.boton[f - i][c].setBackground(Color.blue);
+			 * 
+			 * } for (int i = 0; i < Tablero.casilla[f].length; i++) { if (i > 0) {
+			 * Tablero.boton[f + i][c + i].setBackground(Color.blue); } if
+			 * (Tablero.casilla[f + i][c + i].getPieza().getColumna() == 7 ||
+			 * Tablero.casilla[f + i][c + i].getPieza().getFila() == 7) { i =
+			 * Tablero.casilla[f].length; } } for (int i = 0; i < Tablero.casilla[f].length;
+			 * i++) { if (i > 0) { Tablero.boton[f + i][c - i].setBackground(Color.blue); }
+			 * 
+			 * if (Tablero.casilla[f + i][c - i].getPieza().getColumna() == 0 ||
+			 * Tablero.casilla[f + i][c - i].getPieza().getFila() == 7) { i =
+			 * Tablero.casilla[f].length; } } for (int i = 0; i < Tablero.casilla[f].length;
+			 * i++) { if (i > 0) { Tablero.boton[f - i][c + i].setBackground(Color.blue); }
+			 * if (Tablero.casilla[f - i][c + i].getPieza().getColumna() == 7 ||
+			 * Tablero.casilla[f - i][c + i].getPieza().getFila() == 0) { i =
+			 * Tablero.casilla[f].length; } } for (int i = 0; i < Tablero.casilla[f].length;
+			 * i++) { if (i > 0) { Tablero.boton[f - i][c - i].setBackground(Color.blue); }
+			 * if (Tablero.casilla[f - i][c - i].getPieza().getColumna() == 0 ||
+			 * Tablero.casilla[f - i][c - i].getPieza().getFila() == 0) { i =
+			 * Tablero.casilla[f].length; } }
+			 * 
+			 * Rey
+			 * 
 			 */
 
 		}
