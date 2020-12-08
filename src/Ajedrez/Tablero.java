@@ -23,7 +23,7 @@ public class Tablero extends JFrame {
 		crearCasillas();// crea las casillas el array
 		crearPiezas();
 		colocarCasillas();// crea el boton de cada casilla y su color
-		aniadirFichaRandom(4,4);
+		
 	}
 
 	/**
