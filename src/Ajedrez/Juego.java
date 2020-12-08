@@ -19,7 +19,7 @@ public class Juego {
 
 		for (int f = 0; f < Tablero.casilla.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
 			for (int c = 0; c < Tablero.casilla[f].length; c++) {
-				if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("reina")) {
+				if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("rey")) {
 
 					Tablero.boton[f][c].addActionListener(new BotonPulsadoListener(f, c));
 
@@ -44,6 +44,7 @@ public class Juego {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Has pulsado el boton " + Tablero.casilla[f][c].getPieza().getPosicion());
 
+		
 			/*
 			 * Peon Negro Tablero.boton[f+1][c].setBackground(Color.blue);
 			 * 
@@ -146,8 +147,14 @@ public class Juego {
 			 * Tablero.casilla[f - i][c - i].getPieza().getFila() == 0) { i =
 			 * Tablero.casilla[f].length; } }
 			 * 
-			 * Rey
-			 * 
+			 * Rey if (f < 7) { Tablero.boton[f + 1][c].setBackground(Color.blue); } if (f >
+			 * 0) { Tablero.boton[f - 1][c].setBackground(Color.blue); } if (c < 7) {
+			 * Tablero.boton[f][c + 1].setBackground(Color.blue); } if (c > 0) {
+			 * Tablero.boton[f][c - 1].setBackground(Color.blue); } if (c != 0 && f != 0) {
+			 * Tablero.boton[f - 1][c - 1].setBackground(Color.blue); } if (c != 7 && f !=
+			 * 0) { Tablero.boton[f - 1][c + 1].setBackground(Color.blue); } if (c != 7 && f
+			 * != 7) { Tablero.boton[f + 1][c + 1].setBackground(Color.blue); } if (c != 0
+			 * && f != 7) { Tablero.boton[f + 1][c - 1].setBackground(Color.blue); }
 			 */
 
 		}
