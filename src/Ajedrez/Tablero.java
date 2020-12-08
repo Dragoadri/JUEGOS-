@@ -23,7 +23,7 @@ public class Tablero extends JFrame {
 		crearCasillas();// crea las casillas el array
 		crearPiezas();
 		colocarCasillas();// crea el boton de cada casilla y su color
-
+		aniadirFichaRandom(4,4);
 	}
 
 	/**
@@ -41,9 +41,10 @@ public class Tablero extends JFrame {
 	 * @param c
 	 * @param pieza
 	 */
-	public void aniadirFichaRandom(int f, int c, Pieza pieza) {
+	public void aniadirFichaRandom(int f, int c) {
 
-		boton[f][c].setIcon(pieza.getImagen());
+	casilla[f][c].setPieza(new Pieza("blanco","reina","455",f,c));
+	boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 	}
 
 	/**
