@@ -105,13 +105,14 @@ public class Juego {
 		}
 	}
 	public void intercambiarFichas(int f,int c,int fBoton,int cBoton,Pieza p1,Pieza p2) {
-		
+		// A la casilla donde se quiere mover la ficha
 		Tablero.casilla[f][c].setPieza(p1);
 		Tablero.casilla[f][c].getPieza().setFila(f);
 		Tablero.casilla[f][c].getPieza().setColumna(c);
 		Tablero.casilla[f][c].getPieza().setPosicion(f, c);
 		Tablero.boton[f][c].setIcon(p1.getImagen());
 		
+		// La casilla donde estaba la ficha donde habra que poner un vacio o Ficha null
 		Tablero.casilla[fBoton][cBoton].setPieza(p2);
 		Tablero.casilla[fBoton][cBoton].getPieza().setFila(fBoton);
 		Tablero.casilla[fBoton][cBoton].getPieza().setColumna(cBoton);
@@ -120,7 +121,7 @@ public class Juego {
 		
 	}
 
-	public void movPeonNegro(int f, int c, Pieza peonNegro) {
+	public void movPeonNegro(int f, int c, Pieza peonNegro) {// falta poner cuando puede comer el peon
 
 		Pieza p = Tablero.casilla[f][c].getPieza();
 
@@ -131,7 +132,7 @@ public class Juego {
 
 	}
 
-	public void movPeonBlanco(int f, int c, Pieza peonBlanco) {
+	public void movPeonBlanco(int f, int c, Pieza peonBlanco) {//// falta poner cuando puede comer el peon
 
 		Tablero.boton[f - 1][c].setBackground(Color.blue);
 		Tablero.boton[f - 2][c].setBackground(Color.blue);
