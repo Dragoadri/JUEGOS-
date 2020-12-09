@@ -179,6 +179,7 @@ public class Juego {
 		
 
 		}
+		setTurno(2);
 		
 	}
 
