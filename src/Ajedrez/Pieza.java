@@ -11,11 +11,11 @@ public class Pieza {
 	private ImageIcon Imagen;
 	private boolean viva;
 
-	public Pieza(String color, String nombrePieza, String posicion,int fila,int columna) {
+	public Pieza(String color, String nombrePieza,int fila,int columna) {
 		super();
 		this.color = color;
 		this.nombrePieza = nombrePieza;
-		this.posicion = posicion;
+		this.posicion = Integer.toString(fila) + "-" + Integer.toString(columna);
 		this.fila = fila;
 		this.columna =columna;
 		this.viva = true;
@@ -81,8 +81,8 @@ public class Pieza {
 		return posicion;
 	}
 
-	public void setPosicion(String posicion) {
-		this.posicion = posicion;
+	public void setPosicion(int f,int c) {
+		this.posicion = Integer.toString(f) + "-" + Integer.toString(c);
 	}
 
 	public String getNombrePieza() {

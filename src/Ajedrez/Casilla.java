@@ -6,10 +6,13 @@ public class Casilla {
 	private boolean casillaOcupada;// para ver si la casilla tiene pieza o no encima
 	private String nombre;// posicion de manera LetraNumero ejemplo: A1, G5...
 	private Pieza pieza;// la pieza que habra en la casilla en el caso en el que la hubiese
+
 	public Casilla() {
 
 	}
 	
+	
+
 	public Pieza getPieza() {
 		return pieza;
 	}

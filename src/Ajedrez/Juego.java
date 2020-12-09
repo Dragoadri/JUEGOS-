@@ -44,10 +44,20 @@ public class Juego {
 	private class BotonPulsadoListener implements ActionListener {
 		int f;
 		int c;
+		int fBoton;
+		int cBoton;
 
 		public BotonPulsadoListener(int f, int c) {
 			this.f = f;
 			this.c = c;
+		}
+
+		public BotonPulsadoListener(int f, int c, int fBoton, int cBoton) {
+			super();
+			this.f = f;
+			this.c = c;
+			this.fBoton = fBoton;
+			this.cBoton = cBoton;
 		}
 
 		@Override
@@ -56,11 +66,11 @@ public class Juego {
 
 			if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("peon")
 					&& Tablero.casilla[f][c].getPieza().getColor().equals("negro") && getTurno() == 2) {
-				movPeonNegro(f, c);
+				movPeonNegro(f, c, Tablero.casilla[f][c].getPieza());
 				setTurno(1);
 			} else if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("peon")
 					&& Tablero.casilla[f][c].getPieza().getColor().equals("blanco") && getTurno() == 1) {
-				movPeonBlanco(f, c);
+				movPeonBlanco(f, c, Tablero.casilla[f][c].getPieza());
 				setTurno(2);
 			} else if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("torre")) {
 				movTorre(f, c);
@@ -72,19 +82,61 @@ public class Juego {
 				movReina(f, c);
 			} else if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("rey")) {
 				movRey(f, c);
+
+			} else if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("...")) {
+				Tablero.boton[f][c].setBackground(Color.green);// A la casilla a la que quieres mover
+				Tablero.boton[fBoton][cBoton].setBackground(Color.green);// la casilla donde esta la pieza que quieres
+																			// mover
+				Pieza p1= Tablero.casilla[fBoton][cBoton].getPieza();//pieza que Quieres mover
+				Pieza p2 =Tablero.casilla[f][c].getPieza();//casilla Vacia
+				
+				intercambiarFichas( f, c, fBoton, cBoton, p1, p2);
+				
+				
+				/*
+				 * Tablero.casilla[f][c].setPieza(Tablero.casilla[fBoton][cBoton].getPieza());
+				 * Tablero.casilla[f][c].getPieza().setFila(f);
+				 * Tablero.casilla[f][c].getPieza().setColumna(c);
+				 * Tablero.boton[f][c].setIcon(Tablero.casilla[fBoton][cBoton].getPieza().
+				 * getImagen());
+				 */
 			}
 
 		}
 	}
-
-	public static void movPeonNegro(int f, int c) {
-
-		Tablero.boton[f + 1][c].setBackground(Color.blue);
+	public void intercambiarFichas(int f,int c,int fBoton,int cBoton,Pieza p1,Pieza p2) {
+		
+		Tablero.casilla[f][c].setPieza(p1);
+		Tablero.casilla[f][c].getPieza().setFila(f);
+		Tablero.casilla[f][c].getPieza().setColumna(c);
+		Tablero.casilla[f][c].getPieza().setPosicion(f, c);
+		Tablero.boton[f][c].setIcon(p1.getImagen());
+		
+		Tablero.casilla[fBoton][cBoton].setPieza(p2);
+		Tablero.casilla[fBoton][cBoton].getPieza().setFila(fBoton);
+		Tablero.casilla[fBoton][cBoton].getPieza().setColumna(cBoton);
+		Tablero.casilla[fBoton][cBoton].getPieza().setPosicion(fBoton, cBoton);
+		Tablero.boton[fBoton][cBoton].setIcon(p2.getImagen());
+		
 	}
 
-	public static void movPeonBlanco(int f, int c) {
+	public void movPeonNegro(int f, int c, Pieza peonNegro) {
+
+		Pieza p = Tablero.casilla[f][c].getPieza();
+
+		Tablero.boton[f + 1][c].setBackground(Color.blue);
+		Tablero.boton[f + 2][c].setBackground(Color.blue);
+		Tablero.boton[f + 1][c].addActionListener(new BotonPulsadoListener(f + 1, c, f, c));
+		Tablero.boton[f + 2][c].addActionListener(new BotonPulsadoListener(f + 2, c, f, c));
+
+	}
+
+	public void movPeonBlanco(int f, int c, Pieza peonBlanco) {
 
 		Tablero.boton[f - 1][c].setBackground(Color.blue);
+		Tablero.boton[f - 2][c].setBackground(Color.blue);
+		Tablero.boton[f - 1][c].addActionListener(new BotonPulsadoListener(f - 1, c, f, c));
+		Tablero.boton[f - 2][c].addActionListener(new BotonPulsadoListener(f - 2, c, f, c));
 	}
 
 	public static void movTorre(int f, int c) {
@@ -242,9 +294,8 @@ public class Juego {
 
 			} else if ((c < 7 && f < 7) && (Tablero.casilla[f + i][c + i].getPieza().getNombrePieza().equals("..."))) {
 				Tablero.boton[f + i][c + i].setBackground(Color.blue);
-			} else if ((c < 7 && f < 7)
-					&& ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-							&& Tablero.casilla[f + i][c + i].getPieza().getColor().equals("negro"))
+			} else if ((c < 7 && f < 7) && ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
+					&& Tablero.casilla[f + i][c + i].getPieza().getColor().equals("negro"))
 					|| (Tablero.casilla[f][c].getPieza().getColor().equals("negro")
 							&& Tablero.casilla[f + i][c + i].getPieza().getColor().equals("blanco")))) {
 				Tablero.boton[f + i][c + i].setBackground(Color.red);
@@ -260,9 +311,8 @@ public class Juego {
 				i = Tablero.casilla[f].length;
 			} else if ((c > 0 && f < 7) && (Tablero.casilla[f + i][c - i].getPieza().getNombrePieza().equals("..."))) {
 				Tablero.boton[f + i][c - i].setBackground(Color.blue);
-			} else if ((c > 0 && f < 7)
-					&& ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-							&& Tablero.casilla[f + i][c - i].getPieza().getColor().equals("negro"))
+			} else if ((c > 0 && f < 7) && ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
+					&& Tablero.casilla[f + i][c - i].getPieza().getColor().equals("negro"))
 					|| (Tablero.casilla[f][c].getPieza().getColor().equals("negro")
 							&& Tablero.casilla[f + i][c - i].getPieza().getColor().equals("blanco")))) {
 				Tablero.boton[f + i][c - i].setBackground(Color.red);
@@ -278,15 +328,14 @@ public class Juego {
 				i = Tablero.casilla[f].length;
 			} else if ((c < 7 && f > 0) && (Tablero.casilla[f - i][c + i].getPieza().getNombrePieza().equals("..."))) {
 				Tablero.boton[f - i][c + i].setBackground(Color.blue);
-			} else if ((c < 7 && f > 0)
-					&& ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-							&& Tablero.casilla[f - i][c + i].getPieza().getColor().equals("negro"))
+			} else if ((c < 7 && f > 0) && ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
+					&& Tablero.casilla[f - i][c + i].getPieza().getColor().equals("negro"))
 					|| (Tablero.casilla[f][c].getPieza().getColor().equals("negro")
 							&& Tablero.casilla[f - i][c + i].getPieza().getColor().equals("blanco")))) {
 				Tablero.boton[f - i][c + i].setBackground(Color.red);
 				i = Tablero.casilla[f].length;
 			} else {
-				
+
 				i = Tablero.casilla[f].length;
 			}
 
@@ -297,9 +346,8 @@ public class Juego {
 				i = Tablero.casilla[f].length;
 			} else if ((c > 0 && f > 0) && (Tablero.casilla[f - i][c - i].getPieza().getNombrePieza().equals("..."))) {
 				Tablero.boton[f - i][c - i].setBackground(Color.blue);
-			} else if ((c > 0 && f > 0)
-					&& ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-							&& Tablero.casilla[f - i][c - i].getPieza().getColor().equals("negro"))
+			} else if ((c > 0 && f > 0) && ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
+					&& Tablero.casilla[f - i][c - i].getPieza().getColor().equals("negro"))
 					|| (Tablero.casilla[f][c].getPieza().getColor().equals("negro")
 							&& Tablero.casilla[f - i][c - i].getPieza().getColor().equals("blanco")))) {
 				Tablero.boton[f - i][c - i].setBackground(Color.red);
