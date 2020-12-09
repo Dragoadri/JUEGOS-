@@ -87,12 +87,11 @@ public class Juego {
 				Tablero.boton[f][c].setBackground(Color.green);// A la casilla a la que quieres mover
 				Tablero.boton[fBoton][cBoton].setBackground(Color.green);// la casilla donde esta la pieza que quieres
 																			// mover
-				Pieza p1= Tablero.casilla[fBoton][cBoton].getPieza();//pieza que Quieres mover
-				Pieza p2 =Tablero.casilla[f][c].getPieza();//casilla Vacia
-				
-				intercambiarFichas( f, c, fBoton, cBoton, p1, p2);
-				
-				
+				Pieza p1 = Tablero.casilla[fBoton][cBoton].getPieza();// pieza que Quieres mover
+				Pieza p2 = Tablero.casilla[f][c].getPieza();// casilla Vacia
+
+				intercambiarFichas(f, c, fBoton, cBoton, p1, p2);
+
 				/*
 				 * Tablero.casilla[f][c].setPieza(Tablero.casilla[fBoton][cBoton].getPieza());
 				 * Tablero.casilla[f][c].getPieza().setFila(f);
@@ -104,21 +103,22 @@ public class Juego {
 
 		}
 	}
-	public void intercambiarFichas(int f,int c,int fBoton,int cBoton,Pieza p1,Pieza p2) {
+
+	public void intercambiarFichas(int f, int c, int fBoton, int cBoton, Pieza p1, Pieza p2) {
 		// A la casilla donde se quiere mover la ficha
 		Tablero.casilla[f][c].setPieza(p1);
 		Tablero.casilla[f][c].getPieza().setFila(f);
 		Tablero.casilla[f][c].getPieza().setColumna(c);
 		Tablero.casilla[f][c].getPieza().setPosicion(f, c);
 		Tablero.boton[f][c].setIcon(p1.getImagen());
-		
+
 		// La casilla donde estaba la ficha donde habra que poner un vacio o Ficha null
 		Tablero.casilla[fBoton][cBoton].setPieza(p2);
 		Tablero.casilla[fBoton][cBoton].getPieza().setFila(fBoton);
 		Tablero.casilla[fBoton][cBoton].getPieza().setColumna(cBoton);
 		Tablero.casilla[fBoton][cBoton].getPieza().setPosicion(fBoton, cBoton);
 		Tablero.boton[fBoton][cBoton].setIcon(p2.getImagen());
-		
+
 	}
 
 	public void movPeonNegro(int f, int c, Pieza peonNegro) {// falta poner cuando puede comer el peon
@@ -133,11 +133,22 @@ public class Juego {
 	}
 
 	public void movPeonBlanco(int f, int c, Pieza peonBlanco) {//// falta poner cuando puede comer el peon
+if (Tablero.casilla[f-1][c].getPieza().getNombrePieza().equals("...")) {
+	
 
 		Tablero.boton[f - 1][c].setBackground(Color.blue);
 		Tablero.boton[f - 2][c].setBackground(Color.blue);
 		Tablero.boton[f - 1][c].addActionListener(new BotonPulsadoListener(f - 1, c, f, c));
 		Tablero.boton[f - 2][c].addActionListener(new BotonPulsadoListener(f - 2, c, f, c));
+}
+		if ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
+				&& Tablero.casilla[f - 1][c - 1].getPieza().getColor().equals("negro"))) {
+			Tablero.boton[f - 1][c - 1].setBackground(Color.red);
+		}
+		if ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
+				&& Tablero.casilla[f - 1][c + 1].getPieza().getColor().equals("negro"))) {
+			Tablero.boton[f - 1][c + 1].setBackground(Color.red);
+		}
 	}
 
 	public static void movTorre(int f, int c) {
