@@ -103,6 +103,10 @@ public class Juego {
 					&& Tablero.casilla[fBoton][cBoton].getPieza().getColor().equals("negro"))
 					|| (Tablero.casilla[f][c].getPieza().getColor().equals("negro")
 							&& Tablero.casilla[fBoton][cBoton].getPieza().getColor().equals("blanco"))) {
+				
+			
+				
+				
 				Pieza p1 = Tablero.casilla[fBoton][cBoton].getPieza();// pieza que va a comer
 				Pieza p2 = new Pieza("...", "...", f, c);// null
 
@@ -143,19 +147,13 @@ public class Juego {
 	}
 
 	public void comerFicha(int f, int c, int fBoton, int cBoton, Pieza p1, Pieza p2) {
-		// A la casilla donde se ha comido la ficha
-		Tablero.casilla[f][c].setPieza(p1);
-		Tablero.casilla[f][c].getPieza().setFila(f);
-		Tablero.casilla[f][c].getPieza().setColumna(c);
-		Tablero.casilla[f][c].getPieza().setPosicion(f, c);
-		Tablero.boton[f][c].setIcon(p1.getImagen());
+		System.out.println(p1.getPosicion());// la ficha que come
+		System.out.println(p2.getPosicion());// la ficha que es comida
 
-		// La casilla donde estaba la ficha donde habra que poner un vacio o Ficha null
-		Tablero.casilla[fBoton][cBoton].setPieza(p2);
-		Tablero.casilla[fBoton][cBoton].getPieza().setFila(fBoton);
-		Tablero.casilla[fBoton][cBoton].getPieza().setColumna(cBoton);
-		Tablero.casilla[fBoton][cBoton].getPieza().setPosicion(fBoton, cBoton);
-		Tablero.boton[fBoton][cBoton].setIcon(p2.getImagen());
+		System.out.println(f+"-"+c);// ficha que se van a comer
+		System.out.println(fBoton+"-"+cBoton);//ficha que come
+		
+	
 
 	}
 
