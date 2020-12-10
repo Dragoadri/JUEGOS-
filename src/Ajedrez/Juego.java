@@ -67,11 +67,11 @@ public class Juego {
 			if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("peon")
 					&& Tablero.casilla[f][c].getPieza().getColor().equals("negro") && getTurno() == 2) {
 				movPeonNegro(f, c, Tablero.casilla[f][c].getPieza());
-				
+
 			} else if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("peon")
 					&& Tablero.casilla[f][c].getPieza().getColor().equals("blanco") && getTurno() == 1) {
 				movPeonBlanco(f, c, Tablero.casilla[f][c].getPieza());
-				
+
 			} else if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("torre")) {
 				movTorre(f, c);
 			} else if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("caballo")) {
@@ -91,7 +91,7 @@ public class Juego {
 				Pieza p2 = new Pieza("...", "...", f, c);// casilla Vacia
 
 				intercambiarFichasConPiezaNull(f, c, fBoton, cBoton, p1, p2);
-
+				casillasEnBlancoYNegro();
 				/*
 				 * Tablero.casilla[f][c].setPieza(Tablero.casilla[fBoton][cBoton].getPieza());
 				 * Tablero.casilla[f][c].getPieza().setFila(f);
@@ -107,8 +107,21 @@ public class Juego {
 				Pieza p2 = new Pieza("...", "...", f, c);// null
 
 				comerFicha(f, c, fBoton, cBoton, p1, p2);
+				setTurno(2);
 			}
 
+		}
+	}
+
+	public void casillasEnBlancoYNegro() {
+		for (int i = 0; i < Tablero.casilla.length; i++) {
+			for (int j = 0; j < Tablero.casilla[i].length; j++) {
+				if ((i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0)) {
+					Tablero.boton[i][j].setBackground(Color.black);
+				} else {
+					Tablero.boton[i][j].setBackground(Color.white);
+				}
+			}
 		}
 	}
 
@@ -164,23 +177,21 @@ public class Juego {
 			Tablero.boton[f - 2][c].setBackground(Color.blue);
 			Tablero.boton[f - 1][c].addActionListener(new BotonPulsadoListener(f - 1, c, f, c));
 			Tablero.boton[f - 2][c].addActionListener(new BotonPulsadoListener(f - 2, c, f, c));
-			
+			setTurno(2);
 		}
 		if ((c > 0) && (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
 				&& Tablero.casilla[f - 1][c - 1].getPieza().getColor().equals("negro"))) {
 			Tablero.boton[f - 1][c - 1].setBackground(Color.red);
 			Tablero.boton[f - 1][c - 1].addActionListener(new BotonPulsadoListener(f - 1, c - 1, f, c));
-			
+
 		}
 		if ((c < 7) && (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
 				&& Tablero.casilla[f - 1][c + 1].getPieza().getColor().equals("negro"))) {
 			Tablero.boton[f - 1][c + 1].setBackground(Color.red);
 			Tablero.boton[f - 1][c + 1].addActionListener(new BotonPulsadoListener(f - 1, c + 1, f, c));
-		
 
 		}
-		setTurno(2);
-		
+
 	}
 
 	public static void movTorre(int f, int c) {
