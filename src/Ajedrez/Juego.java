@@ -153,7 +153,7 @@ public class Juego {
 		System.out.println(f+"-"+c);// ficha que se van a comer
 		System.out.println(fBoton+"-"+cBoton);//ficha que come
 		
-	
+	//***************************************************************************************************
 
 	}
 
