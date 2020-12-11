@@ -141,6 +141,7 @@ public class Juego {
 	}
 
 	public void comerFicha(int f, int c, int fBoton, int cBoton, Pieza p1, Pieza p2) {
+
 		System.out.println(p1.getPosicion() + "-" + p1.getNombrePieza());// la ficha que come
 		System.out.println(p2.getPosicion() + "-" + p2.getNombrePieza());// la ficha que es comida
 
@@ -148,17 +149,16 @@ public class Juego {
 		System.out.println(fBoton + "-" + cBoton);// ficha que come
 
 		ponerFichaEnCasilla(f, c, p1);
-		Tablero.boton[f][c].addActionListener(new aDondePuedoMoverFicha(f, c));
 
 		p2 = new Pieza("...", "...", fBoton, cBoton);
 
 		ponerFichaEnCasilla(fBoton, cBoton, p2);
 
-		cambiarTurno();
 		// problema cuando llega a un peon sin moverse , el intercambio se produce con
 		// la torre 0-0 negra
 		// ***************************************************************************************************
 		escucharFichasTurno();
+		
 	}
 
 	public void movPeonNegro(int f, int c, Pieza peonNegro) {// falta poner cuando puede comer el peon
@@ -173,7 +173,11 @@ public class Juego {
 	}
 
 	public void movPeonBlanco(int f, int c, Pieza peonBlanco) {//// falta poner cuando puede comer el peon
-		if (Tablero.casilla[f - 1][c].getPieza().getNombrePieza().equals("...")) {
+		if (f==0) {
+			cambiarTurno();
+		}
+		
+		if ((f > 0) && (Tablero.casilla[f - 1][c].getPieza().getNombrePieza().equals("..."))) {
 
 			Tablero.boton[f - 1][c].setBackground(Color.blue);
 			Tablero.boton[f - 2][c].setBackground(Color.blue);
@@ -183,7 +187,7 @@ public class Juego {
 		}
 		// Parte de comer
 		// CAMBIAR!**************************************************************************************************************************
-		if ((c > 0) && (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
+		if ((c > 0 && f > 0) && (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
 				&& Tablero.casilla[f - 1][c - 1].getPieza().getColor().equals("negro"))) {
 
 			Tablero.boton[f - 1][c - 1].setBackground(Color.red);
@@ -191,7 +195,7 @@ public class Juego {
 			Tablero.boton[f - 1][c - 1].addActionListener(new comerBoton(f - 1, c - 1, f, c));// ESTE
 
 		}
-		if ((c < 7) && (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
+		if ((c < 7 && f > 0) && (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
 				&& Tablero.casilla[f - 1][c + 1].getPieza().getColor().equals("negro"))) {
 			Tablero.boton[f - 1][c + 1].setBackground(Color.red);
 			Tablero.boton[f - 1][c + 1].addActionListener(new comerBoton(f - 1, c + 1, f, c));// ESTE
