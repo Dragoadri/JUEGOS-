@@ -163,7 +163,6 @@ public class Juego {
 
 	public void movPeonNegro(int f, int c, Pieza peonNegro) {// falta poner cuando puede comer el peon
 
-		Pieza p = Tablero.casilla[f][c].getPieza();
 
 		Tablero.boton[f + 1][c].setBackground(Color.blue);
 		Tablero.boton[f + 2][c].setBackground(Color.blue);
@@ -206,6 +205,8 @@ public class Juego {
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+	
+	
 	public Pieza getPieza(int f, int c) {
 		return Tablero.casilla[f][c].getPieza();
 	}
