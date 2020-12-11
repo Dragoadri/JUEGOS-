@@ -5,10 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Juego {
-	private static int turno;
+	private static int turno = 1;
 
 	public Juego() {
-		setTurno(1);
 
 		Tablero t1 = new Tablero();
 		moverPieza();
@@ -16,33 +15,14 @@ public class Juego {
 	}
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	/**
-	 * Ideas: NO usar la misma clase "BotonPulsadoListener" para todas las acciones
-	 * sino usar una para mostrar todos los movimientos que puede hacer (mostralos)
-	 * y otro para mover una ficha a una posicion vacia y otra para comer una ficha
-	 * Es decir , vamos a crear 3 public class?
-	 * 
-	 * El error que esta habiendo es que se confunden las escuchas de los botones
-	 * por lo que deberemos separarlas
-	 */
-
+	// SOLUCIONADO
 	public void moverPieza() {
-
-		for (int f = 0; f < Tablero.casilla.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
-			for (int c = 0; c < Tablero.casilla[f].length; c++) {
-				if (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-						|| Tablero.casilla[f][c].getPieza().getColor().equals("negro")) {
-
-					Tablero.boton[f][c].addActionListener(new aDondePuedoMoverFicha(f, c));
-
-				}
-
-			}
-		}
-
+		escucharFichasTurno();
 	}
 
-	private class aDondePuedoMoverFicha implements ActionListener {
+	private class aDondePuedoMoverFicha implements ActionListener {// Muestra donde se puede mover la ficha y puedes
+																	// pulsar el boton azul para mover la ficha a dicho
+																	// sitio
 		int f;
 		int c;
 		int fBoton;
@@ -52,6 +32,7 @@ public class Juego {
 			this.f = f;
 			this.c = c;
 		}
+
 		public aDondePuedoMoverFicha(int f, int c, int fBoton, int cBoton) {
 			super();
 			this.f = f;
@@ -73,62 +54,6 @@ public class Juego {
 
 				movPeonBlanco(f, c, Tablero.casilla[f][c].getPieza());
 
-			}//Cambiar ficha de posicion a una que esta VACIA
-			else if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("...")) {
-				
-
-				// mover
-				Pieza p1 = Tablero.casilla[fBoton][cBoton].getPieza();// pieza que Quieres mover
-				Pieza p2 = Tablero.casilla[f][c].getPieza();// casilla Vacia
-
-				intercambiarFichasConPiezaNull(f, c, fBoton, cBoton, p1, p2);
-				casillasEnBlancoYNegro();
-				/*
-				 * Tablero.boton[f][c].setBackground(Color.green);// A la casilla a la que quieres mover
-				Tablero.boton[fBoton][cBoton].setBackground(Color.green);// la casilla donde esta la pieza que quieres
-
-				 * Tablero.casilla[f][c].setPieza(Tablero.casilla[fBoton][cBoton].getPieza());
-				 * Tablero.casilla[f][c].getPieza().setFila(f);
-				 * Tablero.casilla[f][c].getPieza().setColumna(c);
-				 * Tablero.boton[f][c].setIcon(Tablero.casilla[fBoton][cBoton].getPieza().
-				 * getImagen());
-				 */
-			}
-
-		}
-	}
-
-	private class BotonPulsadoListener implements ActionListener {
-		int f;
-		int c;
-		int fBoton;
-		int cBoton;
-
-		public BotonPulsadoListener(int f, int c) {
-			this.f = f;
-			this.c = c;
-		}
-
-		public BotonPulsadoListener(int f, int c, int fBoton, int cBoton) {
-			super();
-			this.f = f;
-			this.c = c;
-			this.fBoton = fBoton;
-			this.cBoton = cBoton;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println("Has pulsado el boton " + Tablero.casilla[f][c].getPieza().getPosicion());
-
-			if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("peon")
-					&& Tablero.casilla[f][c].getPieza().getColor().equals("negro") && getTurno() == 2) {
-				movPeonNegro(f, c, Tablero.casilla[f][c].getPieza());
-
-			} else if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("peon")
-					&& Tablero.casilla[f][c].getPieza().getColor().equals("blanco") && getTurno() == 1) {
-				movPeonBlanco(f, c, Tablero.casilla[f][c].getPieza());
-
 			} else if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("torre")) {
 				movTorre(f, c);
 			} else if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("caballo")) {
@@ -141,9 +66,9 @@ public class Juego {
 				movRey(f, c);
 			}
 
-			else if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("...")) {
-				Tablero.boton[f][c].setBackground(Color.green);// A la casilla a la que quieres mover
-				Tablero.boton[fBoton][cBoton].setBackground(Color.green);// la casilla donde esta la pieza que quieres
+			// Cambiar ficha de posicion a una que esta VACIA
+			else if (Tablero.casilla[f][c].getPieza().getNombrePieza().equals("...")
+					&& Tablero.boton[f][c].getBackground().equals(Color.blue)) {
 
 				// mover
 				Pieza p1 = Tablero.casilla[fBoton][cBoton].getPieza();// pieza que Quieres mover
@@ -152,43 +77,67 @@ public class Juego {
 				intercambiarFichasConPiezaNull(f, c, fBoton, cBoton, p1, p2);
 				casillasEnBlancoYNegro();
 				/*
+				 * Tablero.boton[f][c].setBackground(Color.green);// A la casilla a la que
+				 * quieres mover Tablero.boton[fBoton][cBoton].setBackground(Color.green);// la
+				 * casilla donde esta la pieza que quieres
+				 * 
 				 * Tablero.casilla[f][c].setPieza(Tablero.casilla[fBoton][cBoton].getPieza());
 				 * Tablero.casilla[f][c].getPieza().setFila(f);
 				 * Tablero.casilla[f][c].getPieza().setColumna(c);
 				 * Tablero.boton[f][c].setIcon(Tablero.casilla[fBoton][cBoton].getPieza().
 				 * getImagen());
 				 */
-			} else if ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-					&& Tablero.casilla[fBoton][cBoton].getPieza().getColor().equals("negro"))
-					|| (Tablero.casilla[f][c].getPieza().getColor().equals("negro")
-							&& Tablero.casilla[fBoton][cBoton].getPieza().getColor().equals("blanco"))) {
+
+			}
+
+		}
+	}
+
+	private class comerBoton implements ActionListener {
+		// Posicion de la ficha que queremos comer
+		int f;
+		int c;
+		// Posicion de la ficha que va a comer Y SE VA A SUSTITUIR POR UNA CASILLA VACIA
+		int fBoton;
+		int cBoton;
+
+		public comerBoton(int f, int c, int fBoton, int cBoton) {
+			super();
+			// Posicion de la ficha que queremos comer
+			this.f = f;
+			this.c = c;
+			// Posicion de la ficha que va a comer Y SE VA A SUSTITUIR POR UNA CASILLA VACIA
+			this.fBoton = fBoton;
+			this.cBoton = cBoton;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			if (Tablero.casilla[fBoton][cBoton].getPieza().getColor().equals("blanco")
+					&& Tablero.casilla[f][c].getPieza().getColor().equals("negro")
+					&& Tablero.boton[f][c].getBackground().equals(Color.red)) {
+
+				System.out.println("Has pulsado el boton " + Tablero.casilla[f][c].getPieza().getPosicion());
 
 				Pieza p1 = Tablero.casilla[fBoton][cBoton].getPieza();// pieza que va a comer
 				Pieza p2 = Tablero.casilla[f][c].getPieza();// Pieza que va ase comida
 
 				comerFicha(f, c, fBoton, cBoton, p1, p2);
 				casillasEnBlancoYNegro();
-				setTurno(2);
 			}
-
 		}
 	}
 
 	public void intercambiarFichasConPiezaNull(int f, int c, int fBoton, int cBoton, Pieza p1, Pieza p2) {
 		// A la casilla donde se quiere mover la ficha
-		Tablero.casilla[f][c].setPieza(p1);
-		Tablero.casilla[f][c].getPieza().setFila(f);
-		Tablero.casilla[f][c].getPieza().setColumna(c);
-		Tablero.casilla[f][c].getPieza().setPosicion(f, c);
-		Tablero.boton[f][c].setIcon(p1.getImagen());
+
+		ponerFichaEnCasilla(f, c, p1);
 
 		// La casilla donde estaba la ficha donde habra que poner un vacio o Ficha null
-		Tablero.casilla[fBoton][cBoton].setPieza(p2);
-		Tablero.casilla[fBoton][cBoton].getPieza().setFila(fBoton);
-		Tablero.casilla[fBoton][cBoton].getPieza().setColumna(cBoton);
-		Tablero.casilla[fBoton][cBoton].getPieza().setPosicion(fBoton, cBoton);
-		Tablero.boton[fBoton][cBoton].setIcon(p2.getImagen());
+		ponerFichaEnCasilla(fBoton, cBoton, p2);
 
+		escucharFichasTurno();
 	}
 
 	public void comerFicha(int f, int c, int fBoton, int cBoton, Pieza p1, Pieza p2) {
@@ -198,25 +147,18 @@ public class Juego {
 		System.out.println(f + "-" + c);// ficha que se van a comer
 		System.out.println(fBoton + "-" + cBoton);// ficha que come
 
-		// new Pieza("...", "...", f, c);
-		Tablero.casilla[f][c].setPieza(p1);
-		Tablero.casilla[f][c].getPieza().setFila(f);
-		Tablero.casilla[f][c].getPieza().setColumna(c);
-		Tablero.casilla[f][c].getPieza().setPosicion(f, c);
-		Tablero.boton[f][c].setIcon(p1.getImagen());
+		ponerFichaEnCasilla(f, c, p1);
+		Tablero.boton[f][c].addActionListener(new aDondePuedoMoverFicha(f, c));
 
 		p2 = new Pieza("...", "...", fBoton, cBoton);
 
-		Tablero.casilla[fBoton][cBoton].setPieza(p2);
-		Tablero.casilla[fBoton][cBoton].getPieza().setFila(fBoton);
-		Tablero.casilla[fBoton][cBoton].getPieza().setColumna(cBoton);
-		Tablero.casilla[fBoton][cBoton].getPieza().setPosicion(fBoton, cBoton);
-		Tablero.boton[fBoton][cBoton].setIcon(p2.getImagen());
+		ponerFichaEnCasilla(fBoton, cBoton, p2);
 
+		cambiarTurno();
 		// problema cuando llega a un peon sin moverse , el intercambio se produce con
 		// la torre 0-0 negra
 		// ***************************************************************************************************
-
+		escucharFichasTurno();
 	}
 
 	public void movPeonNegro(int f, int c, Pieza peonNegro) {// falta poner cuando puede comer el peon
@@ -225,9 +167,9 @@ public class Juego {
 
 		Tablero.boton[f + 1][c].setBackground(Color.blue);
 		Tablero.boton[f + 2][c].setBackground(Color.blue);
-		Tablero.boton[f + 1][c].addActionListener(new BotonPulsadoListener(f + 1, c, f, c));
-		Tablero.boton[f + 2][c].addActionListener(new BotonPulsadoListener(f + 2, c, f, c));
-		setTurno(1);
+		Tablero.boton[f + 1][c].addActionListener(new aDondePuedoMoverFicha(f + 1, c, f, c));
+		Tablero.boton[f + 2][c].addActionListener(new aDondePuedoMoverFicha(f + 2, c, f, c));
+		cambiarTurno();
 	}
 
 	public void movPeonBlanco(int f, int c, Pieza peonBlanco) {//// falta poner cuando puede comer el peon
@@ -235,27 +177,57 @@ public class Juego {
 
 			Tablero.boton[f - 1][c].setBackground(Color.blue);
 			Tablero.boton[f - 2][c].setBackground(Color.blue);
-			Tablero.boton[f - 1][c].addActionListener(new aDondePuedoMoverFicha(f-1,c,f, c));
-			Tablero.boton[f - 2][c].addActionListener(new aDondePuedoMoverFicha(f-2,c,f, c));
-			setTurno(2);
+			Tablero.boton[f - 1][c].addActionListener(new aDondePuedoMoverFicha(f - 1, c, f, c));
+			Tablero.boton[f - 2][c].addActionListener(new aDondePuedoMoverFicha(f - 2, c, f, c));
+			cambiarTurno();
 		}
-		//Parte de comer CAMBIAR!**************************************************************************************************************************
+		// Parte de comer
+		// CAMBIAR!**************************************************************************************************************************
 		if ((c > 0) && (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
 				&& Tablero.casilla[f - 1][c - 1].getPieza().getColor().equals("negro"))) {
+
 			Tablero.boton[f - 1][c - 1].setBackground(Color.red);
-			Tablero.boton[f - 1][c - 1].addActionListener(new BotonPulsadoListener(f - 1, c - 1, f, c));//ESTE 
+
+			Tablero.boton[f - 1][c - 1].addActionListener(new comerBoton(f - 1, c - 1, f, c));// ESTE
 
 		}
-		if ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
+		if ((c < 7) && (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
 				&& Tablero.casilla[f - 1][c + 1].getPieza().getColor().equals("negro"))) {
 			Tablero.boton[f - 1][c + 1].setBackground(Color.red);
-			Tablero.boton[f - 1][c + 1].addActionListener(new BotonPulsadoListener(f - 1, c + 1, f, c));//ESTE
+			Tablero.boton[f - 1][c + 1].addActionListener(new comerBoton(f - 1, c + 1, f, c));// ESTE
 
 		}
 
 	}
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	public void escucharFichasTurno() {
+
+		for (int f = 0; f < Tablero.casilla.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
+			for (int c = 0; c < Tablero.casilla[f].length; c++) {
+				if ((getTurno() == 1) && Tablero.casilla[f][c].getPieza().getColor().equals("blanco")) {
+
+					Tablero.boton[f][c].addActionListener(new aDondePuedoMoverFicha(f, c));
+
+				} else if ((getTurno() == 2) && Tablero.casilla[f][c].getPieza().getColor().equals("negro")) {
+					Tablero.boton[f][c].addActionListener(new aDondePuedoMoverFicha(f, c));
+				}
+
+			}
+		}
+
+	}
+
+	public void ponerFichaEnCasilla(int f, int c, Pieza P) {
+
+		Tablero.casilla[f][c].setPieza(P);
+		Tablero.casilla[f][c].getPieza().setFila(f);
+		Tablero.casilla[f][c].getPieza().setColumna(c);
+		Tablero.casilla[f][c].getPieza().setPosicion(f, c);
+		Tablero.boton[f][c].setIcon(P.getImagen());
+
+	}
 
 	public void cambiarTurno() {
 		if (getTurno() == 1) {
