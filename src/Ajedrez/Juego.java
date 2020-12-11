@@ -120,8 +120,8 @@ public class Juego {
 
 				System.out.println("Has pulsado el boton " + Tablero.casilla[f][c].getPieza().getPosicion());
 
-				Pieza p1 = getPieza( fBoton, cBoton);// pieza que va a comer
-				Pieza p2 = getPieza( f, c);// Pieza que va ase comida
+				Pieza p1 = getPieza(fBoton, cBoton);// pieza que va a comer
+				Pieza p2 = getPieza(f, c);// Pieza que va ase comida
 
 				comerFicha(f, c, fBoton, cBoton, p1, p2);
 				casillasEnBlancoYNegro();
@@ -158,7 +158,7 @@ public class Juego {
 		// la torre 0-0 negra
 		// ***************************************************************************************************
 		escucharFichasTurno();
-		
+
 	}
 
 	public void movPeonNegro(int f, int c, Pieza peonNegro) {// falta poner cuando puede comer el peon
@@ -173,10 +173,10 @@ public class Juego {
 	}
 
 	public void movPeonBlanco(int f, int c, Pieza peonBlanco) {//// falta poner cuando puede comer el peon
-		if (f==0) {
+		if (f == 0) {
 			cambiarTurno();
 		}
-		
+
 		if ((f > 0) && (Tablero.casilla[f - 1][c].getPieza().getNombrePieza().equals("..."))) {
 
 			Tablero.boton[f - 1][c].setBackground(Color.blue);
@@ -206,12 +206,10 @@ public class Juego {
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	
-	public Pieza getPieza(int f,int c) {
+	public Pieza getPieza(int f, int c) {
 		return Tablero.casilla[f][c].getPieza();
 	}
-	
-	
+
 	public void escucharFichasTurno() {
 
 		for (int f = 0; f < Tablero.casilla.length; f++) {// recorre todo el array con 64 casillas (de 0 a 63)
