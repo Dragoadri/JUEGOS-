@@ -288,9 +288,11 @@ public class Juego {
 	public static void movTorre(int f, int c) {
 
 		for (int i = 1; i < Tablero.casilla[f].length - Tablero.casilla[f][c].getPieza().getColumna(); i++) {
+
 			if (Tablero.casilla[f][c + i].getPieza().getNombrePieza().equals("...")) {
 
 				Tablero.boton[f][c + i].setBackground(Color.blue);
+
 			} else if (Tablero.casilla[f][c].getPieza().getColor()
 					.equals(Tablero.casilla[f][c + i].getPieza().getColor())) {
 
@@ -299,6 +301,7 @@ public class Juego {
 					&& Tablero.casilla[f][c + i].getPieza().getColor().equals("blanco"))
 					|| (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
 							&& Tablero.casilla[f][c + i].getPieza().getColor().equals("negro"))) {
+
 				Tablero.boton[f][c + i].setBackground(Color.red);
 				i = 7;
 			}
@@ -521,8 +524,8 @@ public class Juego {
 				&& Tablero.casilla[f + 1][c].getPieza().getColor().equals("negro"))
 				|| (Tablero.casilla[f][c].getPieza().getColor().equals("negro")
 						&& Tablero.casilla[f + 1][c].getPieza().getColor().equals("blanco")))) {
-			Tablero.boton[f + 1][c].setBackground(Color.red);
-		}
+
+			Tablero.boton[f + 1][c].setBackground(Color.red);		}
 		if (f > 0 && Tablero.casilla[f - 1][c].getPieza().getNombrePieza().equals("...")) {
 			Tablero.boton[f - 1][c].setBackground(Color.blue);
 		} else if ((f > 0) && ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
