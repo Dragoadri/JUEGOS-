@@ -114,8 +114,11 @@ public class Juego {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			if (Tablero.casilla[fBoton][cBoton].getPieza().getColor().equals("blanco")
+			if ((Tablero.casilla[fBoton][cBoton].getPieza().getColor().equals("blanco")
 					&& Tablero.casilla[f][c].getPieza().getColor().equals("negro")
+					|| Tablero.casilla[fBoton][cBoton].getPieza().getColor().equals("negro")
+							&& Tablero.casilla[f][c].getPieza().getColor().equals("blanco"))
+
 					&& Tablero.boton[f][c].getBackground().equals(Color.red)) {
 
 				System.out.println("Has pulsado el boton " + Tablero.casilla[f][c].getPieza().getPosicion());
@@ -125,6 +128,7 @@ public class Juego {
 
 				comerFicha(f, c, fBoton, cBoton, p1, p2);
 				casillasEnBlancoYNegro();
+
 			}
 		}
 	}
@@ -157,32 +161,54 @@ public class Juego {
 		// problema cuando llega a un peon sin moverse , el intercambio se produce con
 		// la torre 0-0 negra
 		// ***************************************************************************************************
-		escucharFichasTurno();
 
 	}
 
 	public void movPeonNegro(int f, int c, Pieza peonNegro) {// falta poner cuando puede comer el peon
 
+		if ((f < 7) && (Tablero.casilla[f + 1][c].getPieza().getNombrePieza().equals("..."))) {
 
-		Tablero.boton[f + 1][c].setBackground(Color.blue);
-		Tablero.boton[f + 2][c].setBackground(Color.blue);
-		Tablero.boton[f + 1][c].addActionListener(new aDondePuedoMoverFicha(f + 1, c, f, c));
-		Tablero.boton[f + 2][c].addActionListener(new aDondePuedoMoverFicha(f + 2, c, f, c));
+			Tablero.boton[f + 1][c].setBackground(Color.blue);
+
+			Tablero.boton[f + 1][c].addActionListener(new aDondePuedoMoverFicha(f + 1, c, f, c));
+			if (Tablero.casilla[f][c].getPieza().isPrimerMovimiento()) {
+				Tablero.boton[f + 2][c].setBackground(Color.blue);
+				Tablero.boton[f + 2][c].addActionListener(new aDondePuedoMoverFicha(f + 2, c, f, c));
+				Tablero.casilla[f][c].getPieza().setPrimerMovimiento(false);
+			}
+
+		}
+		if ((c > 0 && f < 7) && (Tablero.casilla[f][c].getPieza().getColor().equals("negro")
+				&& Tablero.casilla[f + 1][c - 1].getPieza().getColor().equals("blanco"))) {
+
+			Tablero.boton[f + 1][c - 1].setBackground(Color.red);
+
+			Tablero.boton[f + 1][c - 1].addActionListener(new comerBoton(f + 1, c - 1, f, c));// ESTE
+
+		}
+		if ((c < 7 && f < 7) && (Tablero.casilla[f][c].getPieza().getColor().equals("negro")
+				&& Tablero.casilla[f + 1][c + 1].getPieza().getColor().equals("blanco"))) {
+			Tablero.boton[f + 1][c + 1].setBackground(Color.red);
+			Tablero.boton[f + 1][c + 1].addActionListener(new comerBoton(f + 1, c + 1, f, c));// ESTE
+
+		}
 		cambiarTurno();
+
 	}
 
 	public void movPeonBlanco(int f, int c, Pieza peonBlanco) {//// falta poner cuando puede comer el peon
-		if (f == 0) {
-			cambiarTurno();
-		}
 
 		if ((f > 0) && (Tablero.casilla[f - 1][c].getPieza().getNombrePieza().equals("..."))) {
 
 			Tablero.boton[f - 1][c].setBackground(Color.blue);
-			Tablero.boton[f - 2][c].setBackground(Color.blue);
+
 			Tablero.boton[f - 1][c].addActionListener(new aDondePuedoMoverFicha(f - 1, c, f, c));
-			Tablero.boton[f - 2][c].addActionListener(new aDondePuedoMoverFicha(f - 2, c, f, c));
-			cambiarTurno();
+			if (Tablero.casilla[f][c].getPieza().isPrimerMovimiento()) {
+				Tablero.boton[f - 2][c].setBackground(Color.blue);
+				Tablero.boton[f - 2][c].addActionListener(new aDondePuedoMoverFicha(f - 2, c, f, c));
+				Tablero.casilla[f][c].getPieza().setPrimerMovimiento(false);
+			}
+
 		}
 		// Parte de comer
 		// CAMBIAR!**************************************************************************************************************************
@@ -196,17 +222,17 @@ public class Juego {
 		}
 		if ((c < 7 && f > 0) && (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
 				&& Tablero.casilla[f - 1][c + 1].getPieza().getColor().equals("negro"))) {
+
 			Tablero.boton[f - 1][c + 1].setBackground(Color.red);
 			Tablero.boton[f - 1][c + 1].addActionListener(new comerBoton(f - 1, c + 1, f, c));// ESTE
 
 		}
+		cambiarTurno();
 
 	}
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	
-	
 	public Pieza getPieza(int f, int c) {
 		return Tablero.casilla[f][c].getPieza();
 	}
@@ -256,6 +282,7 @@ public class Juego {
 				}
 			}
 		}
+
 	}
 
 	public static void movTorre(int f, int c) {

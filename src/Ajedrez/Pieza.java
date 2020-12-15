@@ -9,16 +9,16 @@ public class Pieza {
 	private int fila;
 	private int columna;
 	private ImageIcon Imagen;
-	private boolean viva;
+	private boolean primerMovimiento;
 
-	public Pieza(String color, String nombrePieza,int fila,int columna) {
+	public Pieza(String color, String nombrePieza, int fila, int columna) {
 		super();
 		this.color = color;
 		this.nombrePieza = nombrePieza;
 		this.posicion = Integer.toString(fila) + "-" + Integer.toString(columna);
 		this.fila = fila;
-		this.columna =columna;
-		this.viva = true;
+		this.columna = columna;
+		this.primerMovimiento = true;
 		if (color.equals("negro")) {
 			if (nombrePieza.equals("peon")) {
 				this.Imagen = new ImageIcon("./img/piezasNegras/peon.png");
@@ -53,6 +53,14 @@ public class Pieza {
 
 	}
 
+	public boolean isPrimerMovimiento() {
+		return primerMovimiento;
+	}
+
+	public void setPrimerMovimiento(boolean primerMovimiento) {
+		this.primerMovimiento = primerMovimiento;
+	}
+
 	public int getFila() {
 		return fila;
 	}
@@ -81,7 +89,7 @@ public class Pieza {
 		return posicion;
 	}
 
-	public void setPosicion(int f,int c) {
+	public void setPosicion(int f, int c) {
 		this.posicion = Integer.toString(f) + "-" + Integer.toString(c);
 	}
 
@@ -91,14 +99,6 @@ public class Pieza {
 
 	public void setNombrePieza(String nombrePieza) {
 		this.nombrePieza = nombrePieza;
-	}
-
-	public boolean isViva() {
-		return viva;
-	}
-
-	public void setViva(boolean viva) {
-		this.viva = viva;
 	}
 
 	public String getColor() {
