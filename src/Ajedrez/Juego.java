@@ -177,7 +177,7 @@ public class Juego {
 
 		for (int i = 1; i < Tablero.casilla[f].length - Tablero.casilla[f][c].getPieza().getColumna(); i++) {
 
-			if (Tablero.casilla[f][c + i].getPieza().getNombrePieza().equals("...") && (c < 7)) {
+			if (Tablero.casilla[f][c + i].getPieza().getNombrePieza().equals("...")) {
 				Tablero.boton[f][c + i].addActionListener(new aDondePuedoMoverFicha(f, c + i, f, c));
 				Tablero.boton[f][c + i].setBackground(Color.blue);
 
@@ -188,7 +188,7 @@ public class Juego {
 			} else if ((Tablero.casilla[f][c].getPieza().getColor().equals("negro")
 					&& Tablero.casilla[f][c + i].getPieza().getColor().equals("blanco"))
 					|| (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-							&& Tablero.casilla[f][c + i].getPieza().getColor().equals("negro")) && (c < 7)) {
+							&& Tablero.casilla[f][c + i].getPieza().getColor().equals("negro"))) {
 				Tablero.boton[f][c + i].addActionListener(new comerBoton(f, c + i, f, c));// ESTE
 				Tablero.boton[f][c + i].setBackground(Color.red);
 				i = 7;
@@ -196,7 +196,7 @@ public class Juego {
 
 		}
 		for (int i = 1; i <= Tablero.casilla[f][c].getPieza().getColumna(); i++) {
-			if (Tablero.casilla[f][c - i].getPieza().getNombrePieza().equals("...") && (c > 0)) {
+			if (Tablero.casilla[f][c - i].getPieza().getNombrePieza().equals("...")) {
 				Tablero.boton[f][c - i].addActionListener(new aDondePuedoMoverFicha(f, c - i, f, c));
 				Tablero.boton[f][c - i].setBackground(Color.blue);
 			} else if (Tablero.casilla[f][c].getPieza().getColor()
@@ -206,7 +206,7 @@ public class Juego {
 			} else if ((Tablero.casilla[f][c].getPieza().getColor().equals("negro")
 					&& Tablero.casilla[f][c - i].getPieza().getColor().equals("blanco"))
 					|| (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-							&& Tablero.casilla[f][c - i].getPieza().getColor().equals("negro")) && (c > 0)) {
+							&& Tablero.casilla[f][c - i].getPieza().getColor().equals("negro"))) {
 				Tablero.boton[f][c - i].addActionListener(new comerBoton(f, c - i, f, c));// ESTE
 				Tablero.boton[f][c - i].setBackground(Color.red);
 				i = 7;
@@ -214,7 +214,7 @@ public class Juego {
 
 		}
 		for (int i = 1; i < Tablero.casilla[f].length - Tablero.casilla[f][c].getPieza().getFila(); i++) {
-			if (Tablero.casilla[f + i][c].getPieza().getNombrePieza().equals("...") && (f < 7)) {
+			if (Tablero.casilla[f + i][c].getPieza().getNombrePieza().equals("...")) {
 				Tablero.boton[f + i][c].addActionListener(new aDondePuedoMoverFicha(f + i, c, f, c));
 				Tablero.boton[f + i][c].setBackground(Color.blue);
 			} else if (Tablero.casilla[f][c].getPieza().getColor()
@@ -224,7 +224,7 @@ public class Juego {
 			} else if ((Tablero.casilla[f][c].getPieza().getColor().equals("negro")
 					&& Tablero.casilla[f + i][c].getPieza().getColor().equals("blanco"))
 					|| (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-							&& Tablero.casilla[f + i][c].getPieza().getColor().equals("negro")) && (f < 7)) {
+							&& Tablero.casilla[f + i][c].getPieza().getColor().equals("negro")) ) {
 				Tablero.boton[f + i][c].addActionListener(new comerBoton(f + i, c, f, c));// ESTE
 				Tablero.boton[f + i][c].setBackground(Color.red);
 				i = 7;
@@ -232,7 +232,7 @@ public class Juego {
 
 		}
 		for (int i = 1; i <= Tablero.casilla[f][c].getPieza().getFila(); i++) {
-			if (Tablero.casilla[f - i][c].getPieza().getNombrePieza().equals("...") && (f > 0)) {
+			if (Tablero.casilla[f - i][c].getPieza().getNombrePieza().equals("...")) {
 				Tablero.boton[f - i][c].addActionListener(new aDondePuedoMoverFicha(f - i, c, f, c));
 				Tablero.boton[f - i][c].setBackground(Color.blue);
 			} else if (Tablero.casilla[f][c].getPieza().getColor()
@@ -242,7 +242,7 @@ public class Juego {
 			} else if ((Tablero.casilla[f][c].getPieza().getColor().equals("negro")
 					&& Tablero.casilla[f - i][c].getPieza().getColor().equals("blanco"))
 					|| (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-							&& Tablero.casilla[f - i][c].getPieza().getColor().equals("negro")) && (f > 0)) {
+							&& Tablero.casilla[f - i][c].getPieza().getColor().equals("negro")) ) {
 				Tablero.boton[f - i][c].addActionListener(new comerBoton(f + i, c, f, c));// ESTE
 				Tablero.boton[f - i][c].setBackground(Color.red);
 				i = 7;
