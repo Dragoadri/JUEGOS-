@@ -59,7 +59,8 @@ public class Juego {
 			Tablero.boton[f + 1][c].setBackground(Color.blue);
 
 			Tablero.boton[f + 1][c].addActionListener(new aDondePuedoMoverFicha(f + 1, c, f, c));
-			if (Tablero.casilla[f][c].getPieza().isPrimerMovimiento()) {
+			if (Tablero.casilla[f][c].getPieza().isPrimerMovimiento()
+					&& Tablero.casilla[f + 2][c].getPieza().getNombrePieza().equals("...")) {
 				Tablero.boton[f + 2][c].setBackground(Color.blue);
 				Tablero.boton[f + 2][c].addActionListener(new aDondePuedoMoverFicha(f + 2, c, f, c));
 				Tablero.casilla[f][c].getPieza().setPrimerMovimiento(false);
@@ -91,7 +92,8 @@ public class Juego {
 			Tablero.boton[f - 1][c].setBackground(Color.blue);
 
 			Tablero.boton[f - 1][c].addActionListener(new aDondePuedoMoverFicha(f - 1, c, f, c));
-			if (Tablero.casilla[f][c].getPieza().isPrimerMovimiento()) {
+			if (Tablero.casilla[f][c].getPieza().isPrimerMovimiento()
+					&& Tablero.casilla[f - 2][c].getPieza().getNombrePieza().equals("...")) {
 				Tablero.boton[f - 2][c].setBackground(Color.blue);
 				Tablero.boton[f - 2][c].addActionListener(new aDondePuedoMoverFicha(f - 2, c, f, c));
 				Tablero.casilla[f][c].getPieza().setPrimerMovimiento(false);
