@@ -356,25 +356,23 @@ public class Juego {
 	public static void movAlfil(int f, int c) {
 
 		for (int i = 1; i < Tablero.casilla[f].length; i++) {
-			if ((c < 7 && f < 7)) {
 
-				if (((c < 7 && f < 7)) && (Tablero.casilla[f + i][c + i].getPieza().getColumna() > 7
-						|| Tablero.casilla[f + i][c + i].getPieza().getFila() > 7)) {
-					Tablero.boton[f + i][c + i].setBackground(Color.blue);
-					i = Tablero.casilla[f].length;
+			if (((c < 7 && f < 7)) && (Tablero.casilla[f + i][c + i].getPieza().getColumna() > 7
+					|| Tablero.casilla[f + i][c + i].getPieza().getFila() > 7)) {
+				Tablero.boton[f + i][c + i].setBackground(Color.blue);
 
-				} else if ((c < 7 && f < 7)
-						&& (Tablero.casilla[f + i][c + i].getPieza().getNombrePieza().equals("..."))) {
-					Tablero.boton[f + i][c + i].setBackground(Color.blue);
-				} else if ((c < 7 && f < 7) && ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-						&& Tablero.casilla[f + i][c + i].getPieza().getColor().equals("negro"))
-						|| (Tablero.casilla[f][c].getPieza().getColor().equals("negro")
-								&& Tablero.casilla[f + i][c + i].getPieza().getColor().equals("blanco")))) {
-					Tablero.boton[f + i][c + i].setBackground(Color.red);
-					i = Tablero.casilla[f].length;
-				} else {
-					i = Tablero.casilla[f].length;
-				}
+				i = Tablero.casilla[f].length;
+
+			} else if ((c < 7 && f < 7) && (Tablero.casilla[f + i][c + i].getPieza().getNombrePieza().equals("..."))) {
+				Tablero.boton[f + i][c + i].setBackground(Color.blue);
+			} else if ((c < 7 && f < 7) && ((Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
+					&& Tablero.casilla[f + i][c + i].getPieza().getColor().equals("negro"))
+					|| (Tablero.casilla[f][c].getPieza().getColor().equals("negro")
+							&& Tablero.casilla[f + i][c + i].getPieza().getColor().equals("blanco")))) {
+				Tablero.boton[f + i][c + i].setBackground(Color.red);
+				i = Tablero.casilla[f].length;
+			} else {
+				i = Tablero.casilla[f].length;
 			}
 
 		}
