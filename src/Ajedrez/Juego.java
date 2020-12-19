@@ -52,70 +52,75 @@ public class Juego {
 
 	}
 
-	public static void movPeonNegro(int f, int c, Pieza peonNegro) {// falta poner cuando puede comer el peon
+	public static boolean piezaNombreEquals(int f, int c, String word) {
 
-		if ((f < 7) && (Tablero.casilla[f + 1][c].getPieza().getNombrePieza().equals("..."))) {
+		return Tablero.casilla[f][c].getPieza().getNombrePieza().equals(word);
 
-			Tablero.boton[f + 1][c].setBackground(Color.blue);
+	}
 
-			Tablero.boton[f + 1][c].addActionListener(new aDondePuedoMoverFicha(f + 1, c, f, c));
-			if (Tablero.casilla[f][c].getPieza().isPrimerMovimiento()
-					&& Tablero.casilla[f + 2][c].getPieza().getNombrePieza().equals("...")) {
-				Tablero.boton[f + 2][c].setBackground(Color.blue);
-				Tablero.boton[f + 2][c].addActionListener(new aDondePuedoMoverFicha(f + 2, c, f, c));
+	public static boolean piezaColorEquals(int f, int c, String word) {
+
+		return Tablero.casilla[f][c].getPieza().getColor().equals(word);
+
+	}
+
+	public static void casillasPosiblesMov(int fNuevo, int cNuevo, int f, int c) {
+
+		Tablero.boton[fNuevo][cNuevo].setBackground(Color.blue);
+		Tablero.boton[fNuevo][cNuevo].addActionListener(new aDondePuedoMoverFicha(fNuevo, cNuevo, f, c));
+	}
+
+	public static void casillasPosiblesComer(int fNuevo, int cNuevo, int f, int c) {
+
+		Tablero.boton[fNuevo][cNuevo].setBackground(Color.red);
+		Tablero.boton[fNuevo][cNuevo].addActionListener(new comerBoton(fNuevo, cNuevo, f, c));
+	}
+
+	public static void movPeonNegro(int f, int c, Pieza peonNegro) {
+
+		if ((f < 7) && (piezaNombreEquals(f + 1, c, "..."))) {
+
+			casillasPosiblesMov((f + 1), c, f, c);
+
+			if (Tablero.casilla[f][c].getPieza().isPrimerMovimiento() && piezaNombreEquals(f + 2, c, "...")) {
+
+				casillasPosiblesMov((f + 2), c, f, c);
+
 				Tablero.casilla[f][c].getPieza().setPrimerMovimiento(false);
 			}
 
 		}
-		if ((c > 0 && f < 7) && (Tablero.casilla[f][c].getPieza().getColor().equals("negro")
-				&& Tablero.casilla[f + 1][c - 1].getPieza().getColor().equals("blanco"))) {
+		if ((c > 0 && f < 7) && (piezaColorEquals(f, c, "negro") && piezaColorEquals(f + 1, c - 1, "blanco"))) {
 
-			Tablero.boton[f + 1][c - 1].setBackground(Color.red);
-
-			Tablero.boton[f + 1][c - 1].addActionListener(new comerBoton(f + 1, c - 1, f, c));// ESTE
-
+			casillasPosiblesComer(f + 1, c - 1, f, c);
 		}
-		if ((c < 7 && f < 7) && (Tablero.casilla[f][c].getPieza().getColor().equals("negro")
-				&& Tablero.casilla[f + 1][c + 1].getPieza().getColor().equals("blanco"))) {
-			Tablero.boton[f + 1][c + 1].setBackground(Color.red);
-
-			Tablero.boton[f + 1][c + 1].addActionListener(new comerBoton(f + 1, c + 1, f, c));// ESTE
-
+		if ((c < 7 && f < 7) && (piezaColorEquals(f, c, "negro") && piezaColorEquals(f + 1, c + 1, "blanco"))) {
+			casillasPosiblesComer(f + 1, c + 1, f, c);
 		}
 
 	}
 
 	public static void movPeonBlanco(int f, int c, Pieza peonBlanco) {//// falta poner cuando puede comer el peon
 
-		if ((f > 0) && (Tablero.casilla[f - 1][c].getPieza().getNombrePieza().equals("..."))) {
+		if ((f > 0) && (piezaNombreEquals(f - 1, c, "..."))) {
 
-			Tablero.boton[f - 1][c].setBackground(Color.blue);
+			casillasPosiblesMov((f - 1), c, f, c);
 
-			Tablero.boton[f - 1][c].addActionListener(new aDondePuedoMoverFicha(f - 1, c, f, c));
-			if (Tablero.casilla[f][c].getPieza().isPrimerMovimiento()
-					&& Tablero.casilla[f - 2][c].getPieza().getNombrePieza().equals("...")) {
-				Tablero.boton[f - 2][c].setBackground(Color.blue);
-				Tablero.boton[f - 2][c].addActionListener(new aDondePuedoMoverFicha(f - 2, c, f, c));
+			if (Tablero.casilla[f][c].getPieza().isPrimerMovimiento() && piezaNombreEquals(f - 2, c, "...")) {
+
+				casillasPosiblesMov((f - 2), c, f, c);
 				Tablero.casilla[f][c].getPieza().setPrimerMovimiento(false);
 			}
 
 		}
-		// Parte de comer
-		// CAMBIAR!**************************************************************************************************************************
-		if ((c > 0 && f > 0) && (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-				&& Tablero.casilla[f - 1][c - 1].getPieza().getColor().equals("negro"))) {
+		if ((c > 0 && f > 0) && (piezaColorEquals(f, c, "blanco") && piezaColorEquals(f - 1, c - 1, "negro"))) {
 
-			Tablero.boton[f - 1][c - 1].setBackground(Color.red);
-
-			Tablero.boton[f - 1][c - 1].addActionListener(new comerBoton(f - 1, c - 1, f, c));// ESTE
+			casillasPosiblesComer(f - 1, c - 1, f, c);
 
 		}
-		if ((c < 7 && f > 0) && (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-				&& Tablero.casilla[f - 1][c + 1].getPieza().getColor().equals("negro"))) {
+		if ((c < 7 && f > 0) && (piezaColorEquals(f, c, "blanco") && piezaColorEquals(f - 1, c + 1, "negro"))) {
 
-			Tablero.boton[f - 1][c + 1].setBackground(Color.red);
-			Tablero.boton[f - 1][c + 1].addActionListener(new comerBoton(f - 1, c + 1, f, c));// ESTE
-
+			casillasPosiblesComer(f - 1, c + 1, f, c);
 		}
 
 	}
@@ -174,80 +179,76 @@ public class Juego {
 		}
 
 	}
+	public static void funcionesTorre(int fNuevo, int cNuevo, int f, int c) {
+		
+		
+	}
 
 	public static void movTorre(int f, int c) {
 
 		for (int i = 1; i < Tablero.casilla[f].length - Tablero.casilla[f][c].getPieza().getColumna(); i++) {
 
-			if (Tablero.casilla[f][c + i].getPieza().getNombrePieza().equals("...")) {
-				Tablero.boton[f][c + i].addActionListener(new aDondePuedoMoverFicha(f, c + i, f, c));
-				Tablero.boton[f][c + i].setBackground(Color.blue);
+			if (piezaNombreEquals(f, c + i, "...")) {
 
-			} else if (Tablero.casilla[f][c].getPieza().getColor()
-					.equals(Tablero.casilla[f][c + i].getPieza().getColor())) {
+				casillasPosiblesMov(f, c + i, f, c);
+			} else if (piezaColorEquals(f, c, (Tablero.casilla[f][c + i].getPieza().getColor()))) {
+				break;
 
-				i = 7;
-			} else if ((Tablero.casilla[f][c].getPieza().getColor().equals("negro")
-					&& Tablero.casilla[f][c + i].getPieza().getColor().equals("blanco"))
-					|| (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-							&& Tablero.casilla[f][c + i].getPieza().getColor().equals("negro"))) {
-				Tablero.boton[f][c + i].addActionListener(new comerBoton(f, c + i, f, c));// ESTE
-				Tablero.boton[f][c + i].setBackground(Color.red);
-				i = 7;
+			} else if ((piezaColorEquals(f, c, "negro") && piezaColorEquals(f, c + i, "blanco"))
+					|| ((piezaColorEquals(f, c, "blanco")) && piezaColorEquals(f, c + i, "negro"))) {
+
+				casillasPosiblesComer(f, c + i, f, c);
+
+				break;
 			}
 
 		}
+		
 		for (int i = 1; i <= Tablero.casilla[f][c].getPieza().getColumna(); i++) {
-			if (Tablero.casilla[f][c - i].getPieza().getNombrePieza().equals("...")) {
-				Tablero.boton[f][c - i].addActionListener(new aDondePuedoMoverFicha(f, c - i, f, c));
-				Tablero.boton[f][c - i].setBackground(Color.blue);
-			} else if (Tablero.casilla[f][c].getPieza().getColor()
-					.equals(Tablero.casilla[f][c - i].getPieza().getColor())) {
+			if (piezaNombreEquals(f, c - i, "...")) {
 
-				i = 7;
-			} else if ((Tablero.casilla[f][c].getPieza().getColor().equals("negro")
-					&& Tablero.casilla[f][c - i].getPieza().getColor().equals("blanco"))
-					|| (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-							&& Tablero.casilla[f][c - i].getPieza().getColor().equals("negro"))) {
-				Tablero.boton[f][c - i].addActionListener(new comerBoton(f, c - i, f, c));// COMER
-				Tablero.boton[f][c - i].setBackground(Color.red);
-				i = 7;
+				casillasPosiblesMov(f, c - i, f, c);
+			} else if (piezaColorEquals(f, c, (Tablero.casilla[f][c - i].getPieza().getColor()))) {
+				break;
+
+			} else if ((piezaColorEquals(f, c, "negro") && piezaColorEquals(f, c - i, "blanco"))
+					|| ((piezaColorEquals(f, c, "blanco")) && piezaColorEquals(f, c - i, "negro"))) {
+
+				casillasPosiblesComer(f, c - i, f, c);
+
+				break;
 			}
 
 		}
 		for (int i = 1; i < Tablero.casilla[f].length - Tablero.casilla[f][c].getPieza().getFila(); i++) {
-			if (Tablero.casilla[f + i][c].getPieza().getNombrePieza().equals("...")) {
-				Tablero.boton[f + i][c].addActionListener(new aDondePuedoMoverFicha(f + i, c, f, c));
-				Tablero.boton[f + i][c].setBackground(Color.blue);
-			} else if (Tablero.casilla[f][c].getPieza().getColor()
-					.equals(Tablero.casilla[f + i][c].getPieza().getColor())) {
+			if (piezaNombreEquals(f + i, c, "...")) {
 
-				i = 7;
-			} else if ((Tablero.casilla[f][c].getPieza().getColor().equals("negro")
-					&& Tablero.casilla[f + i][c].getPieza().getColor().equals("blanco"))
-					|| (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-							&& Tablero.casilla[f + i][c].getPieza().getColor().equals("negro"))) {
-				Tablero.boton[f + i][c].addActionListener(new comerBoton(f + i, c, f, c));// ESTE
-				Tablero.boton[f + i][c].setBackground(Color.red);
-				i = 7;
+				casillasPosiblesMov(f + i, c, f, c);
+			} else if (piezaColorEquals(f, c, (Tablero.casilla[f + i][c].getPieza().getColor()))) {
+				break;
+
+			} else if ((piezaColorEquals(f, c, "negro") && piezaColorEquals(f + i, c, "blanco"))
+					|| ((piezaColorEquals(f, c, "blanco")) && piezaColorEquals(f + i, c, "negro"))) {
+
+				casillasPosiblesComer(f + i, c, f, c);
+
+				break;
 			}
 
 		}
 		for (int i = 1; i <= Tablero.casilla[f][c].getPieza().getFila(); i++) {
-			if (Tablero.casilla[f - i][c].getPieza().getNombrePieza().equals("...")) {
-				Tablero.boton[f - i][c].addActionListener(new aDondePuedoMoverFicha(f - i, c, f, c));
-				Tablero.boton[f - i][c].setBackground(Color.blue);
-			} else if (Tablero.casilla[f][c].getPieza().getColor()
-					.equals(Tablero.casilla[f - i][c].getPieza().getColor())) {
+			if (piezaNombreEquals(f - i, c, "...")) {
 
-				i = 7;
-			} else if ((Tablero.casilla[f][c].getPieza().getColor().equals("negro")
-					&& Tablero.casilla[f - i][c].getPieza().getColor().equals("blanco"))
-					|| (Tablero.casilla[f][c].getPieza().getColor().equals("blanco")
-							&& Tablero.casilla[f - i][c].getPieza().getColor().equals("negro"))) {
-				Tablero.boton[f - i][c].addActionListener(new comerBoton(f - i, c, f, c));// ESTE
-				Tablero.boton[f - i][c].setBackground(Color.red);
-				i = 7;
+				casillasPosiblesMov(f - i, c, f, c);
+			} else if (piezaColorEquals(f, c, (Tablero.casilla[f - i][c].getPieza().getColor()))) {
+				break;
+
+			} else if ((piezaColorEquals(f, c, "negro") && piezaColorEquals(f - i, c, "blanco"))
+					|| ((piezaColorEquals(f, c, "blanco")) && piezaColorEquals(f - i, c, "negro"))) {
+
+				casillasPosiblesComer(f - i, c, f, c);
+
+				break;
 			}
 
 		}
