@@ -34,8 +34,7 @@ public class Juego {
 
 	public static void comerFicha(int f, int c, int fBoton, int cBoton, Pieza p1, Pieza p2) {
 		cambiarTurno();
-		System.out.println(p1.getPosicion() + "-" + p1.getNombrePieza());// la ficha que come
-		System.out.println(p2.getPosicion() + "-" + p2.getNombrePieza());// la ficha que es comida
+		System.out.println(p1.getNombrePieza()+"-"+p1.getColor()+" ha comido a: "+ p2.getNombrePieza()+"-"+p2.getColor());// la ficha que come
 
 		System.out.println(f + "-" + c);// ficha que se van a comer
 		System.out.println(fBoton + "-" + cBoton);// ficha que come
