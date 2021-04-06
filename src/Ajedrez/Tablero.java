@@ -1,5 +1,10 @@
 package Ajedrez;
 
+/**
+ * 
+ * @author Adrian Cañadas
+ *
+ */
 import java.awt.Color;
 
 import java.awt.Container;
@@ -23,7 +28,7 @@ public class Tablero extends JFrame {
 		crearCasillas();// crea las casillas el array
 		crearPiezas();
 		colocarCasillas();// crea el boton de cada casilla y su color
-		//aniadirFichaRandom(4, 4);
+		// aniadirFichaRandom(4, 4);
 	}
 
 	/**
@@ -43,8 +48,8 @@ public class Tablero extends JFrame {
 	 */
 	public void aniadirFichaRandom(int f, int c) {
 
-	casilla[f][c].setPieza(new Pieza("blanco","torre",f,c));
-	boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
+		casilla[f][c].setPieza(new Pieza("blanco", "torre", f, c));
+		boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 	}
 
 	/**
@@ -114,7 +119,7 @@ public class Tablero extends JFrame {
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (c == 3 && f == 0) {
 
-			casilla[f][c].setPieza(new Pieza("negro", "reina",  f, c));
+			casilla[f][c].setPieza(new Pieza("negro", "reina", f, c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else if (c == 3 && f == 7) {
 			casilla[f][c].setPieza(new Pieza("blanco", "reina", f, c));
@@ -127,7 +132,7 @@ public class Tablero extends JFrame {
 			casilla[f][c].setPieza(new Pieza("blanco", "rey", f, c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		} else {
-			casilla[f][c].setPieza(new Pieza("...", "...",  f, c));
+			casilla[f][c].setPieza(new Pieza("...", "...", f, c));
 			boton[f][c].setIcon(casilla[f][c].getPieza().getImagen());
 		}
 

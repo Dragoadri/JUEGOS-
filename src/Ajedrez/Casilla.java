@@ -1,5 +1,9 @@
 package Ajedrez;
-
+/**
+ * 
+ * @author Adrian Cañadas
+ *
+ */
 public class Casilla {
 	private String color;// color de la casilla
 	private String posicion;// posicion de manera N-N

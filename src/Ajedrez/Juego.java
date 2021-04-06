@@ -1,5 +1,9 @@
 package Ajedrez;
-
+/**
+ * 
+ * @author Adrian Cañadas
+ *
+ */
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

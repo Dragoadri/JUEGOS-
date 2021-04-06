@@ -1,5 +1,9 @@
 package Ajedrez;
-
+/**
+ * 
+ * @author Adrian Cañadas
+ *
+ */
 import javax.swing.ImageIcon;
 
 public class Pieza {
