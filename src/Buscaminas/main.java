@@ -10,8 +10,15 @@ import java.util.Scanner;
 public class main {
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
-		System.out.println("-------BUSCAMINAS-------\n\n\n");
-		System.out.println("Seleccione la dificultad:");
+		System.out.println("-------BUSCAMINAS-------\n\n"
+				+ "Simbolos: \n"
+				+ "Sin explorar           (-)\n"
+				+ "Vacio                  ( )\n"
+				+ "Mina proxima numero    (1-8)\n"
+				+ "Mina explotada         (*)\n"
+				+ "Mina sin explotar      (@)\n");
+		
+		System.out.println("Seleccione la dificultad:\n");
 		System.out.println("(1)-Principiante");
 		System.out.println("(2)-Intermedio");
 		System.out.println("(3)-Avanzado");
@@ -43,10 +50,12 @@ public class main {
 			break;
 
 		}
+		
+		
 		j.inicio();
 
 		while (!j.minaExplota()&&!j.esGanador()) {
-			j.mostrarTablero();
+					j.mostrarTablero();
 
 			System.out.println("\n\n--Casilla a pulsar--\n\nIntroduzca fila:");
 			int filaPide = in.nextInt();
@@ -55,8 +64,7 @@ public class main {
 			j.hacerVisible(filaPide, columnaPide);
 		}
 		j.mostrarTablero();
-		
-		System.out.println(j.esGanador()?"FELICIDADES!\n"
+		System.out.println(j.esGanador()?"\nFELICIDADES!\n"
 				+ "HAS GANADO":"\n\nBUM!!!\n" + "HAS EXPLOTADO UNA MINA\n");
 		System.out.println("------FIN DEL JUEGO------");
 	}

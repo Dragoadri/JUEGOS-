@@ -42,6 +42,7 @@ public class Tablero {
 							contMinas++;
 						}
 					} catch (Exception e) {
+						
 					}
 					try {
 						if (casillas[i + 1][j].getContenido().isEsMina()) {

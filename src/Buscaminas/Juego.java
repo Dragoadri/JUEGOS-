@@ -67,14 +67,112 @@ public class Juego {
 			tab.getCasillas()[f][c].getContenido().setSimbolo('*');
 		} else if (tab.getCasillas()[f][c].getContenido().getSimbolo() == ' ') {
 
-			this.hacerVisibleEspaciosAbDe(f, c);
-			this.hacerVisibleEspaciosArIz(f, c);
+			
+			
+this.hacerVisibleEspacios(f, c);
+//			this.hacerVisibleEspaciosAbDe(f, c);
+//			this.hacerVisibleEspaciosArIz(f, c);
 	
-			this.hacerVisibleEspaciosAbDe(f, c);
-			this.hacerVisibleEspaciosArIz(f, c);
+		
 		}
 	}
+	public void hacerVisibleEspacios(int f, int c) {
+		
+		try {
+			if (!this.tab.getCasillas()[f - 1][c].getContenido().isEsMina()&&!this.tab.getCasillas()[f - 1][c].getContenido().isVisible()) {
+				this.tab.getCasillas()[f - 1][c].getContenido().setVisible(true);
+				if (this.tab.getCasillas()[f - 1][c].getContenido().getSimbolo() == ' '
+						&& this.tab.getCasillas()[f - 1][c].getContenido().isVisible()) {
+					this.hacerVisibleEspacios(f - 1, c);
+				}
 
+			}
+		} catch (Exception e) {
+		}
+		try {
+			if (!this.tab.getCasillas()[f + 1][c].getContenido().isEsMina()&&!this.tab.getCasillas()[f + 1][c].getContenido().isVisible()) {
+				this.tab.getCasillas()[f + 1][c].getContenido().setVisible(true);
+
+				if (this.tab.getCasillas()[f + 1][c].getContenido().getSimbolo() == ' '
+						&& this.tab.getCasillas()[f + 1][c].getContenido().isVisible()) {
+
+					this.hacerVisibleEspacios(f + 1, c);
+				}
+
+			}
+		} catch (Exception e) {
+		}
+		try {
+			if (!this.tab.getCasillas()[f ][c+ 1].getContenido().isEsMina()&&!this.tab.getCasillas()[f ][c+ 1].getContenido().isVisible()) {
+				this.tab.getCasillas()[f ][c+ 1].getContenido().setVisible(true);
+
+				if (this.tab.getCasillas()[f ][c+ 1].getContenido().getSimbolo() == ' '
+						&& this.tab.getCasillas()[f ][c+ 1].getContenido().isVisible()) {
+
+					this.hacerVisibleEspacios(f , c+ 1);
+				}
+
+			}
+		} catch (Exception e) {
+		}try {
+			if (!this.tab.getCasillas()[f ][c- 1].getContenido().isEsMina()&&!this.tab.getCasillas()[f ][c- 1].getContenido().isVisible()) {
+				this.tab.getCasillas()[f ][c- 1].getContenido().setVisible(true);
+
+				if (this.tab.getCasillas()[f ][c- 1].getContenido().getSimbolo() == ' '
+						&& this.tab.getCasillas()[f ][c-1].getContenido().isVisible()) {
+
+					this.hacerVisibleEspacios(f , c- 1);
+				}
+
+			}
+		} catch (Exception e) {
+		}
+		try {
+			if (!this.tab.getCasillas()[f - 1][c - 1].getContenido().isEsMina()&&!this.tab.getCasillas()[f-1 ][c- 1].getContenido().isVisible()) {
+				this.tab.getCasillas()[f - 1][c - 1].getContenido().setVisible(true);
+				if (this.tab.getCasillas()[f - 1][c - 1].getContenido().getSimbolo() == ' '
+						&& this.tab.getCasillas()[f - 1][c - 1].getContenido().isVisible()) {
+					this.hacerVisibleEspacios(f - 1, c - 1);
+				}
+			}
+		} catch (Exception e) {
+		}
+		try {
+			if (!this.tab.getCasillas()[f - 1][c + 1].getContenido().isEsMina()&&!this.tab.getCasillas()[f-1 ][c+1].getContenido().isVisible()) {
+				this.tab.getCasillas()[f - 1][c + 1].getContenido().setVisible(true);
+				if (this.tab.getCasillas()[f - 1][c + 1].getContenido().getSimbolo() == ' '
+						&& this.tab.getCasillas()[f - 1][c + 1].getContenido().isVisible()) {
+					this.hacerVisibleEspacios(f - 1, c + 1);
+				}
+			}
+		} catch (Exception e) {
+		}
+
+		try {
+			if (!this.tab.getCasillas()[f + 1][c + 1].getContenido().isEsMina()&&!this.tab.getCasillas()[f+1 ][c+1].getContenido().isVisible()) {
+				this.tab.getCasillas()[f + 1][c + 1].getContenido().setVisible(true);
+				if (this.tab.getCasillas()[f + 1][c + 1].getContenido().getSimbolo() == ' '
+						&& this.tab.getCasillas()[f + 1][c + 1].getContenido().isVisible()) {
+					this.hacerVisibleEspacios(f + 1, c + 1);
+				}
+			}
+		} catch (Exception e) {
+		}
+		try {
+			if (!this.tab.getCasillas()[f + 1][c - 1].getContenido().isEsMina()&&!this.tab.getCasillas()[f+1 ][c-1].getContenido().isVisible()) {
+				this.tab.getCasillas()[f + 1][c - 1].getContenido().setVisible(true);
+				if (this.tab.getCasillas()[f + 1][c - 1].getContenido().getSimbolo() == ' '
+						&& this.tab.getCasillas()[f + 1][c - 1].getContenido().isVisible()) {
+					this.hacerVisibleEspacios(f + 1, c - 1);
+				}
+			}
+		} catch (Exception e) {
+		}
+
+		
+		
+		
+	}
 	public void hacerVisibleEspaciosArIz(int f, int c) {
 		try {
 			if (!this.tab.getCasillas()[f - 1][c].getContenido().isEsMina()) {
