@@ -63,6 +63,12 @@ public class Dificultad {
 		Juego j = new Juego(new Tablero(alto,ancho,minas));
 		j.inicio();
 
+		TabGraf tab = new TabGraf(alto,ancho);
+		tab.setVisible(true);
+		
+		
+		
+		
 		while (!j.minaExplota()&&!j.esGanador()) {
 					j.mostrarTablero();
 
