@@ -19,6 +19,7 @@ public class TabGraf extends JFrame {
 	private int filas;
 	private int columnas;
 	private int minas;
+	private Juego jue;
 
 	/**
 	 * Launch the application.
@@ -43,6 +44,11 @@ public class TabGraf extends JFrame {
 		//mas
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 250, 500, 500);
+		jue= new Juego(this);
+		
+		
+		
+		
 		
 		
 		
@@ -52,13 +58,41 @@ public class TabGraf extends JFrame {
 	
 	public void inicio() {ponerBotones();
 	rellenarTablero();
-	colocar();}
+	colocar();
+	listenerBoton();}
 	
+	public void listenerBoton() {
+		
+		for (int i = 0; i < casilla.length; i++) {
+			for (int j = 0; j < casilla[0].length; j++) {
+			evento(i, j);
+			}
+		}
+		
+	}
+	
+	public void evento(int i,int j) {
+	
+		
+		casilla[i][j].getBoton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+//				casilla[i][j].getBoton().setText(""+
+//						casilla[i][j].getContenido().getSimbolo());
+				
+				
+				getJue().hacerVisible(i, j);
+				//getJue().hacervisibleTodasLasMinas();
+				
+				
+			}
+		});
+	}
 	
 	public void ponerBotones() {
 		for (int f = 0; f < casilla.length; f++) {
 			for (int c = 0; c < casilla[0].length; c++) {
-				casilla[f][c]=new Casilla(f, c,new caso("nada", 'n', false));
+				casilla[f][c]=new Casilla(f, c,new caso("nada", ' ', false),this.getJue());
 				//contentPane.add(casilla[f][c].getBoton());
 			}
 		}
@@ -148,13 +182,18 @@ public void colocar() {
 					}
 
 				}
-				this.casilla[i][j].actualizarBot();
+//				this.casilla[i][j].actualizarBot();
 			}
 		}
 
 	}
-	public Casilla[][] getCasilla() {
+	public Casilla[][] getCasillas() {
 		return casilla;
+	}
+
+
+	public Juego getJue() {
+		return jue;
 	}
 	
 	

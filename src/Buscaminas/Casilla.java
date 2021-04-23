@@ -18,21 +18,18 @@ public class Casilla {
 	private int columna;
 	private caso contenido;
 	private JButton boton;
+	private Juego j;
 	
 	
 	
 
-	public Casilla(int fila , int columna,caso contenido) {
+	public Casilla(int fila , int columna,caso contenido,Juego j) {
 		this.fila=fila;
 		this.columna=columna;
 		this.setContenido(contenido);
-		this.boton= new JButton(fila+"-"+columna);
-		this.boton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				System.out.println(getContenido().getSimbolo());
-			}
-		});
+		this.j=j;
+		this.boton= new JButton();
+		
 		
 	}
 	
@@ -43,6 +40,7 @@ public class Casilla {
 
 
 	public void actualizarBot() {
+		this.getContenido().setVisible(true);
 		this.boton.setText(""+this.contenido.getSimbolo());
 	}
 
@@ -57,6 +55,11 @@ public class Casilla {
 	}
 	public int getColumna() {
 		return columna;
+	}
+
+
+	public Juego getJ() {
+		return j;
 	}
 	
 }

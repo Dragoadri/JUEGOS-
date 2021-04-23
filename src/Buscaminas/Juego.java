@@ -6,9 +6,9 @@ package Buscaminas;
  *
  */
 public class Juego {
-	private Tablero tab;
+	private TabGraf tab;
 
-	public Juego(Tablero tab) {
+	public Juego(TabGraf tab) {
 		this.tab = tab;
 	}
 
@@ -53,8 +53,11 @@ public class Juego {
 	public void hacervisibleTodasLasMinas() {
 		for (int i = 0; i < tab.getCasillas().length; i++) {
 			for (int j = 0; j < tab.getCasillas()[i].length; j++) {
+				
 				if (tab.getCasillas()[i][j].getContenido().isEsMina()) {
 					tab.getCasillas()[i][j].getContenido().setVisible(true);
+					tab.getCasillas()[i][j].getBoton().setText(""+
+					tab.getCasillas()[i][j].getContenido().getSimbolo());
 				}
 
 			}
@@ -64,8 +67,13 @@ public class Juego {
 	public void hacerVisible(int f, int c) {
 
 		tab.getCasillas()[f][c].getContenido().setVisible(true);
+		tab.getCasillas()[f][c].getBoton().setText(""+
+				tab.getCasillas()[f][c].getContenido().getSimbolo());
+		
 		if (tab.getCasillas()[f][c].getContenido().isEsMina()) {
 			tab.getCasillas()[f][c].getContenido().setSimbolo('*');
+			hacervisibleTodasLasMinas();
+			
 		} else if (tab.getCasillas()[f][c].getContenido().getSimbolo() == ' ') {
 
 			this.hacerVisibleEspaciosAlRededor(f, c);
@@ -77,7 +85,12 @@ public class Juego {
 		try {
 			if (!this.tab.getCasillas()[f][c].getContenido().isEsMina()
 					&& !this.tab.getCasillas()[f][c].getContenido().isVisible()) {
+				
 				this.tab.getCasillas()[f][c].getContenido().setVisible(true);
+				this.tab.getCasillas()[f][c].getBoton().setText(""+
+				this.tab.getCasillas()[f][c].getContenido().getSimbolo());
+				this.tab.getCasillas()[f][c].getBoton().setEnabled(false);
+				
 				if (this.tab.getCasillas()[f][c].getContenido().getSimbolo() == ' '
 						&& this.tab.getCasillas()[f][c].getContenido().isVisible()) {
 					this.hacerVisibleEspaciosAlRededor(f, c);
