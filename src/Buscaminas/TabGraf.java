@@ -38,13 +38,22 @@ public class TabGraf extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(filas, columnas));
 		casilla= new Casilla[filas][columnas];
-		ponerBotones();
-		rellenarTablero();
+		//metodos
+		inicio();
+		//mas
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		pack();
-		colocar();
+		setBounds(500, 250, 500, 500);
+		
+		
+		
 		
 	}
+	
+	
+	public void inicio() {ponerBotones();
+	rellenarTablero();
+	colocar();}
+	
 	
 	public void ponerBotones() {
 		for (int f = 0; f < casilla.length; f++) {
@@ -71,7 +80,7 @@ public void colocar() {
 
 			} while (casilla[f][c].getContenido().isEsMina());
 			casilla[f][c].setContenido(new caso("mina", '@', true));
-			contentPane.add(casilla[f][c].getBoton());
+			//contentPane.add(casilla[f][c].getBoton());
 
 		}
 
@@ -82,7 +91,7 @@ public void colocar() {
 
 				{
 					int contMinas = 0;
-					contentPane.add(casilla[i][j].getBoton());
+					//contentPane.add(casilla[i][j].getBoton());
 					try {
 						if (casilla[i - 1][j].getContenido().isEsMina()) {
 							contMinas++;

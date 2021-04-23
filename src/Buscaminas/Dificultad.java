@@ -51,10 +51,7 @@ public class Dificultad {
 	 */
 
 	public void comenzarPartida(int alto, int ancho, int minas) {
-		//Scanner in = new Scanner(System.in);
-		//Juego j = new Juego(new Tablero(alto, ancho, minas));
-		//j.inicio();
-		
+	
 		
 		TabGraf pantallaJuego = new TabGraf(alto,ancho,minas);
 		pantallaJuego.setVisible(true);
@@ -70,6 +67,7 @@ public class Dificultad {
 			int columnaPide = in.nextInt();
 			j.hacerVisible(filaPide, columnaPide);
 		}
+		
 		j.mostrarTablero();
 		System.out.println(
 				j.esGanador() ? "\nFELICIDADES!\n" + "HAS GANADO" : "\n\nBUM!!!\n" + "HAS EXPLOTADO UNA MINA\n");
