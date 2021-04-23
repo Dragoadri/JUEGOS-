@@ -34,16 +34,10 @@ public class Dificultad {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Dificultad window = new Dificultad();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+
+		Dificultad window = new Dificultad();
+		window.frame.setVisible(true);
+
 	}
 
 	/**
@@ -57,20 +51,19 @@ public class Dificultad {
 	 * Initialize the contents of the frame.
 	 */
 
-	public void comenzarPartida(int alto,int ancho,int minas) {
+	public void comenzarPartida(int alto, int ancho, int minas) {
 		Scanner in = new Scanner(System.in);
-
-		Juego j = new Juego(new Tablero(alto,ancho,minas));
+		Juego j = new Juego(new Tablero(alto, ancho, minas));
 		j.inicio();
+		
+		
+		TabGraf pantallaJuego = new TabGraf(alto,ancho,minas);
 
-		TabGraf tab = new TabGraf();
-		tab.setVisible(true);
 		
 		
-		
-		
-		while (!j.minaExplota()&&!j.esGanador()) {
-					j.mostrarTablero();
+
+		while (!j.minaExplota() && !j.esGanador()) {
+			j.mostrarTablero();
 
 			System.out.println("\n\n--Casilla a pulsar--\n\nIntroduzca fila:");
 			int filaPide = in.nextInt();
@@ -79,8 +72,8 @@ public class Dificultad {
 			j.hacerVisible(filaPide, columnaPide);
 		}
 		j.mostrarTablero();
-		System.out.println(j.esGanador()?"\nFELICIDADES!\n"
-				+ "HAS GANADO":"\n\nBUM!!!\n" + "HAS EXPLOTADO UNA MINA\n");
+		System.out.println(
+				j.esGanador() ? "\nFELICIDADES!\n" + "HAS GANADO" : "\n\nBUM!!!\n" + "HAS EXPLOTADO UNA MINA\n");
 		System.out.println("------FIN DEL JUEGO------");
 	}
 
@@ -232,6 +225,11 @@ public class Dificultad {
 		JButton btnNewButton = new JButton("Comenzar!");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+				
 				comenzarPartida(finalAlto(),finalAncho(),finalMinas());
 				
 				
@@ -244,19 +242,21 @@ public class Dificultad {
 		
 		
 	}
+
 	public int finalAlto() {
-			int alto = 0;
-			if (principiante.isSelected()) {
-				alto = 9;
-			} else if (intermedio.isSelected()) {
-				alto = 16;
-			} else if (avanzado.isSelected()) {
-				alto = 16;
-			} else if (personalizado.isSelected()) {
-				alto = Integer.parseInt(txtAlto.getText());
-			}
-			return alto;
+		int alto = 0;
+		if (principiante.isSelected()) {
+			alto = 9;
+		} else if (intermedio.isSelected()) {
+			alto = 16;
+		} else if (avanzado.isSelected()) {
+			alto = 16;
+		} else if (personalizado.isSelected()) {
+			alto = Integer.parseInt(txtAlto.getText());
 		}
+		return alto;
+	}
+
 	public int finalAncho() {
 		int ancho = 0;
 		if (principiante.isSelected()) {
@@ -270,6 +270,7 @@ public class Dificultad {
 		}
 		return ancho;
 	}
+
 	public int finalMinas() {
 		int minas = 0;
 		if (principiante.isSelected()) {
@@ -283,4 +284,6 @@ public class Dificultad {
 		}
 		return minas;
 	}
+
+	
 }
