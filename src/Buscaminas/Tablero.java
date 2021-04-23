@@ -26,7 +26,7 @@ public class Tablero {
 				c = (int) (Math.random() * (this.casillas[0].length - 1 + 1 - 1)) + 1;
 
 			} while (casillas[f][c] != null);
-			casillas[f][c] = new Casilla(f, c, "mina");
+			casillas[f][c] = new Casilla(f, c,new caso("mina", '@', true));
 		}
 
 		for (int i = 0; i < casillas.length; i++) {
@@ -36,7 +36,7 @@ public class Tablero {
 
 				{
 					int contMinas = 0;
-					casillas[i][j] = new Casilla(i, j, "nada");
+					casillas[i][j] = new Casilla(i, j,new caso("nada", 'n', false));
 					try {
 						if (casillas[i - 1][j].getContenido().isEsMina()) {
 							contMinas++;

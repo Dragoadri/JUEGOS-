@@ -1,4 +1,9 @@
+
+
 package Buscaminas;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
@@ -14,41 +19,47 @@ public class Casilla {
 	private caso contenido;
 	private JButton boton;
 	
-	public Casilla(int fila , int columna,String nombreContenido) {
-		this.fila=fila;
-		this.columna=columna;
-		char simbolo=' ';
-		boolean esMina=false;
-
-		if (nombreContenido.equals("mina")) {
-			simbolo='@';
-			esMina=true;
-		}else {
-			simbolo=' ';
-			esMina=false;
-		}
-		this.contenido= new caso(nombreContenido, simbolo, esMina);
-		this.boton= new JButton(fila+"-"+columna);
-		
-		
-	}
-	public Casilla(int fila , int columna) {
-		this.fila=fila;
-		this.columna=columna;
-		char simbolo=' ';
-		boolean esMina=false;
-
 	
-		this.contenido= new caso("nada", simbolo, esMina);
+	
+
+	public Casilla(int fila , int columna,caso contenido) {
+		this.fila=fila;
+		this.columna=columna;
+		this.setContenido(contenido);
 		this.boton= new JButton(fila+"-"+columna);
-		
+		this.boton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println(getContenido().getSimbolo());
+			}
+		});
 		
 	}
+	
+	
+	public void setContenido(caso contenido) {
+		this.contenido = contenido;
+	}
+
+
+	public void actualizarBot() {
+		this.boton.setText(""+this.contenido.getSimbolo());
+	}
+
 	public JButton getBoton() {
 		return boton;
 	}
 	public caso getContenido() {
 		return contenido;
 	}
+	public int getFila() {
+		return fila;
+	}
+	public int getColumna() {
+		return columna;
+	}
 	
 }
+
+
+

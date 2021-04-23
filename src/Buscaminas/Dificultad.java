@@ -29,7 +29,7 @@ public class Dificultad {
 	private JRadioButton avanzado;
 	private JRadioButton personalizado;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -37,7 +37,6 @@ public class Dificultad {
 
 		Dificultad window = new Dificultad();
 		window.frame.setVisible(true);
-
 	}
 
 	/**
@@ -52,14 +51,14 @@ public class Dificultad {
 	 */
 
 	public void comenzarPartida(int alto, int ancho, int minas) {
-		Scanner in = new Scanner(System.in);
-		Juego j = new Juego(new Tablero(alto, ancho, minas));
-		j.inicio();
+		//Scanner in = new Scanner(System.in);
+		//Juego j = new Juego(new Tablero(alto, ancho, minas));
+		//j.inicio();
 		
 		
 		TabGraf pantallaJuego = new TabGraf(alto,ancho,minas);
-
-		
+		pantallaJuego.setVisible(true);
+		/*JUEGO
 		
 
 		while (!j.minaExplota() && !j.esGanador()) {
@@ -75,6 +74,7 @@ public class Dificultad {
 		System.out.println(
 				j.esGanador() ? "\nFELICIDADES!\n" + "HAS GANADO" : "\n\nBUM!!!\n" + "HAS EXPLOTADO UNA MINA\n");
 		System.out.println("------FIN DEL JUEGO------");
+		*/
 	}
 
 	public void disableTxt() {
@@ -225,10 +225,6 @@ public class Dificultad {
 		JButton btnNewButton = new JButton("Comenzar!");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				
-				
 				
 				comenzarPartida(finalAlto(),finalAncho(),finalMinas());
 				
