@@ -41,7 +41,7 @@ public class Dificultad {
 
 	/**
 	 * Create the application.
-	 */
+	 */ 
 	public Dificultad() {
 		initialize();
 	}
