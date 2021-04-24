@@ -32,7 +32,7 @@ public class Dificultad {
 	
 	/**
 	 * Launch the application.
-	 */
+	 */ 
 	public static void main(String[] args) {
 
 		Dificultad window = new Dificultad();
