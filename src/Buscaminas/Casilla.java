@@ -21,9 +21,6 @@ public class Casilla {
 	private JButton boton;
 	private Juego j;
 	
-	
-	
-
 	public Casilla(int fila , int columna,caso contenido,Juego j) {
 		this.fila=fila;
 		this.columna=columna;

@@ -27,10 +27,10 @@ public class Juego {
 	
 	public boolean esGanador() {
 		boolean loEs = true;
-		for (int i = 0; i < tab.getCasillas().length; i++) {
-			for (int j = 0; j < tab.getCasillas()[i].length; j++) {
-				if (!tab.getCasillas()[i][j].getContenido().isEsMina()
-						&& !tab.getCasillas()[i][j].getContenido().isVisible()) {
+		for (int f = 0; f < tab.getCasillas().length; f++) {
+			for (int c = 0; c < tab.getCasillas()[f].length; c++) {
+				if (!casillaIsMina(f, c)
+						&& !tab.getCasillas()[f][c].getContenido().isVisible()) {
 					loEs = false;
 				}
 			}
@@ -38,23 +38,20 @@ public class Juego {
 
 		return loEs;
 	}
-
 	public void hacervisibleTodasLasMinas() {
-		for (int i = 0; i < tab.getCasillas().length; i++) {
-			for (int j = 0; j < tab.getCasillas()[i].length; j++) {
+		for (int f = 0; f < tab.getCasillas().length; f++) {
+			for (int c = 0; c < tab.getCasillas()[f].length; c++) {
 				
-				if (tab.getCasillas()[i][j].getContenido().isEsMina()) {
+				if (casillaIsMina(f, c)) {
 					
-					tab.getCasillas()[i][j].getContenido().setVisible(true);
-					tab.getCasillas()[i][j].getBoton().setIcon(
-							tab.getCasillas()[i][j].getContenido().getImagen());
-					tab.getCasillas()[i][j].getBoton().setBackground(Color.ORANGE);
-
 					
+					
+					deshacerCasilla(f, c);
+					
+					
+					colorearCasilla(f, c, Color.ORANGE);
 				}
-				tab.getCasillas()[i][j].getBoton().setEnabled(false);
-				
-
+				tab.getCasillas()[f][c].getBoton().setEnabled(false);
 			}
 		}
 		
@@ -66,9 +63,9 @@ public class Juego {
 
 		deshacerCasilla(f, c);
 		
-		if (tab.getCasillas()[f][c].getContenido().isEsMina()) {
+		if (casillaIsMina(f, c)) {
 			
-			tab.getCasillas()[f][c].getBoton().setBackground(Color.RED);
+			colorearCasilla(f, c, Color.RED);
 			hacervisibleTodasLasMinas();
 			
 		} else if (tab.getCasillas()[f][c].getContenido().getSimbolo() == ' ') {
@@ -80,11 +77,11 @@ public class Juego {
 
 	public void liberarCasilla(int f, int c) {
 		try {
-			if (!this.tab.getCasillas()[f][c].getContenido().isEsMina()
+			if (!casillaIsMina(f, c)
 					&& !this.tab.getCasillas()[f][c].getContenido().isVisible()) {
 				
 				deshacerCasilla(f, c);
-				tab.getCasillas()[f][c].getBoton().setBackground(Color.LIGHT_GRAY);
+				colorearCasilla(f, c, Color.LIGHT_GRAY);
 				
 				
 				if (this.tab.getCasillas()[f][c].getContenido().getSimbolo() == ' '
@@ -127,10 +124,11 @@ public class Juego {
 
 	public boolean minaExplota() {
 		boolean acaba = false;
-		for (int i = 0; i < tab.getCasillas().length; i++) {
-			for (int j = 0; j < tab.getCasillas()[i].length && !acaba; j++) {
-				if (tab.getCasillas()[i][j].getContenido().isEsMina()
-						&& tab.getCasillas()[i][j].getContenido().isVisible()) {
+		for (int f = 0; f < tab.getCasillas().length; f++) {
+			for (int c = 0; c < tab.getCasillas()[f].length && !acaba; c++) {
+				if (casillaIsMina(f, c)
+						&& tab.getCasillas()[f][c].getContenido().isVisible()) {
+					
 					acaba = true;
 					this.hacervisibleTodasLasMinas();
 				}
@@ -142,9 +140,17 @@ public class Juego {
 		tab.getCasillas()[f][c].getContenido().setVisible(true);
 		tab.getCasillas()[f][c].getBoton().setText(""+
 				tab.getCasillas()[f][c].getContenido().getSimbolo());
+		tab.getCasillas()[f][c].getBoton().setIcon(
+				tab.getCasillas()[f][c].getContenido().getImagen());
 		this.tab.getCasillas()[f][c].getBoton().setEnabled(false);
 		
 		
 	}
-	
+	public void colorearCasilla(int f,int c,Color col) {
+		
+		tab.getCasillas()[f][c].getBoton().setBackground(col);
+	}
+	public boolean casillaIsMina(int f,int c) {
+		return this.tab.getCasillas()[f][c].getContenido().isEsMina();
+	}
 }
