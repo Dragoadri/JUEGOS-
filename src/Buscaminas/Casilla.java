@@ -2,6 +2,7 @@
 
 package Buscaminas;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,7 +30,7 @@ public class Casilla {
 		this.setContenido(contenido);
 		this.j=j;
 		this.boton= new JButton();
-		
+		this.boton.setBackground(Color.GREEN);
 		
 	}
 	

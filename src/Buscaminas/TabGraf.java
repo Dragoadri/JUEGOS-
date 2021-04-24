@@ -38,14 +38,19 @@ public class TabGraf extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(filas, columnas));
+		setTitle("Juego");
 		casilla= new Casilla[filas][columnas];
 		//metodos
 		inicio();
 		//mas
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 250, 500, 500);
-		jue= new Juego(this);
 		
+		
+		jue= new Juego(this);
+		if (jue.minaExplota()) {
+			System.out.println("perdio");
+		}
 		
 		
 		
@@ -77,11 +82,17 @@ public class TabGraf extends JFrame {
 		casilla[i][j].getBoton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-//				casilla[i][j].getBoton().setText(""+
-//						casilla[i][j].getContenido().getSimbolo());
-				
+
 				
 				getJue().hacerVisible(i, j);
+				
+				if (getJue().esGanador()) {
+					setTitle("Has Ganado!");
+				}
+				if (getJue().esGanador()) {
+					setTitle("has perdido :(");
+				}
+				
 				//getJue().hacervisibleTodasLasMinas();
 				
 				

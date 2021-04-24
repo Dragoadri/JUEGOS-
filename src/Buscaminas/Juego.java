@@ -1,5 +1,9 @@
 package Buscaminas;
 
+import java.awt.Color;
+
+import javax.swing.JLabel;
+
 /**
  * 
  * @author Adrian Cañadas
@@ -20,22 +24,7 @@ public class Juego {
 		tab.rellenarTablero();
 	}
 
-	public void mostrarTablero() {
-		System.out.print("\n\n------TABLERO------\n\n     ");
-
-		for (int i = 0; i < tab.getCasillas().length; i++) {
-			System.out.print("\n|");
-			for (int j = 0; j < tab.getCasillas()[i].length; j++) {
-				if (tab.getCasillas()[i][j].getContenido().isVisible()) {
-					System.out.print(tab.getCasillas()[i][j].getContenido().getSimbolo() + "|");
-				} else {
-					System.out.print("-|");
-				}
-			}
-		}
-
-	}
-
+	
 	public boolean esGanador() {
 		boolean loEs = true;
 		for (int i = 0; i < tab.getCasillas().length; i++) {
@@ -55,23 +44,31 @@ public class Juego {
 			for (int j = 0; j < tab.getCasillas()[i].length; j++) {
 				
 				if (tab.getCasillas()[i][j].getContenido().isEsMina()) {
+					
 					tab.getCasillas()[i][j].getContenido().setVisible(true);
-					tab.getCasillas()[i][j].getBoton().setText(""+
-					tab.getCasillas()[i][j].getContenido().getSimbolo());
+					tab.getCasillas()[i][j].getBoton().setIcon(
+							tab.getCasillas()[i][j].getContenido().getImagen());
+					tab.getCasillas()[i][j].getBoton().setBackground(Color.ORANGE);
+
+					
 				}
+				tab.getCasillas()[i][j].getBoton().setEnabled(false);
+				
 
 			}
 		}
+		
+		
+		
 	}
 
 	public void hacerVisible(int f, int c) {
 
-		tab.getCasillas()[f][c].getContenido().setVisible(true);
-		tab.getCasillas()[f][c].getBoton().setText(""+
-				tab.getCasillas()[f][c].getContenido().getSimbolo());
+		deshacerCasilla(f, c);
 		
 		if (tab.getCasillas()[f][c].getContenido().isEsMina()) {
-			tab.getCasillas()[f][c].getContenido().setSimbolo('*');
+			
+			tab.getCasillas()[f][c].getBoton().setBackground(Color.RED);
 			hacervisibleTodasLasMinas();
 			
 		} else if (tab.getCasillas()[f][c].getContenido().getSimbolo() == ' ') {
@@ -86,10 +83,9 @@ public class Juego {
 			if (!this.tab.getCasillas()[f][c].getContenido().isEsMina()
 					&& !this.tab.getCasillas()[f][c].getContenido().isVisible()) {
 				
-				this.tab.getCasillas()[f][c].getContenido().setVisible(true);
-				this.tab.getCasillas()[f][c].getBoton().setText(""+
-				this.tab.getCasillas()[f][c].getContenido().getSimbolo());
-				this.tab.getCasillas()[f][c].getBoton().setEnabled(false);
+				deshacerCasilla(f, c);
+				tab.getCasillas()[f][c].getBoton().setBackground(Color.LIGHT_GRAY);
+				
 				
 				if (this.tab.getCasillas()[f][c].getContenido().getSimbolo() == ' '
 						&& this.tab.getCasillas()[f][c].getContenido().isVisible()) {
@@ -142,4 +138,13 @@ public class Juego {
 		}
 		return acaba;
 	}
+	public void deshacerCasilla(int f,int c) {
+		tab.getCasillas()[f][c].getContenido().setVisible(true);
+		tab.getCasillas()[f][c].getBoton().setText(""+
+				tab.getCasillas()[f][c].getContenido().getSimbolo());
+		this.tab.getCasillas()[f][c].getBoton().setEnabled(false);
+		
+		
+	}
+	
 }
