@@ -48,7 +48,7 @@ public class Dificultad {
 
 	/**
 	 * Initialize the contents of the frame.
-	 */
+	 */ 
 
 	public void comenzarPartida(int alto, int ancho, int minas) {
 	
