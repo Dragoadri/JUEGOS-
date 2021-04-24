@@ -10,8 +10,7 @@ import javax.swing.ImageIcon;
 public class caso {
 	private String nombre;
 	private char simbolo;
-	private boolean esMina;
-	private boolean visible;
+	private boolean esMina,visible,banderinColocado;
 	private ImageIcon minaImg,banderin;
 
 
@@ -20,6 +19,7 @@ public class caso {
 		this.simbolo = simbolo;
 		this.esMina = esMina;
 		this.visible=false;
+		this.banderinColocado=false;
 		if (esMina) {
 			this.minaImg=new ImageIcon("./img/mina/mina.png");
 		}
@@ -56,6 +56,14 @@ public class caso {
 
 	public ImageIcon getBanderin() {
 		return banderin;
+	}
+
+	public boolean isBanderinColocado() {
+		return banderinColocado;
+	}
+
+	public void setBanderinColocado(boolean banderinColocado) {
+		this.banderinColocado = banderinColocado;
 	}
 	
 
