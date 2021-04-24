@@ -1,16 +1,14 @@
 package Buscaminas;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class TabGraf extends JFrame {
 
@@ -89,15 +87,23 @@ public class TabGraf extends JFrame {
 				if (getJue().esGanador()) {
 					setTitle("Has Ganado!");
 				}
-				if (getJue().esGanador()) {
+				if (getJue().minaExplota()) {
 					setTitle("has perdido :(");
 				}
+				
+				if ((e.getModifiers() & 4) !=0){
+					casilla[i][j].getBoton().setIcon(casilla[i][j].getContenido().getBanderin());
+						
+						
+	            }
+				
 				
 				//getJue().hacervisibleTodasLasMinas();
 				
 				
 			}
 		});
+		
 	}
 	
 	public void ponerBotones() {

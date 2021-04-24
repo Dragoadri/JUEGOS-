@@ -12,7 +12,7 @@ public class caso {
 	private char simbolo;
 	private boolean esMina;
 	private boolean visible;
-	private ImageIcon Imagen;
+	private ImageIcon minaImg,banderin;
 
 
 	public caso(String nombre, char simbolo, boolean esMina) {
@@ -21,9 +21,9 @@ public class caso {
 		this.esMina = esMina;
 		this.visible=false;
 		if (esMina) {
-			this.Imagen=new ImageIcon("./img/mina/mina.png");
-			
+			this.minaImg=new ImageIcon("./img/mina/mina.png");
 		}
+		this.banderin=new ImageIcon("./img/bandera/bandera.png");
 	}
 
 	public String getNombre() {
@@ -51,8 +51,13 @@ public class caso {
 	}
 
 	public ImageIcon getImagen() {
-		return Imagen;
+		return minaImg;
 	}
+
+	public ImageIcon getBanderin() {
+		return banderin;
+	}
+	
 
 	
 }
