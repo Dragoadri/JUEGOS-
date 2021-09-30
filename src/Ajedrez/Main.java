@@ -1,14 +1,14 @@
 package Ajedrez;
 /**
  * 
- * @author Adrian Cañadas
+ * @author Adrian Caï¿½adas
  *
  */
 public class Main {
 
 	public static void main(String[] args) {
 		Juego j = new Juego();
-											
+							
 	}
 
 }

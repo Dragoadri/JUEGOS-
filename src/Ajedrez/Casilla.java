@@ -1,10 +1,10 @@
 package Ajedrez;
 /**
  * 
- * @author Adrian Cañadas
+ * @author Adrian Caï¿½adas
  *
  */
-public class Casilla {
+public class Casilla { 
 	private String color;// color de la casilla
 	private String posicion;// posicion de manera N-N
 	private boolean casillaOcupada;// para ver si la casilla tiene pieza o no encima
