@@ -33,10 +33,11 @@ public class SeleccionPersonajes extends JFrame {
 	private JTextField txtAlto;
 	private JTextField txtAncho;
 	private JTextField txtNumMinas;
-	private JLabel titlePage, personaje1, personaje2,p1Lbl,p2Lbl;
+	private JLabel titlePage, personaje1, personaje2,p1Lbl,p2Lbl,armaImg1,armaImg2;
 	private JPanel contentPane;
 	private ButtonGroup Jugador1, Jugador2;
 	private JRadioButton guerrero1, mago1, curandero1, guerrero2, mago2, curandero2;
+	private JComboBox arma1,arma2;
 
 	public SeleccionPersonajes() {
 
@@ -80,7 +81,22 @@ public class SeleccionPersonajes extends JFrame {
 		setPhotoConfig(personaje1, 120, 0, 500, 500, "./img/personajes/interrogacion.png");
 		personaje2 = new JLabel("");
 		setPhotoConfig(personaje2, 580, 0, 500, 500, "./img/personajes/interrogacion.png");
-
+		
+		//Imagen personajes
+		personaje1 = new JLabel("");
+		setPhotoConfig(personaje1, 120, 0, 500, 500, "./img/personajes/interrogacion.png");
+		personaje2 = new JLabel("");
+		setPhotoConfig(personaje2, 580, 0, 500, 500, "./img/personajes/interrogacion.png");
+		//Imagen Arma
+		
+		
+		armaImg1 = new JLabel("");
+		setPhotoConfig(armaImg1, 200, 400, 100, 120, "./img/armas/espada.png");
+		
+		armaImg2 = new JLabel("");
+		setPhotoConfig(armaImg2, 680, 400, 100, 120, "./img/armas/espada.png");
+		
+		
 		// RadioButtons
 		// Jugador 1
 		int x1 = 0, y = 50, x2 = 580;
@@ -102,7 +118,7 @@ public class SeleccionPersonajes extends JFrame {
 		curandero2 = new JRadioButton("curandero");
 		initializeRadiobuttons(curandero2, Jugador2, 300 + x2, 287 + y, 141, 23,personaje2);
 
-//Labels
+		//Labels
 		titlePage = new JLabel("DRAGON WARS:");
 		titlePage.setBounds(370, 0, 303, 76);
 		setlabelStyle(titlePage, 30, "FONTS/Normal.ttf", Color.black);
@@ -114,8 +130,30 @@ public class SeleccionPersonajes extends JFrame {
 		p2Lbl = new JLabel("Personaje 2");
 		p2Lbl.setBounds(650, 11, 303, 76);
 		setlabelStyle(p2Lbl, 20, "FONTS/Normal.ttf", Color.red);
+		
+		
+		
+		// Combobox
+		
+		arma1= new JComboBox();
+		setComboBox(arma1, 30);
+		
+		arma1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Jugador 1 escoge: "+arma1.getSelectedItem().toString());
+			}
+		});
+		
+		arma2= new JComboBox();
+		setComboBox(arma2, 820);
 
-		// Area de texto
+		arma2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Jugador 2 escoge: "+arma2.getSelectedItem().toString());
+			}
+		});
 
 		// Botones
 
@@ -127,7 +165,7 @@ public class SeleccionPersonajes extends JFrame {
 
 			}
 		});
-		btnNewButton.setBounds(358, 500, 200, 29);
+		btnNewButton.setBounds(400, 500, 200, 29);
 		getContentPane().add(btnNewButton);
 		// Metodos
 
@@ -173,6 +211,17 @@ public class SeleccionPersonajes extends JFrame {
 		icon.setBounds(x, y, width, height);
 		icon.setIcon(new ImageIcon(IconUrl));
 		contentPane.add(icon);
+
+	}
+	public void setComboBox(JComboBox comboBox,int x) {
+
+		comboBox.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 12));
+		comboBox.setBounds(x, 450, 130, 20);
+		comboBox.addItem("espada");
+		comboBox.addItem("arco");
+		comboBox.addItem("hechizo");
+		comboBox.addItem("rezo");		
+		contentPane.add(comboBox);
 
 	}
 
