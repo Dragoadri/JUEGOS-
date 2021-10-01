@@ -26,16 +26,18 @@ import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 
 public class SeleccionPersonajes extends JFrame {
 
-	private JLabel titlePage, personaje1, personaje2, p1Lbl, p2Lbl, armaImg1, armaImg2, versusLbl;
+	private JLabel titlePage, personaje1, personaje2, p1Lbl, p2Lbl, armaImg1, armaImg2, versusLbl,arma1Lbl,arma2Lbl;
 	private JPanel contentPane;
 	private ButtonGroup Jugador1, Jugador2;
 	private JRadioButton guerrero1, mago1, curandero1, guerrero2, mago2, curandero2;
 	private JButton ComienzoPelea;
 	private JComboBox arma1, arma2;
+	private StyledButton bStyle;
 
 	public SeleccionPersonajes() {
 
@@ -87,16 +89,28 @@ public class SeleccionPersonajes extends JFrame {
 
 	}
 
+	public boolean comprobarDatosCogidos() {
+		return (guerrero1.isSelected()|| mago1.isSelected()|| curandero1.isSelected())&&((guerrero2.isSelected()|| mago2.isSelected()|| curandero2.isSelected()));
+	}
+	
+	
 	private void buttonsSetters() {
+		bStyle=new StyledButton();
 		ComienzoPelea = new JButton("COMENZAR PELEA!");
 		ComienzoPelea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				// COMENZAR PARTIDA
-
+				
+				
+				if (comprobarDatosCogidos()) {
+					System.out.println("comienza el juego");
+				}else {
+					System.out.println("Elige personaje");
+				}
+//				setVisible(false);
 			}
 		});
 		ComienzoPelea.setBounds(400, 500, 200, 29);
+		ComienzoPelea.setUI(bStyle);
 		getContentPane().add(ComienzoPelea);
 	}
 
@@ -138,6 +152,15 @@ public class SeleccionPersonajes extends JFrame {
 		p2Lbl = new JLabel("Luchador 2");
 		p2Lbl.setBounds(730, 0, 303, 76);
 		setlabelStyle(p2Lbl, 40, "FONTS/RF.otf", Color.red);
+		
+		
+		arma1Lbl = new JLabel("Arma de luchador");
+		arma1Lbl.setBounds(30, 400, 303, 76);
+		setlabelStyle(arma1Lbl, 20, "FONTS/TitleFont.ttf", Color.black);
+		
+		arma2Lbl = new JLabel("Arma de luchador");
+		arma2Lbl.setBounds(800, 400, 303, 76);
+		setlabelStyle(arma2Lbl, 20, "FONTS/TitleFont.ttf", Color.black);
 
 	}
 
@@ -198,6 +221,7 @@ public class SeleccionPersonajes extends JFrame {
 	}
 
 	private void basicCaracteristics() {
+		
 		setTitle("Dragon Wars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 100, 1000, 600);
