@@ -2,7 +2,7 @@ package dragonWars;
 
 public class Rezo extends Arma {
 
-	public Rezo(int danio, String nombre, String urlPhoto) {
+	public Rezo() {
 		super(15, "Hechizo", "./img/armas/rezo.png");
 	}
 

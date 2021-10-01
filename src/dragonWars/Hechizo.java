@@ -2,7 +2,7 @@ package dragonWars;
 
 public class Hechizo extends Arma {
 
-	public Hechizo(int danio, String nombre, String urlPhoto) {
+	public Hechizo() {
 		super(15, "Hechizo", "./img/armas/hechizo.png");
 	}
 

@@ -31,7 +31,8 @@ import javax.swing.ImageIcon;
 
 public class SeleccionPersonajes extends JFrame {
 
-	private JLabel titlePage, personaje1, personaje2, p1Lbl, p2Lbl, armaImg1, armaImg2, versusLbl,arma1Lbl,arma2Lbl;
+	private JLabel titlePage, personaje1, personaje2, p1Lbl, p2Lbl, armaImg1, armaImg2, versusLbl, arma1Lbl, arma2Lbl,
+			warningLbl;
 	private JPanel contentPane;
 	private ButtonGroup Jugador1, Jugador2;
 	private JRadioButton guerrero1, mago1, curandero1, guerrero2, mago2, curandero2;
@@ -46,14 +47,6 @@ public class SeleccionPersonajes extends JFrame {
 
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-
-	public void comenzarPartida(int alto, int ancho, int minas) {
-
-	}
-
 	public void changeImage(JRadioButton radio, JLabel personaje) {
 
 		System.out.println(radio.getName());
@@ -65,19 +58,19 @@ public class SeleccionPersonajes extends JFrame {
 	private void initialize() {
 		// Configuraciones basicas
 		basicCaracteristics();
-		
+
 		// Configuracion JPanel
 		contentPaneConfiguration();
 
 		// RadioButons groups
 		buttonGroupsInitialize();
-		
+
 		// Imagenes
 		lblImageSeters();
 
 		// RadioButtons
 		radioButtonsSetters();
-		
+
 		// Labels
 		textLabelSetters();
 
@@ -90,21 +83,26 @@ public class SeleccionPersonajes extends JFrame {
 	}
 
 	public boolean comprobarDatosCogidos() {
-		return (guerrero1.isSelected()|| mago1.isSelected()|| curandero1.isSelected())&&((guerrero2.isSelected()|| mago2.isSelected()|| curandero2.isSelected()));
+		return (guerrero1.isSelected() || mago1.isSelected() || curandero1.isSelected())
+				&& ((guerrero2.isSelected() || mago2.isSelected() || curandero2.isSelected()));
 	}
-	
-	
+
 	private void buttonsSetters() {
-		bStyle=new StyledButton();
+		bStyle = new StyledButton();
 		ComienzoPelea = new JButton("COMENZAR PELEA!");
 		ComienzoPelea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+
 				if (comprobarDatosCogidos()) {
 					System.out.println("comienza el juego");
-				}else {
-					System.out.println("Elige personaje");
+					// ---------------------------------------------------PELEA------------------------------------
+				
+				Arena arena = new Arena(devuelvePersonaje(1), devuelvePersonaje(2));	
+					
+					
+				setVisible(false);
+				} else {
+					warningLbl.setVisible(true);
 				}
 //				setVisible(false);
 			}
@@ -152,15 +150,19 @@ public class SeleccionPersonajes extends JFrame {
 		p2Lbl = new JLabel("Luchador 2");
 		p2Lbl.setBounds(730, 0, 303, 76);
 		setlabelStyle(p2Lbl, 40, "FONTS/RF.otf", Color.red);
-		
-		
+
 		arma1Lbl = new JLabel("Arma de luchador");
 		arma1Lbl.setBounds(30, 400, 303, 76);
 		setlabelStyle(arma1Lbl, 20, "FONTS/TitleFont.ttf", Color.black);
-		
+
 		arma2Lbl = new JLabel("Arma de luchador");
 		arma2Lbl.setBounds(800, 400, 303, 76);
 		setlabelStyle(arma2Lbl, 20, "FONTS/TitleFont.ttf", Color.black);
+
+		warningLbl = new JLabel("Escoge los luchadores!");
+		warningLbl.setBounds(400, 435, 303, 76);
+		warningLbl.setVisible(false);
+		setlabelStyle(warningLbl, 20, "FONTS/Normal.ttf", Color.red);
 
 	}
 
@@ -221,7 +223,7 @@ public class SeleccionPersonajes extends JFrame {
 	}
 
 	private void basicCaracteristics() {
-		
+
 		setTitle("Dragon Wars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 100, 1000, 600);
@@ -280,6 +282,62 @@ public class SeleccionPersonajes extends JFrame {
 		comboBox.addItem("hechizo");
 		comboBox.addItem("rezo");
 		contentPane.add(comboBox);
+
+	}
+
+	private Personaje devuelvePersonaje(int personaje) {
+
+		Personaje per = null;
+
+		if (personaje == 1) {
+			if (guerrero1.isSelected()) {
+				per = new Guerrero(devuelveArma(personaje));
+
+			} else if (mago1.isSelected()) {
+				per = new Mago(devuelveArma(personaje));
+			} else if (curandero1.isSelected()) {
+				per = new Curandero(devuelveArma(personaje));
+			}
+
+		} else {
+			if (guerrero2.isSelected()) {
+				per = new Guerrero(devuelveArma(personaje));
+
+			} else if (mago2.isSelected()) {
+				per = new Mago(devuelveArma(personaje));
+			} else if (curandero2.isSelected()) {
+				per = new Curandero(devuelveArma(personaje));
+			}
+
+		}
+		return per;
+	}
+
+	private Arma devuelveArma(int personaje) {
+
+		String armaSTr = personaje == 1 ? arma1.getSelectedItem().toString().toLowerCase()
+				: arma2.getSelectedItem().toString().toLowerCase();
+		Arma arma = null;
+
+		switch (armaSTr) {
+		case "espada":
+
+			arma = new Espada();
+			break;
+
+		case "arco":
+			arma = new Arco();
+			break;
+
+		case "hechizo":
+
+			arma = new Hechizo();
+			break;
+		case "rezo":
+			arma = new Rezo();
+			break;
+		}
+		return arma;
 
 	}
 

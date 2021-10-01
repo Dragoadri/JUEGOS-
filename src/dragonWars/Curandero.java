@@ -4,8 +4,8 @@ public class Curandero extends Personaje {
 
 
 	
-	public Curandero(String nombre, Arma arma) {
-		super(nombre, "./img/personajes/guerrero.png", arma, 100, new Sabiduria());
+	public Curandero( Arma arma) {
+		super("Cuarandero", "./img/personajes/guerrero.png", arma, 100, new Sabiduria());
 		
 	}
 

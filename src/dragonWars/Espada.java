@@ -2,7 +2,7 @@ package dragonWars;
 
 public class Espada extends Arma {
 
-	public Espada(int danio, String nombre, String urlPhoto) {
+	public Espada() {
 		super(20, "Espada", "./img/armas/espada.png");
 	}
 

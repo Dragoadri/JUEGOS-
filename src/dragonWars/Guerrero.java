@@ -4,8 +4,8 @@ public class Guerrero extends Personaje {
 
 
 	
-	public Guerrero(String nombre, Arma arma) {
-		super(nombre, "./img/personajes/guerrero.png", arma, 100, new Fuerza());
+	public Guerrero( Arma arma) {
+		super("Guerrero", "./img/personajes/guerrero.png", arma, 100, new Fuerza());
 		
 	}
 

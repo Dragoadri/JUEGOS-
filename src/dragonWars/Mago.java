@@ -4,8 +4,8 @@ public class Mago extends Personaje {
 
 
 	
-	public Mago(String nombre, Arma arma) {
-		super(nombre, "./img/personajes/mago.png", arma, 100, new Inteligencia());
+	public Mago( Arma arma) {
+		super("Mago", "./img/personajes/mago.png", arma, 100, new Inteligencia());
 		
 	}
 

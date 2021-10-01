@@ -2,7 +2,7 @@ package dragonWars;
 
 public class Arco extends Arma {
 
-	public Arco(int danio, String nombre, String urlPhoto) {
+	public Arco() {
 		super(18, "Arco", "./img/armas/arco.png");
 	}
 
