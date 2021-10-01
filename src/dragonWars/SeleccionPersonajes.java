@@ -33,7 +33,7 @@ public class SeleccionPersonajes extends JFrame {
 	private JTextField txtAlto;
 	private JTextField txtAncho;
 	private JTextField txtNumMinas;
-	private JLabel titlePage, personaje1, personaje2,p1Lbl,p2Lbl,armaImg1,armaImg2;
+	private JLabel titlePage, personaje1, personaje2,p1Lbl,p2Lbl,armaImg1,armaImg2,versusLbl;
 	private JPanel contentPane;
 	private ButtonGroup Jugador1, Jugador2;
 	private JRadioButton guerrero1, mago1, curandero1, guerrero2, mago2, curandero2;
@@ -54,8 +54,11 @@ public class SeleccionPersonajes extends JFrame {
 	}
 
 	public void changeImage(JRadioButton radio, JLabel personaje) {
+		
+		System.out.println(radio.getName());
 
-		personaje.setIcon(new ImageIcon("./img/personajes/" + radio.getText() + ".png"));
+		personaje.setIcon(new ImageIcon( "./img/personajes/"+radio.getText()+".png"));
+		
 
 	}
 
@@ -77,24 +80,25 @@ public class SeleccionPersonajes extends JFrame {
 		this.Jugador1 = new ButtonGroup();
 		this.Jugador2 = new ButtonGroup();
 		// Imagenes
-		personaje1 = new JLabel("");
-		setPhotoConfig(personaje1, 120, 0, 500, 500, "./img/personajes/interrogacion.png");
-		personaje2 = new JLabel("");
-		setPhotoConfig(personaje2, 580, 0, 500, 500, "./img/personajes/interrogacion.png");
 		
-		//Imagen personajes
+		versusLbl = new JLabel("");
+		setPhotoConfig(versusLbl, 430, 50, 400, 400, "./img/personajes/versus.png");
+		
 		personaje1 = new JLabel("");
-		setPhotoConfig(personaje1, 120, 0, 500, 500, "./img/personajes/interrogacion.png");
+		setPhotoConfig(personaje1, 150, 0, 500, 500, "./img/personajes/interrogacion.png");
 		personaje2 = new JLabel("");
-		setPhotoConfig(personaje2, 580, 0, 500, 500, "./img/personajes/interrogacion.png");
+		setPhotoConfig(personaje2, 600, 0, 500, 500, "./img/personajes/interrogacion.png");
+		
+		
+		
 		//Imagen Arma
 		
 		
 		armaImg1 = new JLabel("");
-		setPhotoConfig(armaImg1, 200, 400, 100, 120, "./img/armas/espada.png");
+		setPhotoConfig(armaImg1, 200, 420, 100, 120, "./img/armas/espada.png");
 		
 		armaImg2 = new JLabel("");
-		setPhotoConfig(armaImg2, 680, 400, 100, 120, "./img/armas/espada.png");
+		setPhotoConfig(armaImg2, 680, 420, 100, 120, "./img/armas/espada.png");
 		
 		
 		// RadioButtons
@@ -102,34 +106,34 @@ public class SeleccionPersonajes extends JFrame {
 		int x1 = 0, y = 50, x2 = 580;
 
 		guerrero1 = new JRadioButton("guerrero");
-		initializeRadiobuttons(guerrero1, Jugador1, 25 + x1, 99 + y, 80, 23,personaje1);
+		initializeRadiobuttons(guerrero1, Jugador1, 25 + x1, 99 + y, 100, 23,personaje1,1);
 		contentPane.add(guerrero1);
 		mago1 = new JRadioButton("mago");
-		initializeRadiobuttons(mago1, Jugador1, 25 + x1, 196 + y, 80, 23,personaje1);
+		initializeRadiobuttons(mago1, Jugador1, 25 + x1, 196 + y, 80, 23,personaje1,1);
 		curandero1 = new JRadioButton("curandero");
-		initializeRadiobuttons(curandero1, Jugador1, 25 + x1, 287 + y, 90, 23,personaje1);
+		initializeRadiobuttons(curandero1, Jugador1, 25 + x1, 287 + y, 100, 23,personaje1,1);
 
 		// Jugador 2
 		guerrero2 = new JRadioButton("guerrero");
-		initializeRadiobuttons(guerrero2, Jugador2, 300 + x2, 99 + y, 141, 23,personaje2);
+		initializeRadiobuttons(guerrero2, Jugador2, 300 + x2, 99 + y, 141, 23,personaje2,2);
 		contentPane.add(guerrero2);
 		mago2 = new JRadioButton("mago");
-		initializeRadiobuttons(mago2, Jugador2, 300 + x2, 196 + y, 141, 23,personaje2);
+		initializeRadiobuttons(mago2, Jugador2, 300 + x2, 196 + y, 141, 23,personaje2,2);
 		curandero2 = new JRadioButton("curandero");
-		initializeRadiobuttons(curandero2, Jugador2, 300 + x2, 287 + y, 141, 23,personaje2);
+		initializeRadiobuttons(curandero2, Jugador2, 300 + x2, 287 + y, 141, 23,personaje2,2);
 
 		//Labels
 		titlePage = new JLabel("DRAGON WARS:");
-		titlePage.setBounds(370, 0, 303, 76);
-		setlabelStyle(titlePage, 30, "FONTS/Normal.ttf", Color.black);
+		titlePage.setBounds(360, 0, 303, 76);
+		setlabelStyle(titlePage, 53, "FONTS/LifeCraft_Font.ttf", Color.black);
 		
-		p1Lbl = new JLabel("Personaje 1");
-		p1Lbl.setBounds(200, 11, 303, 76);
-		setlabelStyle(p1Lbl, 20, "FONTS/Normal.ttf", Color.red);
+		p1Lbl = new JLabel("Luchador 1");
+		p1Lbl.setBounds(90, 0, 303, 76);
+		setlabelStyle(p1Lbl, 40, "FONTS/RF.otf", Color.red);
 		
-		p2Lbl = new JLabel("Personaje 2");
-		p2Lbl.setBounds(650, 11, 303, 76);
-		setlabelStyle(p2Lbl, 20, "FONTS/Normal.ttf", Color.red);
+		p2Lbl = new JLabel("Luchador 2");
+		p2Lbl.setBounds(730, 0, 303, 76);
+		setlabelStyle(p2Lbl, 40, "FONTS/RF.otf", Color.red);
 		
 		
 		
@@ -142,6 +146,7 @@ public class SeleccionPersonajes extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Jugador 1 escoge: "+arma1.getSelectedItem().toString());
+				armaImg1.setIcon(new ImageIcon("./img/armas/"+arma1.getSelectedItem()+".png"));
 			}
 		});
 		
@@ -152,6 +157,8 @@ public class SeleccionPersonajes extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Jugador 2 escoge: "+arma2.getSelectedItem().toString());
+				armaImg2.setIcon(new ImageIcon("./img/armas/"+arma2.getSelectedItem()+".png"));
+
 			}
 		});
 
@@ -189,13 +196,14 @@ public class SeleccionPersonajes extends JFrame {
 	}
 
 	public void initializeRadiobuttons(JRadioButton radio, ButtonGroup group, int x, int y, int width, int height,
-			JLabel personaje) {
+			JLabel personaje, int p) {
 
 		group.add(radio);
 		radio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (radio.isSelected()) {
 					changeImage(radio, personaje);
+					
 				}
 
 			}
@@ -216,7 +224,7 @@ public class SeleccionPersonajes extends JFrame {
 	public void setComboBox(JComboBox comboBox,int x) {
 
 		comboBox.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 12));
-		comboBox.setBounds(x, 450, 130, 20);
+		comboBox.setBounds(x, 480, 130, 20);
 		comboBox.addItem("espada");
 		comboBox.addItem("arco");
 		comboBox.addItem("hechizo");
