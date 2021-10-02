@@ -54,13 +54,6 @@ public class Arena extends JFrame {
 	 */
 
 	
-	public void changeImage(JRadioButton radio, JLabel personaje) {
-
-		System.out.println(radio.getName());
-
-		personaje.setIcon(new ImageIcon("./img/personajes/" + radio.getText().toLowerCase() + ".png"));
-
-	}
 
 	private void initialize() {
 		// Configuraciones basicas
@@ -99,7 +92,7 @@ public class Arena extends JFrame {
 				//Ataque 
 			}
 		});
-		ataqueP1.setBounds(100, 500, 200, 29);
+		ataqueP1.setBounds(100, 500, 150, 29);
 		ataqueP1.setUI(bStyle);
 		getContentPane().add(ataqueP1);
 		
@@ -110,11 +103,11 @@ public class Arena extends JFrame {
 		ataqueEspecialP1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				p1.ataqueEspecial(p2);;
+				p1.ataqueEspecial(p2);
 				//Ataque 
 			}
 		});
-		ataqueEspecialP1.setBounds(300, 500, 200, 29);
+		ataqueEspecialP1.setBounds(300, 500, 150, 29);
 		ataqueEspecialP1.setUI(bStyle);
 		getContentPane().add(ataqueEspecialP1);
 		
@@ -127,7 +120,7 @@ public class Arena extends JFrame {
 				//Ataque 
 			}
 		});
-		ataqueP2.setBounds(600, 500, 200, 29);
+		ataqueP2.setBounds(600, 500, 150, 29);
 		ataqueP2.setUI(bStyle);
 		getContentPane().add(ataqueP2);
 		
@@ -135,38 +128,38 @@ public class Arena extends JFrame {
 		ataqueEspecialP2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				p1.ataqueEspecial(p2);;
+				p2.ataqueEspecial(p1);
 				//Ataque 
 			}
 		});
-		ataqueEspecialP2.setBounds(800, 500, 200, 29);
-		ataqueEspecialP1.setUI(bStyle);
+		ataqueEspecialP2.setBounds(800, 500, 150, 29);
+		ataqueEspecialP2.setUI(bStyle);
 		getContentPane().add(ataqueEspecialP2);
 	}
 
 	
 
 	private void textLabelSetters() {
-		titlePage = new JLabel("DRAGON WARS:");
-		titlePage.setBounds(360, 0, 303, 76);
+		titlePage = new JLabel("ARENA");
+		titlePage.setBounds(460, 0, 303, 76);
 		setlabelStyle(titlePage, 53, "FONTS/LifeCraft_Font.ttf", Color.black);
 
-		p1Lbl = new JLabel("Luchador 1");
-		p1Lbl.setBounds(90, 0, 303, 76);
+		p1Lbl = new JLabel(p1.getNombre().toUpperCase());
+		p1Lbl.setBounds(90, -20, 303, 76);
 		setlabelStyle(p1Lbl, 40, "FONTS/RF.otf", Color.red);
 
-		p2Lbl = new JLabel("Luchador 2");
-		p2Lbl.setBounds(730, 0, 303, 76);
+		p2Lbl = new JLabel(p2.getNombre().toUpperCase());
+		p2Lbl.setBounds(730, -20, 303, 76);
 		setlabelStyle(p2Lbl, 40, "FONTS/RF.otf", Color.red);
 		
 		
-		arma1Lbl = new JLabel("Arma de luchador");
-		arma1Lbl.setBounds(30, 400, 303, 76);
-		setlabelStyle(arma1Lbl, 20, "FONTS/TitleFont.ttf", Color.black);
+		arma1Lbl = new JLabel("Arma de "+p1.getNombre());
+		arma1Lbl.setBounds(300, 100, 303, 76);
+		setlabelStyle(arma1Lbl, 15, "FONTS/TitleFont.ttf", Color.black);
 		
-		arma2Lbl = new JLabel("Arma de luchador");
-		arma2Lbl.setBounds(800, 400, 303, 76);
-		setlabelStyle(arma2Lbl, 20, "FONTS/TitleFont.ttf", Color.black);
+		arma2Lbl = new JLabel("Arma de "+p2.getNombre());
+		arma2Lbl.setBounds(600, 100, 303, 76);
+		setlabelStyle(arma2Lbl, 15, "FONTS/TitleFont.ttf", Color.black);
 		
 		
 		
@@ -181,17 +174,18 @@ public class Arena extends JFrame {
 		setPhotoConfig(versusLbl, 430, 50, 400, 400, "./img/personajes/versus.png");
 		// Imagen personajes
 		personaje1 = new JLabel("");
-		setPhotoConfig(personaje1, 150, 0, 500, 500, p1.getUrlPhoto());
+		setPhotoConfig(personaje1, 20, 0, 500, 500, p1.getUrlPhoto());
+		
 		personaje2 = new JLabel("");
-		setPhotoConfig(personaje2, 600, 0, 500, 500, p2.getUrlPhoto());
+		setPhotoConfig(personaje2, 730, 0, 500, 500, p2.getUrlPhoto());
 
 		// Imagen Arma
 
 		armaImg1 = new JLabel("");
-		setPhotoConfig(armaImg1, 200, 420, 100, 120, p1.getArma().getUrlPhoto());
+		setPhotoConfig(armaImg1, 310, 150, 100, 120, p1.getArma().getUrlPhoto());
 
 		armaImg2 = new JLabel("");
-		setPhotoConfig(armaImg2, 680, 420, 100, 120, p2.getArma().getUrlPhoto());
+		setPhotoConfig(armaImg2, 600, 150, 100, 120, p2.getArma().getUrlPhoto());
 
 	}
 

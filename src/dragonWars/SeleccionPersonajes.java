@@ -49,7 +49,7 @@ public class SeleccionPersonajes extends JFrame {
 
 	public void changeImage(JRadioButton radio, JLabel personaje) {
 
-		System.out.println(radio.getName());
+		System.out.println(radio.getText());
 
 		personaje.setIcon(new ImageIcon("./img/personajes/" + radio.getText().toLowerCase() + ".png"));
 
@@ -171,7 +171,6 @@ public class SeleccionPersonajes extends JFrame {
 
 		guerrero1 = new JRadioButton("Guerrero");
 		initializeRadiobuttons(guerrero1, Jugador1, 25 + x1, 99 + y, 100, 23, personaje1, 1);
-		contentPane.add(guerrero1);
 		mago1 = new JRadioButton("Mago");
 		initializeRadiobuttons(mago1, Jugador1, 25 + x1, 196 + y, 80, 23, personaje1, 1);
 		curandero1 = new JRadioButton("Curandero");
@@ -180,7 +179,6 @@ public class SeleccionPersonajes extends JFrame {
 		// Jugador 2
 		guerrero2 = new JRadioButton("Guerrero");
 		initializeRadiobuttons(guerrero2, Jugador2, 300 + x2, 99 + y, 141, 23, personaje2, 2);
-		contentPane.add(guerrero2);
 		mago2 = new JRadioButton("Mago");
 		initializeRadiobuttons(mago2, Jugador2, 300 + x2, 196 + y, 141, 23, personaje2, 2);
 		curandero2 = new JRadioButton("Curandero");
@@ -292,19 +290,21 @@ public class SeleccionPersonajes extends JFrame {
 		if (personaje == 1) {
 			if (guerrero1.isSelected()) {
 				per = new Guerrero(devuelveArma(personaje));
-
 			} else if (mago1.isSelected()) {
 				per = new Mago(devuelveArma(personaje));
 			} else if (curandero1.isSelected()) {
 				per = new Curandero(devuelveArma(personaje));
 			}
 
-		} else {
+		} 
+		
+		if (personaje==2) {
 			if (guerrero2.isSelected()) {
 				per = new Guerrero(devuelveArma(personaje));
 
 			} else if (mago2.isSelected()) {
 				per = new Mago(devuelveArma(personaje));
+				
 			} else if (curandero2.isSelected()) {
 				per = new Curandero(devuelveArma(personaje));
 			}
