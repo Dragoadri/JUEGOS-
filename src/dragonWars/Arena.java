@@ -35,11 +35,12 @@ public class Arena extends JFrame {
 	private Personaje p1, p2;
 
 	private JLabel titlePage, personaje1, personaje2, p1Lbl, p2Lbl, armaImg1, armaImg2, versusLbl, arma1Lbl, arma2Lbl,
-			atributo1Lbl, atributo2Lbl, atributoImg1, atributoImg2, vida1LBL, vida2LBL, vida1, vida2;
+			atributo1Lbl, atributo2Lbl, atributoImg1, atributoImg2, vida1LBL, vida2LBL, vida1, vida2,warningLbl;
 	private JPanel contentPane;
 	private JButton ataqueP1, ataqueEspecialP1, ataqueP2, ataqueEspecialP2;
 	private StyledButton bStyle;
 	private JProgressBar pVida1, pVida2;
+	private int turno;
 
 	public Arena(Personaje p1, Personaje p2) {
 
@@ -47,7 +48,7 @@ public class Arena extends JFrame {
 		this.p2 = p2;
 		initialize();
 		this.setVisible(true);
-
+		muestraTurno();
 	}
 
 	private void initialize() {
@@ -97,10 +98,19 @@ public class Arena extends JFrame {
 		ataqueP1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				p1.atacar(p2);
-				actualizarVida();
-				// Ataque
+				if (turno == 1) {
+
+					p1.atacar(p2);
+					actualizarVida();
+					turno++;
+					muestraTurno();
+					// Ataque
+				} else {
+					warningTurno();
+				}
+
 			}
+
 		});
 		ataqueP1.setBounds(50, 430, 150, 29);
 		ataqueP1.setUI(bStyle);
@@ -109,11 +119,22 @@ public class Arena extends JFrame {
 		ataqueEspecialP1 = new JButton("Ataque ESPECIAL");
 		ataqueEspecialP1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (turno == 1 && p1.getVida() <= 40) {
+					p1.ataqueEspecial(p2);
 
-				p1.ataqueEspecial(p2);
-				actualizarVida();
-				// Ataque
+					actualizarVida();
+					turno++;
+					muestraTurno();
+
+					// Ataque
+				} else if (p1.getVida() > 40&& turno==1) {
+					warningAtaqueEspecial();
+
+				}else {
+				warningTurno();}
+
 			}
+
 		});
 		ataqueEspecialP1.setBounds(50, 470, 150, 29);
 		ataqueEspecialP1.setUI(bStyle);
@@ -122,10 +143,17 @@ public class Arena extends JFrame {
 		ataqueP2 = new JButton("Ataque con " + p2.getArma().getNombre());
 		ataqueP2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (turno == 2) {
 
-				p2.atacar(p1);
-				actualizarVida();
-				// Ataque
+					p2.atacar(p1);
+					actualizarVida();
+					turno--;
+					muestraTurno();
+
+					// Ataque
+				} else {
+					warningTurno();
+				}
 			}
 		});
 		ataqueP2.setBounds(800, 430, 150, 29);
@@ -135,10 +163,19 @@ public class Arena extends JFrame {
 		ataqueEspecialP2 = new JButton("Ataque ESPECIAL");
 		ataqueEspecialP2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (turno == 2 && p2.getVida() <= 40) {
+					p2.ataqueEspecial(p1);
+					actualizarVida();
+					turno--;
+					muestraTurno();
 
-				p2.ataqueEspecial(p1);
-				actualizarVida();
-				// Ataque
+					// Ataque
+				} else if (p2.getVida() > 40&& turno==2) {
+					warningAtaqueEspecial();
+
+				}else {
+				warningTurno();}
+
 			}
 		});
 		ataqueEspecialP2.setBounds(800, 470, 150, 29);
@@ -147,17 +184,15 @@ public class Arena extends JFrame {
 	}
 
 	private void textLabelSetters() {
-		titlePage = new JLabel("ARENA");
-		titlePage.setBounds(460, 0, 303, 76);
-		setlabelStyle(titlePage, 53, "FONTS/LifeCraft_Font.ttf", Color.black);
+		
 
 		p1Lbl = new JLabel(p1.getNombre().toUpperCase());
 		p1Lbl.setBounds(90, -20, 303, 76);
-		setlabelStyle(p1Lbl, 40, "FONTS/RF.otf", Color.red);
+		setlabelStyle(p1Lbl, 40, "FONTS/RF.otf", Color.black);
 
 		p2Lbl = new JLabel(p2.getNombre().toUpperCase());
-		p2Lbl.setBounds(730, -20, 303, 76);
-		setlabelStyle(p2Lbl, 40, "FONTS/RF.otf", Color.red);
+		p2Lbl.setBounds(680, -20, 303, 76);
+		setlabelStyle(p2Lbl, 40, "FONTS/RF.otf", Color.black);
 
 		arma1Lbl = new JLabel("Arma de " + p1.getNombre());
 		arma1Lbl.setBounds(300, 100, 303, 76);
@@ -190,6 +225,11 @@ public class Arena extends JFrame {
 		vida2 = new JLabel(p1.getVida() + "");
 		vida2.setBounds(920, 490, 303, 76);
 		setlabelStyle(vida2, 25, "FONTS/Normal.ttf", Color.black);
+		
+		warningLbl = new JLabel("");
+		warningLbl.setVisible(false);
+		warningLbl.setBounds(360, 50, 303, 76);
+		setlabelStyle(warningLbl, 20, "FONTS/Normal.ttf", Color.red);
 
 	}
 
@@ -235,6 +275,7 @@ public class Arena extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 100, 1000, 600);
 		setLocationRelativeTo(null);// centra la ventana en el medio
+		this.turno = 1;
 
 	}
 
@@ -273,10 +314,46 @@ public class Arena extends JFrame {
 		pVida.setValue(p.getVida());
 		if (p.getVida() <= 20) {
 			pVida.setForeground(Color.red);
-		} else if (p.getVida() <= 60) {
+		} else if (p.getVida() <= 40) {
 			pVida.setForeground(Color.orange);
 
+		} else if (p.getVida() <= 60) {
+			pVida.setForeground(Color.yellow);
+
 		}
+	}
+
+	private void muestraTurno() {
+		
+		if (turno == 1) {
+			p1Lbl.setText("->" +p1.getNombre() + "<-");
+			p1Lbl.setForeground(Color.red);
+			p2Lbl.setText(p2.getNombre());
+			p2Lbl.setForeground(Color.black);
+
+		} else {
+			p2Lbl.setText("->" +p2.getNombre()+ "<-");
+			p2Lbl.setForeground(Color.red);
+
+			p1Lbl.setText(p1.getNombre());
+			p1Lbl.setForeground(Color.black);
+
+
+		}
+		warningLbl.setVisible(false);
+
+	}
+
+	private void warningTurno() {
+		System.out.println("Es el turno del jugador: " + turno);
+		warningLbl.setText("Es el turno del jugador: " + turno);
+		warningLbl.setVisible(true);
+	}
+
+	private void warningAtaqueEspecial() {
+		warningLbl.setText("Ataque especial no disponible");
+		warningLbl.setVisible(true);
+		
 	}
 
 }

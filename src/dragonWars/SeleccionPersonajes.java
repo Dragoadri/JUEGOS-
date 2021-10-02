@@ -145,11 +145,11 @@ public class SeleccionPersonajes extends JFrame {
 
 		p1Lbl = new JLabel("Luchador 1");
 		p1Lbl.setBounds(90, 0, 303, 76);
-		setlabelStyle(p1Lbl, 40, "FONTS/RF.otf", Color.red);
+		setlabelStyle(p1Lbl, 40, "FONTS/RF.otf", Color.black);
 
 		p2Lbl = new JLabel("Luchador 2");
 		p2Lbl.setBounds(730, 0, 303, 76);
-		setlabelStyle(p2Lbl, 40, "FONTS/RF.otf", Color.red);
+		setlabelStyle(p2Lbl, 40, "FONTS/RF.otf", Color.black);
 
 		arma1Lbl = new JLabel("Arma de luchador");
 		arma1Lbl.setBounds(30, 400, 303, 76);
