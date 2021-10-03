@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,8 +20,7 @@ import javax.swing.border.EmptyBorder;
 public class Arena extends JFrame {
 
 	private Personaje p1, p2;
-
-	private JLabel titlePage, personaje1, personaje2, p1Lbl, p2Lbl, armaImg1, armaImg2, versusLbl, arma1Lbl, arma2Lbl,
+	private JLabel fight, personaje1, personaje2, p1Lbl, p2Lbl, armaImg1, armaImg2, versusLbl, arma1Lbl, arma2Lbl,
 			atributo1Lbl, atributo2Lbl, atributoImg1, atributoImg2, vida1LBL, vida2LBL, vida1, vida2, warningLbl;
 	private JPanel contentPane;
 	private JButton ataqueP1, ataqueEspecialP1, ataqueP2, ataqueEspecialP2;
@@ -188,15 +186,20 @@ public class Arena extends JFrame {
 
 		warningLbl = new JLabel("");
 		warningLbl.setVisible(false);
-		warningLbl.setBounds(360, 50, 303, 76);
+		warningLbl.setBounds(380, 450, 303, 76);
 		setlabelStyle(warningLbl, 20, "FONTS/Normal.ttf", Color.red);
 
 	}
 
 	private void lblImageSeters() {
+		
+		fight = new JLabel("");
+		setPhotoConfig(fight, 400, -140, 250, 400, "./img/personajes/fight.png");
+		
 		// Imagen Versus
 		versusLbl = new JLabel("");
 		setPhotoConfig(versusLbl, 430, 50, 400, 400, "./img/personajes/versus.png");
+		
 		// Imagen personajes
 		personaje1 = new JLabel("");
 		setPhotoConfig(personaje1, 20, 0, 500, 500, p1.getUrlPhoto());
@@ -263,8 +266,8 @@ public class Arena extends JFrame {
 	}
 
 	private void actualizarVida() {
-		vida1.setText("" + p1.getVida());
-		vida2.setText("" + p2.getVida());
+		vida1.setText("" + (p1.getVida()>0?p1.getVida():0));
+		vida2.setText("" + (p2.getVida()>0?p2.getVida():0));
 
 		actualizarProgressBar(p1, pVida1);
 		actualizarProgressBar(p2, pVida2);
