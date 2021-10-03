@@ -1,43 +1,32 @@
 package dragonWars;
 
-import java.awt.EventQueue;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-
-import java.awt.GridLayout;
-import javax.swing.JRadioButton;
-import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
-import java.awt.event.ActionEvent;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.border.EmptyBorder;
 
 public class Arena extends JFrame {
 
 	private Personaje p1, p2;
 
 	private JLabel titlePage, personaje1, personaje2, p1Lbl, p2Lbl, armaImg1, armaImg2, versusLbl, arma1Lbl, arma2Lbl,
-			atributo1Lbl, atributo2Lbl, atributoImg1, atributoImg2, vida1LBL, vida2LBL, vida1, vida2,warningLbl;
+			atributo1Lbl, atributo2Lbl, atributoImg1, atributoImg2, vida1LBL, vida2LBL, vida1, vida2, warningLbl;
 	private JPanel contentPane;
 	private JButton ataqueP1, ataqueEspecialP1, ataqueP2, ataqueEspecialP2;
+	private ArrayList<JButton> botones;
 	private StyledButton bStyle;
 	private JProgressBar pVida1, pVida2;
 	private int turno;
@@ -47,8 +36,9 @@ public class Arena extends JFrame {
 		this.p1 = p1;
 		this.p2 = p2;
 		initialize();
-		this.setVisible(true);
 		muestraTurno();
+		setVisible(true);
+
 	}
 
 	private void initialize() {
@@ -95,103 +85,73 @@ public class Arena extends JFrame {
 		bStyle = new StyledButton();
 
 		ataqueP1 = new JButton("Ataque con " + p1.getArma().getNombre());
-		ataqueP1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				if (turno == 1) {
-
-					p1.atacar(p2);
-					actualizarVida();
-					turno++;
-					muestraTurno();
-					// Ataque
-				} else {
-					warningTurno();
-				}
-
-			}
-
-		});
-		ataqueP1.setBounds(50, 430, 150, 29);
-		ataqueP1.setUI(bStyle);
-		getContentPane().add(ataqueP1);
+		buttonConfig(ataqueP1, 50, 430, 150, 29);
+		ataqueNormalEvent(ataqueP1, p1, p2, 1);
 
 		ataqueEspecialP1 = new JButton("Ataque ESPECIAL");
-		ataqueEspecialP1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (turno == 1 && p1.getVida() <= 40) {
-					p1.ataqueEspecial(p2);
+		buttonConfig(ataqueEspecialP1, 50, 470, 150, 29);
+		ataqueEspecialEvent(ataqueEspecialP1, p1, p2, 1);
 
+		ataqueP2 = new JButton("Ataque con " + p2.getArma().getNombre());
+		buttonConfig(ataqueP2, 800, 430, 150, 29);
+		ataqueNormalEvent(ataqueP2, p2, p1, 2);
+
+		ataqueEspecialP2 = new JButton("Ataque ESPECIAL");
+		buttonConfig(ataqueEspecialP2, 800, 470, 150, 29);
+		ataqueEspecialEvent(ataqueEspecialP2, p2, p1, 2);
+
+	}
+
+	private void ataqueEspecialEvent(JButton boton, Personaje agresor, Personaje victima, int t) {
+		boton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (turno == t && agresor.getVida() <= 40) {
+					agresor.ataqueEspecial(victima);
+					turno += t == 1 ? 1 : -1;
 					actualizarVida();
-					turno++;
 					muestraTurno();
 
 					// Ataque
-				} else if (p1.getVida() > 40&& turno==1) {
+				} else if (agresor.getVida() > 40 && turno == t) {
 					warningAtaqueEspecial();
 
-				}else {
-				warningTurno();}
+				} else {
+					warningTurno();
+				}
 
 			}
-
 		});
-		ataqueEspecialP1.setBounds(50, 470, 150, 29);
-		ataqueEspecialP1.setUI(bStyle);
-		getContentPane().add(ataqueEspecialP1);
 
-		ataqueP2 = new JButton("Ataque con " + p2.getArma().getNombre());
-		ataqueP2.addActionListener(new ActionListener() {
+	}
+
+	protected void ataqueNormalEvent(JButton boton, Personaje agresor, Personaje victima, int t) {
+
+		boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (turno == 2) {
 
-					p2.atacar(p1);
+				if (turno == t) {
+					turno += t == 1 ? 1 : -1;
+					agresor.atacar(victima);
 					actualizarVida();
-					turno--;
 					muestraTurno();
-
 					// Ataque
 				} else {
 					warningTurno();
 				}
-			}
-		});
-		ataqueP2.setBounds(800, 430, 150, 29);
-		ataqueP2.setUI(bStyle);
-		getContentPane().add(ataqueP2);
-
-		ataqueEspecialP2 = new JButton("Ataque ESPECIAL");
-		ataqueEspecialP2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (turno == 2 && p2.getVida() <= 40) {
-					p2.ataqueEspecial(p1);
-					actualizarVida();
-					turno--;
-					muestraTurno();
-
-					// Ataque
-				} else if (p2.getVida() > 40&& turno==2) {
-					warningAtaqueEspecial();
-
-				}else {
-				warningTurno();}
 
 			}
+
 		});
-		ataqueEspecialP2.setBounds(800, 470, 150, 29);
-		ataqueEspecialP2.setUI(bStyle);
-		getContentPane().add(ataqueEspecialP2);
 	}
 
 	private void textLabelSetters() {
-		
 
 		p1Lbl = new JLabel(p1.getNombre().toUpperCase());
-		p1Lbl.setBounds(90, -20, 303, 76);
+		p1Lbl.setBounds(90, 0, 303, 76);
 		setlabelStyle(p1Lbl, 40, "FONTS/RF.otf", Color.black);
 
 		p2Lbl = new JLabel(p2.getNombre().toUpperCase());
-		p2Lbl.setBounds(680, -20, 303, 76);
+		p2Lbl.setBounds(680, 0, 303, 76);
 		setlabelStyle(p2Lbl, 40, "FONTS/RF.otf", Color.black);
 
 		arma1Lbl = new JLabel("Arma de " + p1.getNombre());
@@ -225,7 +185,7 @@ public class Arena extends JFrame {
 		vida2 = new JLabel(p1.getVida() + "");
 		vida2.setBounds(920, 490, 303, 76);
 		setlabelStyle(vida2, 25, "FONTS/Normal.ttf", Color.black);
-		
+
 		warningLbl = new JLabel("");
 		warningLbl.setVisible(false);
 		warningLbl.setBounds(360, 50, 303, 76);
@@ -276,6 +236,7 @@ public class Arena extends JFrame {
 		setBounds(200, 100, 1000, 600);
 		setLocationRelativeTo(null);// centra la ventana en el medio
 		this.turno = 1;
+		this.botones = new ArrayList<>();
 
 	}
 
@@ -324,23 +285,49 @@ public class Arena extends JFrame {
 	}
 
 	private void muestraTurno() {
-		
-		if (turno == 1) {
-			p1Lbl.setText("->" +p1.getNombre() + "<-");
-			p1Lbl.setForeground(Color.red);
-			p2Lbl.setText(p2.getNombre());
-			p2Lbl.setForeground(Color.black);
 
-		} else {
-			p2Lbl.setText("->" +p2.getNombre()+ "<-");
-			p2Lbl.setForeground(Color.red);
+		if (p1.getVida() <= 0 || p2.getVida() <= 0) {
 
-			p1Lbl.setText(p1.getNombre());
-			p1Lbl.setForeground(Color.black);
+			juegoAcabado();
 
+		} else if (turno == 1) {
+
+			lblTurnoCaracteristics(p1Lbl, p2Lbl, p1, p2);
+
+		} else if (turno == 2) {
+
+			lblTurnoCaracteristics(p2Lbl, p1Lbl, p2, p1);
 
 		}
+
+	}
+
+	private void juegoAcabado() {
+		disableAllButons();
+		warningLbl.setText("EL JUEGO HA ACABADO.");
+		warningLbl.setVisible(true);
+		if (turno == 2) {
+			p1Lbl.setText("<html>" + p1Lbl.getText() + "<br> GANADOR<html>");
+		} else if (turno == 1) {
+			p2Lbl.setText("<html>" + p2Lbl.getText() + "<br> GANADOR<html>");
+		}
+	}
+
+	private void lblTurnoCaracteristics(JLabel labelTurno, JLabel labelNoTurno, Personaje suTurno,
+			Personaje pierdeTurno) {
+
+		labelTurno.setText("->" + suTurno.getNombre() + "<-");
+		labelTurno.setForeground(Color.red);
+		labelNoTurno.setText(pierdeTurno.getNombre());
+		labelNoTurno.setForeground(Color.black);
 		warningLbl.setVisible(false);
+
+	}
+
+	private void disableAllButons() {
+		for (JButton boton : botones) {
+			boton.setEnabled(false);
+		}
 
 	}
 
@@ -353,7 +340,15 @@ public class Arena extends JFrame {
 	private void warningAtaqueEspecial() {
 		warningLbl.setText("Ataque especial no disponible");
 		warningLbl.setVisible(true);
-		
+
 	}
 
+	private void buttonConfig(JButton boton, int x, int y, int width, int height) {
+
+		boton.setBounds(x, y, width, height);
+		boton.setUI(bStyle);
+		contentPane.add(boton);
+		botones.add(boton);
+
+	}
 }

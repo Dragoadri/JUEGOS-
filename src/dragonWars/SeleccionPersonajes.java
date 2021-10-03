@@ -43,7 +43,8 @@ public class SeleccionPersonajes extends JFrame {
 	public SeleccionPersonajes() {
 
 		initialize();
-		this.setVisible(true);
+		setVisible(true);
+
 
 	}
 
@@ -96,11 +97,10 @@ public class SeleccionPersonajes extends JFrame {
 				if (comprobarDatosCogidos()) {
 					System.out.println("comienza el juego");
 					// ---------------------------------------------------PELEA------------------------------------
-				
-				Arena arena = new Arena(devuelvePersonaje(1), devuelvePersonaje(2));	
-					
-					
-				setVisible(false);
+
+					Arena arena = new Arena(devuelvePersonaje(1), devuelvePersonaje(2));
+
+					setVisible(false);
 				} else {
 					warningLbl.setVisible(true);
 				}
@@ -212,6 +212,7 @@ public class SeleccionPersonajes extends JFrame {
 	}
 
 	private void contentPaneConfiguration() {
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.white);
@@ -221,7 +222,6 @@ public class SeleccionPersonajes extends JFrame {
 	}
 
 	private void basicCaracteristics() {
-
 		setTitle("Dragon Wars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 100, 1000, 600);
@@ -296,15 +296,15 @@ public class SeleccionPersonajes extends JFrame {
 				per = new Curandero(devuelveArma(personaje));
 			}
 
-		} 
-		
-		if (personaje==2) {
+		}
+
+		if (personaje == 2) {
 			if (guerrero2.isSelected()) {
 				per = new Guerrero(devuelveArma(personaje));
 
 			} else if (mago2.isSelected()) {
 				per = new Mago(devuelveArma(personaje));
-				
+
 			} else if (curandero2.isSelected()) {
 				per = new Curandero(devuelveArma(personaje));
 			}
