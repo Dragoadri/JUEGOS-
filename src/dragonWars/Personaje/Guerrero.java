@@ -1,4 +1,9 @@
-package dragonWars;
+package dragonWars.Personaje;
+
+import dragonWars.arma.Arco;
+import dragonWars.arma.Arma;
+import dragonWars.arma.Espada;
+import dragonWars.atributo.Fuerza;
 
 public class Guerrero extends Personaje {
 
@@ -10,18 +15,23 @@ public class Guerrero extends Personaje {
 	}
 
 	@Override
-	public void atacar( Personaje atacado) {
+	public int atacar( Personaje atacado) {
+		int danioInflingido=0;
 		System.out.println(this.getNombre()+" ha atacado con su "+this.getArma().getNombre()+" a "+atacado.getNombre());
 		if (this.getArma() instanceof Espada || this.getArma() instanceof Arco) {
-			System.out.println("El mago aumenta su daño gracias al uso de su atributo! Daño a su oponete ("+this.getAtributo().getValorAtributo()+this.getArma().getDanio()+")");
-			atacado.setVida(atacado.getVida()-(this.getAtributo().getValorAtributo()+this.getArma().getDanio()));
+			danioInflingido = (this.getAtributo().getValorAtributo() + this.getArma().usar());
+
+			System.out.println("El mago aumenta su daño gracias al uso de su atributo! Daño a su oponete ("+danioInflingido+")");
+			atacado.setVida(atacado.getVida()-danioInflingido);
 		
 		}else {
-			System.out.println("Daño a su oponete ("+this.getArma().getDanio()+")");
-			atacado.setVida(atacado.getVida()-(this.getArma().getDanio()));
+			danioInflingido=this.getArma().usar();
+			System.out.println("Daño a su oponete ("+danioInflingido+")");
+			atacado.setVida(atacado.getVida()-danioInflingido);
 
 			
 		}
+		return danioInflingido;
 		
 	}
 	

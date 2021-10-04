@@ -1,4 +1,7 @@
-package dragonWars;
+package dragonWars.Personaje;
+
+import dragonWars.arma.Arma;
+import dragonWars.atributo.Atributo;
 
 public abstract class Personaje {
 	private String nombre,urlPhoto;
@@ -14,7 +17,7 @@ public abstract class Personaje {
 		this.atributo = atributo;
 		
 	}
-	public abstract void atacar(Personaje atacado);
+	public abstract int atacar(Personaje atacado);
 	public abstract void morir(Personaje muerto);
 	public abstract void ataqueEspecial(Personaje atacado);
 	

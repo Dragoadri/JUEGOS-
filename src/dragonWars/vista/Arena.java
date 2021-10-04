@@ -1,4 +1,4 @@
-package dragonWars;
+package dragonWars.vista;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,24 +17,30 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.border.EmptyBorder;
 
+import dragonWars.Personaje.Personaje;
+import dragonWars.logic.Logic;
+
 public class Arena extends JFrame {
 
 	private Personaje p1, p2;
 	private JLabel fight, personaje1, personaje2, p1Lbl, p2Lbl, armaImg1, armaImg2, versusLbl, arma1Lbl, arma2Lbl,
-			atributo1Lbl, atributo2Lbl, atributoImg1, atributoImg2, vida1LBL, vida2LBL, vida1, vida2, warningLbl;
+			atributo1Lbl, atributo2Lbl, atributoImg1, atributoImg2, vida1LBL, vida2LBL, vida1, vida2, warningLbl
+			,danioInfl1,danioInfl2;
 	private JPanel contentPane;
 	private JButton ataqueP1, ataqueEspecialP1, ataqueP2, ataqueEspecialP2;
 	private ArrayList<JButton> botones;
 	private StyledButton bStyle;
 	private JProgressBar pVida1, pVida2;
 	private int turno;
+	private Logic logic;
 
 	public Arena(Personaje p1, Personaje p2) {
 
 		this.p1 = p1;
 		this.p2 = p2;
+		this.logic = new Logic(this);
 		initialize();
-		muestraTurno();
+		logic.muestraTurno();
 		setVisible(true);
 
 	}
@@ -102,21 +108,9 @@ public class Arena extends JFrame {
 
 	private void ataqueEspecialEvent(JButton boton, Personaje agresor, Personaje victima, int t) {
 		boton.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
-				if (turno == t && agresor.getVida() <= 40) {
-					agresor.ataqueEspecial(victima);
-					turno += t == 1 ? 1 : -1;
-					actualizarVida();
-					muestraTurno();
-
-					// Ataque
-				} else if (agresor.getVida() > 40 && turno == t) {
-					warningAtaqueEspecial();
-
-				} else {
-					warningTurno();
-				}
-
+				logic.eventoAtaqueEspecial( t, agresor, victima);
 			}
 		});
 
@@ -127,15 +121,7 @@ public class Arena extends JFrame {
 		boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (turno == t) {
-					turno += t == 1 ? 1 : -1;
-					agresor.atacar(victima);
-					actualizarVida();
-					muestraTurno();
-					// Ataque
-				} else {
-					warningTurno();
-				}
+				logic.eventoAtaqueNormal( t, agresor, victima);
 
 			}
 
@@ -188,18 +174,28 @@ public class Arena extends JFrame {
 		warningLbl.setVisible(false);
 		warningLbl.setBounds(380, 450, 303, 76);
 		setlabelStyle(warningLbl, 20, "FONTS/Normal.ttf", Color.red);
+		
+		danioInfl1 = new JLabel("");
+		danioInfl1.setVisible(true);
+		danioInfl1.setBounds(220, 450, 303, 76);
+		setlabelStyle(danioInfl1, 20, "FONTS/Normal.ttf", Color.black);
+		
+		danioInfl2 = new JLabel("");
+		danioInfl2.setVisible(true);
+		danioInfl2.setBounds(620, 450, 303, 76);
+		setlabelStyle(danioInfl2, 20, "FONTS/Normal.ttf", Color.black);
 
 	}
 
 	private void lblImageSeters() {
-		
+
 		fight = new JLabel("");
 		setPhotoConfig(fight, 400, -140, 250, 400, "./img/personajes/fight.png");
-		
+
 		// Imagen Versus
 		versusLbl = new JLabel("");
 		setPhotoConfig(versusLbl, 430, 50, 400, 400, "./img/personajes/versus.png");
-		
+
 		// Imagen personajes
 		personaje1 = new JLabel("");
 		setPhotoConfig(personaje1, 20, 0, 500, 500, p1.getUrlPhoto());
@@ -265,9 +261,9 @@ public class Arena extends JFrame {
 
 	}
 
-	private void actualizarVida() {
-		vida1.setText("" + (p1.getVida()>0?p1.getVida():0));
-		vida2.setText("" + (p2.getVida()>0?p2.getVida():0));
+	public void actualizarVida() {
+		vida1.setText("" + (p1.getVida() > 0 ? p1.getVida() : 0));
+		vida2.setText("" + (p2.getVida() > 0 ? p2.getVida() : 0));
 
 		actualizarProgressBar(p1, pVida1);
 		actualizarProgressBar(p2, pVida2);
@@ -275,54 +271,41 @@ public class Arena extends JFrame {
 	}
 
 	private void actualizarProgressBar(Personaje p, JProgressBar pVida) {
+
 		pVida.setValue(p.getVida());
-		if (p.getVida() <= 20) {
-			pVida.setForeground(Color.red);
-		} else if (p.getVida() <= 40) {
-			pVida.setForeground(Color.orange);
-
-		} else if (p.getVida() <= 60) {
-			pVida.setForeground(Color.yellow);
-
-		}
+		pVida.setForeground(this.logic.devuelveColorBarraVida(p.getVida()));
+		
 	}
 
-	private void muestraTurno() {
-
-		if (p1.getVida() <= 0 || p2.getVida() <= 0) {
-
-			juegoAcabado();
-
-		} else if (turno == 1) {
-
-			lblTurnoCaracteristics(p1Lbl, p2Lbl, p1, p2);
-
-		} else if (turno == 2) {
-
-			lblTurnoCaracteristics(p2Lbl, p1Lbl, p2, p1);
-
-		}
-
-	}
-
-	private void juegoAcabado() {
+	
+	public void juegoAcabado() {
 		disableAllButons();
 		warningLbl.setText("EL JUEGO HA ACABADO.");
 		warningLbl.setVisible(true);
+		
 		if (turno == 2) {
-			p1Lbl.setText("<html>" + p1Lbl.getText() + "<br> GANADOR<html>");
+			p1Lbl.setText("<html>" + p1Lbl.getText() + "<br> GANADOR</html>");
 		} else if (turno == 1) {
-			p2Lbl.setText("<html>" + p2Lbl.getText() + "<br> GANADOR<html>");
+			p2Lbl.setText("<html>" + p2Lbl.getText() + "<br> GANADOR</html>");
 		}
 	}
 
-	private void lblTurnoCaracteristics(JLabel labelTurno, JLabel labelNoTurno, Personaje suTurno,
-			Personaje pierdeTurno) {
+	public void lblTurno2() {
 
-		labelTurno.setText("->" + suTurno.getNombre() + "<-");
-		labelTurno.setForeground(Color.red);
-		labelNoTurno.setText(pierdeTurno.getNombre());
-		labelNoTurno.setForeground(Color.black);
+		p2Lbl.setText("-" + p2.getNombre() + "-");
+		p2Lbl.setForeground(Color.red);
+		p1Lbl.setText(p1.getNombre());
+		p1Lbl.setForeground(Color.black);
+		warningLbl.setVisible(false);
+
+	}
+
+	public void lblTurno1() {
+
+		p1Lbl.setText("-" + p1.getNombre() + "-");
+		p1Lbl.setForeground(Color.red);
+		p2Lbl.setText(p2.getNombre());
+		p2Lbl.setForeground(Color.black);
 		warningLbl.setVisible(false);
 
 	}
@@ -334,13 +317,13 @@ public class Arena extends JFrame {
 
 	}
 
-	private void warningTurno() {
+	public void warningTurno() {
 		System.out.println("Es el turno del jugador: " + turno);
 		warningLbl.setText("Es el turno del jugador: " + turno);
 		warningLbl.setVisible(true);
 	}
 
-	private void warningAtaqueEspecial() {
+	public void warningAtaqueEspecial() {
 		warningLbl.setText("Ataque especial no disponible");
 		warningLbl.setVisible(true);
 
@@ -354,4 +337,34 @@ public class Arena extends JFrame {
 		botones.add(boton);
 
 	}
+	public void setDanioInfl1(int x) {
+		danioInfl2.setVisible(false);
+		danioInfl1.setVisible(true);
+		danioInfl1.setText("Danio recibido("+x+")");
+		
+	}
+	public void setDanioInfl2(int x) {
+		danioInfl1.setVisible(false);
+		danioInfl2.setVisible(true);
+		danioInfl2.setText("Danio recibido("+x+")");
+		
+	}
+//-------------------------Geters and setters
+
+	public Personaje getP1() {
+		return p1;
+	}
+
+	public Personaje getP2() {
+		return p2;
+	}
+
+	public int getTurno() {
+		return turno;
+	}
+
+	public void setTurno(int turno) {
+		this.turno = turno;
+	}
+	
 }

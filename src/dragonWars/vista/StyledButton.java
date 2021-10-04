@@ -1,4 +1,4 @@
-package dragonWars;
+package dragonWars.vista;
 
 import java.awt.Color;
 import java.awt.Dimension;

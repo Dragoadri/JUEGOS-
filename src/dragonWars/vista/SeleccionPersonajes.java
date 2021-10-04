@@ -1,4 +1,4 @@
-package dragonWars;
+package dragonWars.vista;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -17,6 +17,17 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import dragonWars.Personaje.Curandero;
+import dragonWars.Personaje.Guerrero;
+import dragonWars.Personaje.Mago;
+import dragonWars.Personaje.Personaje;
+import dragonWars.arma.Arco;
+import dragonWars.arma.Arma;
+import dragonWars.arma.Espada;
+import dragonWars.arma.Hechizo;
+import dragonWars.arma.Rezo;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
