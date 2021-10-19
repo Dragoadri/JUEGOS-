@@ -2,12 +2,14 @@ package dragonWars.Personaje;
 
 import dragonWars.arma.Arma;
 import dragonWars.atributo.Atributo;
+import dragonWars.vista.Fortaleza;
 
-public abstract class Personaje {
+public abstract class Personaje implements Runnable {
 	private String nombre,urlPhoto;
 	private Arma arma;
 	private int vida;
 	private Atributo atributo;
+	private Fortaleza fort;
 	
 	public Personaje(String nombre, String urlPhoto, Arma arma, int vida, Atributo atributo) {
 		this.nombre = nombre;
@@ -21,6 +23,16 @@ public abstract class Personaje {
 	public abstract void morir(Personaje muerto);
 	public abstract void ataqueEspecial(Personaje atacado);
 	
+	
+	
+	
+	
+	public Fortaleza getFort() {
+		return fort;
+	}
+	public void setFort(Fortaleza fort) {
+		this.fort = fort;
+	}
 	public String getNombre() {
 		return nombre;
 	}

@@ -44,5 +44,11 @@ public class Curandero extends Personaje {
 		
 	}
 
+	@Override
+	public void run() {
+		this.getFort().atacarAMonstruo(this);
+		
+	}
+
 
 }

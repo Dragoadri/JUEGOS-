@@ -35,11 +35,12 @@ public class Guerrero extends Personaje {
 		
 	}
 	
+	
 
 
 	@Override
 	public void morir(Personaje muerto) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
@@ -48,6 +49,13 @@ public class Guerrero extends Personaje {
 		// TODO Auto-generated method stub
 			System.out.println(this.getNombre()+" ha lanzado un ATAQUE BRUTO a: "+atacado.getNombre());
 		atacado.setVida(atacado.getVida()-23);
+	}
+
+	@Override
+	public void run() {
+		
+		this.getFort().atacarAMonstruo(this);
+		
 	}
 
 

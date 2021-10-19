@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import dragonWars.Personaje.Curandero;
 import dragonWars.Personaje.Guerrero;
 import dragonWars.Personaje.Mago;
+import dragonWars.Personaje.Monstruo;
 import dragonWars.Personaje.Personaje;
 import dragonWars.arma.Arco;
 import dragonWars.arma.Arma;
@@ -47,7 +48,7 @@ public class SeleccionPersonajes extends JFrame {
 	private JPanel contentPane;
 	private ButtonGroup Jugador1, Jugador2;
 	private JRadioButton guerrero1, mago1, curandero1, guerrero2, mago2, curandero2;
-	private JButton ComienzoPelea;
+	private JButton fortaleza,ComienzoPelea;
 	private JComboBox arma1, arma2;
 	private StyledButton bStyle;
 
@@ -118,9 +119,30 @@ public class SeleccionPersonajes extends JFrame {
 //				setVisible(false);
 			}
 		});
-		ComienzoPelea.setBounds(400, 500, 200, 29);
+		ComienzoPelea.setBounds(400, 450, 200, 29);
 		ComienzoPelea.setUI(bStyle);
 		getContentPane().add(ComienzoPelea);
+		
+		fortaleza = new JButton("ATAQUE A FORTALEZA!");
+		fortaleza.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (comprobarDatosCogidos()) {
+					System.out.println("Ambos personajes van a atacar la fortaleza");
+					// ---------------------------------------------------PELEA------------------------------------
+					
+					Fortaleza fort = new Fortaleza(devuelvePersonaje(1), devuelvePersonaje(2), new Monstruo());
+					
+					
+				} else {
+					warningLbl.setVisible(true);
+				}
+//				setVisible(false);
+			}
+		});
+		fortaleza.setBounds(400, 500, 200, 29);
+		fortaleza.setUI(bStyle);
+		getContentPane().add(fortaleza);
 	}
 
 	private void comboBoxSetters() {

@@ -43,4 +43,10 @@ public class Mago extends Personaje {
 
 	}
 
+	@Override
+	public void run() {
+		this.getFort().atacarAMonstruo(this);
+		
+	}
+
 }

@@ -2,23 +2,27 @@ package dragonWars.logic;
 
 import java.awt.Color;
 
-import javax.swing.JLabel;
-
 import dragonWars.Personaje.Personaje;
 import dragonWars.vista.Arena;
+import dragonWars.vista.Fortaleza;
 
 public class Logic {
 
 	private Arena arena;
+	private Fortaleza fort;
 
 	public Logic(Arena arena) {
 		this.arena = arena;
+	}
+	public Logic(Fortaleza fort) {
+		this.fort = fort;
 	}
 
 	private int devuelveTurno() {
 		return (this.arena.getP1().getVida() <= 0 || this.arena.getP2().getVida() <= 0) ? 0 : this.arena.getTurno();
 
 	}
+	
 
 	public void muestraTurno() {
 
@@ -97,6 +101,60 @@ private void setDanioInfl(int danio,int t) {
 
 	}
 	
+}//Duplicados , crear eventos para quitar
+public void eventoAtaqueNormalFort(int t,Personaje agresor,Personaje victima) {
+	
+	
+	if (this.fort.getTurno() == t) {
+		int turno=this.fort.getTurno()== 1 ? 2 : 1;
+		
+		this.fort.setTurno(turno);
+		setDanioInflFort(agresor.atacar(victima), t);
+		
+		
+		
+		muestraTurnoFort();
+		
+		// Ataque
+	} else {
+		this.fort.warningTurno();
+	}
+	
+	
+}
+private void setDanioInflFort(int danio,int t) {
+	if (t==1) {
+		this.fort.setDanioInfl2(danio);
+	}else if(t==2) {
+		this.fort.setDanioInfl1(danio);
+
+	}
+	
+}
+
+private int devuelveTurnoFort() {
+	return (this.fort.getP1().getVida() <= 0 || this.fort.getP2().getVida() <= 0) ? 0 : this.fort.getTurno();
+
+}
+public void muestraTurnoFort() {
+
+	switch (devuelveTurnoFort()) {
+	case 0:
+		//this.fort.juegoAcabado();
+
+		break;
+	case 1:
+		this.fort.lblTurno1();
+
+		break;
+
+	case 2:
+		this.fort.lblTurno2();
+
+		break;
+
+	}
+
 }
 
 }
