@@ -62,7 +62,7 @@ public class Fortaleza extends JFrame {
 
 	public synchronized void atacarAMonstruo(Personaje p) {
 
-		while (p.getVida() > 0 && m.getVida() > 0) {
+		while (p.getVida() > 0 && m.getVida() > 0&&sleep()) {
 			
 			
 			
@@ -363,7 +363,7 @@ public class Fortaleza extends JFrame {
 		p1Lbl.setText(p.getNombre());
 		p1Lbl.setForeground(Color.black);
 		warningLbl.setVisible(false);
-		sleep();
+
 	}
 
 	public void lblTurno1(Personaje p) {
@@ -374,7 +374,6 @@ public class Fortaleza extends JFrame {
 		p2Lbl.setForeground(Color.black);
 		warningLbl.setVisible(false);
 
-		sleep();
 	}
 
 	private void disableAllButons() {
