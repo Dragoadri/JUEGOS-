@@ -26,94 +26,106 @@ public class Fortaleza extends JFrame {
 
 	private Personaje p1, p2;
 	private Monstruo m;
-	private JLabel fight, personaje1, monstruoLbl, p1Lbl, p2Lbl, armaImg1,  castilloLbl, arma1Lbl, arma2Lbl,
-			infoAtaque, atributo2Lbl, atributoImg1,  vida1LBL, vida2LBL, vida1, vida2, warningLbl,
-			danioInfl1, danioInfl2;
+	private JLabel fight, personaje1, monstruoLbl, p1Lbl, p2Lbl, armaImg1, castilloLbl, arma1Lbl, arma2Lbl, infoAtaque,
+			atributo2Lbl, atributoImg1, vida1LBL, vida2LBL, vida1, vida2, warningLbl, danioInfl1, danioInfl2;
 	private JPanel contentPane;
-	//private JButton ataqueP1, ataqueEspecialP1, ataqueP2, ataqueEspecialP2;
+	// private JButton ataqueP1, ataqueEspecialP1, ataqueP2, ataqueEspecialP2;
 	private ArrayList<JButton> botones;
 	private StyledButton bStyle;
 	private JProgressBar pVida1, pVida2;
 	private int turno;
 	private Logic logic;
-	private Thread  t1, t2;
+	private Thread t1, t2;
 
 	public Fortaleza(Personaje p1, Personaje p2, Monstruo m) {
 
 		this.p1 = p1;
 		this.p2 = p2;
 		this.m = m;
+
 		this.p1.setFort(this);
 		this.p2.setFort(this);
-		
+
 		initialize();
 		this.logic = new Logic(this);
-		setVisible(true);
 
-		
+		setVisible(true);
 
 		t1 = new Thread(p1);
 		t2 = new Thread(p2);
 
 		t1.start();
 		t2.start();
-		
+
 	}
 
 	public synchronized void atacarAMonstruo(Personaje p) {
+		comenzarPeleaConHeroe(p);
 
-		while (p.getVida() > 0 && m.getVida() > 0&&sleep()) {
-			
-			
-			
-			setPhotoConfig(personaje1, 20, 0, 500, 500, p.getUrlPhoto());
-			System.out.println("*******" + p.getNombre() + " va a intentar acabar con " + m.getNombre());
+		while (p.getVida() > 0 && m.getVida() > 0) {
 
-			
 			switch (turno) {
-		
-			
-			case 1:
-				lblTurno1(p);
-				logic.eventoAtaqueNormalFort(turno, p, m);
-				infoAtaque.setText("El "+p.getNombre()+" ataca");
 
+			case 1:
+
+				turnoHeroe(p);
 				break;
 
 			case 2:
-				lblTurno2(p);
-				
-				logic.eventoAtaqueNormalFort(turno, m, p);
-				infoAtaque.setText("El monstruo ataca");
+				turnoMonstruo(p);
 				break;
 			}
-			
-			
-			
-			if (m.getVida()<=0) {
-				System.out.println(p.getNombre() + " ha acabado con "+ m.getNombre());
-			}else if(p.getVida()<=0)
-				System.out.println(m.getNombre()+ "ha acabado con el "+p.getNombre());
-			
-			
-			actualizarVida(p, m);
-			repaint();
-
-			
-		
-			
 
 		}
 	}
+
 	private boolean sleep() {
 		try {
-			Thread.sleep(500);
+
+			Thread.sleep(2000);
 
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 		return true;
+	}
+
+	private void comenzarPeleaConHeroe(Personaje p) {
+
+		logic.muestraTurnoFort(p);
+		setPhotoConfig(personaje1, 20, 0, 500, 500, p.getUrlPhoto());
+		System.out.println("*******" + p.getNombre() + " va a intentar acabar con " + m.getNombre());
+	}
+
+	private void turnoHeroe(Personaje p) {
+		lblTurno1(p);
+		logic.eventoAtaqueNormalFort(turno, p, m);
+		infoAtaque.setText("El " + p.getNombre() + " ataca");
+		comprobarVidas(p);
+	}
+
+	private void turnoMonstruo(Personaje p) {
+		lblTurno2(p);
+
+		logic.eventoAtaqueNormalFort(turno, m, p);
+		infoAtaque.setText("El monstruo ataca");
+		comprobarVidas(p);
+	}
+
+	private void comprobarVidas(Personaje p) {
+		if (m.getVida() <= 0) {
+			System.out.println(p.getNombre() + " ha acabado con " + m.getNombre());
+			infoAtaque.setText(p.getNombre() + " ha acabado con " + m.getNombre());
+		} else if (p.getVida() <= 0) {
+			System.out.println(m.getNombre() + "ha acabado con el " + p.getNombre());
+			infoAtaque.setText(m.getNombre() + " ha acabado con " + p.getNombre());
+		}
+
+		actualizarVida(p, m);
+		repaint();
+		sleep();
+
 	}
 
 	private void initialize() {
@@ -141,15 +153,15 @@ public class Fortaleza extends JFrame {
 	private void progresBarSetter() {
 		// Progreso vida personaje 1
 		pVida1 = new JProgressBar();
-		progresConfig(pVida1, 120, 515,100);
+		progresConfig(pVida1, 120, 515, 100);
 
 		// Progreso vida personaje 2
 		pVida2 = new JProgressBar();
-		progresConfig(pVida2, 610, 515,m.getVida());
+		progresConfig(pVida2, 610, 515, m.getVida());
 	}
 
-	private void progresConfig(JProgressBar progres, int x, int y,int vida) {
-		
+	private void progresConfig(JProgressBar progres, int x, int y, int vida) {
+
 		progres.setMaximum(vida);
 		progres.setValue(vida);
 		progres.setForeground(Color.green);
@@ -215,13 +227,9 @@ public class Fortaleza extends JFrame {
 //		arma1Lbl.setBounds(300, 100, 303, 76);
 //		setlabelStyle(arma1Lbl, 15, "FONTS/Normal.ttf", Color.black);
 
-	
-
 		infoAtaque = new JLabel("");
 		infoAtaque.setBounds(400, 400, 303, 76);
 		setlabelStyle(infoAtaque, 15, "FONTS/Normal.ttf", Color.black);
-
-		
 
 		vida1LBL = new JLabel("Vida: ");
 		vida1LBL.setBounds(20, 490, 303, 76);
@@ -280,8 +288,6 @@ public class Fortaleza extends JFrame {
 //		
 //		atributoImg1 = new JLabel("");
 //		setPhotoConfig(atributoImg1, 310, 330, 100, 120, p1.getAtributo().getUrlPhoto());
-
-		
 
 	}
 

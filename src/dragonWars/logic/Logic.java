@@ -102,6 +102,12 @@ private void setDanioInfl(int danio,int t) {
 	}
 	
 }//Duplicados , crear eventos para quitar
+
+
+
+
+
+
 public void eventoAtaqueNormalFort(int t,Personaje agresor,Personaje victima) {
 	
 	
@@ -113,7 +119,7 @@ public void eventoAtaqueNormalFort(int t,Personaje agresor,Personaje victima) {
 		
 		
 		
-		muestraTurnoFort();
+		//muestraTurnoFort();
 		
 		// Ataque
 	} else {
@@ -136,7 +142,7 @@ private int devuelveTurnoFort() {
 	return (this.fort.getP1().getVida() <= 0 || this.fort.getP2().getVida() <= 0) ? 0 : this.fort.getTurno();
 
 }
-public void muestraTurnoFort() {
+public void muestraTurnoFort(Personaje p) {
 
 	switch (devuelveTurnoFort()) {
 	case 0:
@@ -144,12 +150,12 @@ public void muestraTurnoFort() {
 
 		break;
 	case 1:
-		//this.fort.lblTurno1();
+		this.fort.lblTurno1(p);
 
 		break;
 
 	case 2:
-		//this.fort.lblTurno2();
+		this.fort.lblTurno2(p);
 
 		break;
 
