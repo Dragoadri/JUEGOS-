@@ -26,72 +26,94 @@ public class Fortaleza extends JFrame {
 
 	private Personaje p1, p2;
 	private Monstruo m;
-	private JLabel fight, personaje1, personaje2, p1Lbl, p2Lbl, armaImg1, armaImg2, versusLbl, arma1Lbl, arma2Lbl,
-			atributo1Lbl, atributo2Lbl, atributoImg1, atributoImg2, vida1LBL, vida2LBL, vida1, vida2, warningLbl,
+	private JLabel fight, personaje1, monstruoLbl, p1Lbl, p2Lbl, armaImg1,  castilloLbl, arma1Lbl, arma2Lbl,
+			infoAtaque, atributo2Lbl, atributoImg1,  vida1LBL, vida2LBL, vida1, vida2, warningLbl,
 			danioInfl1, danioInfl2;
 	private JPanel contentPane;
-	private JButton ataqueP1, ataqueEspecialP1, ataqueP2, ataqueEspecialP2;
+	//private JButton ataqueP1, ataqueEspecialP1, ataqueP2, ataqueEspecialP2;
 	private ArrayList<JButton> botones;
 	private StyledButton bStyle;
 	private JProgressBar pVida1, pVida2;
 	private int turno;
 	private Logic logic;
-	private Thread t0, t1, t2;
+	private Thread  t1, t2;
 
 	public Fortaleza(Personaje p1, Personaje p2, Monstruo m) {
 
 		this.p1 = p1;
 		this.p2 = p2;
 		this.m = m;
-
-		initialize();
-		this.logic = new Logic(this);
-		logic.muestraTurnoFort();
-		setVisible(true);
-
 		this.p1.setFort(this);
 		this.p2.setFort(this);
+		
+		initialize();
+		this.logic = new Logic(this);
+		setVisible(true);
+
+		
 
 		t1 = new Thread(p1);
 		t2 = new Thread(p2);
 
 		t1.start();
 		t2.start();
-
+		
 	}
 
 	public synchronized void atacarAMonstruo(Personaje p) {
 
 		while (p.getVida() > 0 && m.getVida() > 0) {
+			
+			
+			
+			setPhotoConfig(personaje1, 20, 0, 500, 500, p.getUrlPhoto());
 			System.out.println("*******" + p.getNombre() + " va a intentar acabar con " + m.getNombre());
 
-			// actualizarVida(p,m);
+			
 			switch (turno) {
 		
+			
 			case 1:
+				lblTurno1(p);
 				logic.eventoAtaqueNormalFort(turno, p, m);
+				infoAtaque.setText("El "+p.getNombre()+" ataca");
+
 				break;
 
 			case 2:
+				lblTurno2(p);
+				
 				logic.eventoAtaqueNormalFort(turno, m, p);
+				infoAtaque.setText("El monstruo ataca");
 				break;
 			}
+			
+			
+			
 			if (m.getVida()<=0) {
 				System.out.println(p.getNombre() + " ha acabado con "+ m.getNombre());
-			}
-
+			}else if(p.getVida()<=0)
+				System.out.println(m.getNombre()+ "ha acabado con el "+p.getNombre());
+			
+			
 			actualizarVida(p, m);
 			repaint();
 
-			try {
-				
-				Thread.sleep(1000);
-
-			} catch (Exception e) {
-				System.out.println(e);
-			}
+			
+		
+			
 
 		}
+	}
+	private boolean sleep() {
+		try {
+			Thread.sleep(500);
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return true;
 	}
 
 	private void initialize() {
@@ -119,15 +141,17 @@ public class Fortaleza extends JFrame {
 	private void progresBarSetter() {
 		// Progreso vida personaje 1
 		pVida1 = new JProgressBar();
-		progresConfig(pVida1, 120, 515);
+		progresConfig(pVida1, 120, 515,100);
 
 		// Progreso vida personaje 2
 		pVida2 = new JProgressBar();
-		progresConfig(pVida2, 610, 515);
+		progresConfig(pVida2, 610, 515,m.getVida());
 	}
 
-	private void progresConfig(JProgressBar progres, int x, int y) {
-		progres.setValue(100);
+	private void progresConfig(JProgressBar progres, int x, int y,int vida) {
+		
+		progres.setMaximum(vida);
+		progres.setValue(vida);
 		progres.setForeground(Color.green);
 		progres.setBounds(x, y, 250, 30);
 		contentPane.add(progres);
@@ -135,11 +159,11 @@ public class Fortaleza extends JFrame {
 	}
 
 	private void buttonsSetters() {
-		bStyle = new StyledButton();
-
-		ataqueP1 = new JButton("Ataque con " + p1.getArma().getNombre());
-		buttonConfig(ataqueP1, 50, 430, 150, 29);
-		ataqueNormalEvent(ataqueP1, p1, m, 1);
+//		bStyle = new StyledButton();
+//
+//		ataqueP1 = new JButton("Ataque con " + p1.getArma().getNombre());
+//		buttonConfig(ataqueP1, 50, 430, 150, 29);
+//		ataqueNormalEvent(ataqueP1, p1, m, 1);
 
 //		ataqueEspecialP1 = new JButton("Ataque ESPECIAL");
 //		buttonConfig(ataqueEspecialP1, 50, 470, 150, 29);
@@ -183,25 +207,21 @@ public class Fortaleza extends JFrame {
 		p1Lbl.setBounds(90, 0, 303, 76);
 		setlabelStyle(p1Lbl, 40, "FONTS/RF.otf", Color.black);
 
-		p2Lbl = new JLabel(p2.getNombre().toUpperCase());
+		p2Lbl = new JLabel("Monstruo");
 		p2Lbl.setBounds(680, 0, 303, 76);
 		setlabelStyle(p2Lbl, 40, "FONTS/RF.otf", Color.black);
 
-		arma1Lbl = new JLabel("Arma de " + p1.getNombre());
-		arma1Lbl.setBounds(300, 100, 303, 76);
-		setlabelStyle(arma1Lbl, 15, "FONTS/Normal.ttf", Color.black);
+//		arma1Lbl = new JLabel("Arma de " + p1.getNombre());
+//		arma1Lbl.setBounds(300, 100, 303, 76);
+//		setlabelStyle(arma1Lbl, 15, "FONTS/Normal.ttf", Color.black);
 
-		arma2Lbl = new JLabel("Arma de " + p2.getNombre());
-		arma2Lbl.setBounds(590, 100, 303, 76);
-		setlabelStyle(arma2Lbl, 15, "FONTS/Normal.ttf", Color.black);
+	
 
-		atributo1Lbl = new JLabel("Atributo: " + p1.getAtributo().getNombreAtributo());
-		atributo1Lbl.setBounds(300, 280, 303, 76);
-		setlabelStyle(atributo1Lbl, 15, "FONTS/Normal.ttf", Color.black);
+		infoAtaque = new JLabel("");
+		infoAtaque.setBounds(400, 400, 303, 76);
+		setlabelStyle(infoAtaque, 15, "FONTS/Normal.ttf", Color.black);
 
-		atributo2Lbl = new JLabel("Atributo: " + p2.getAtributo().getNombreAtributo());
-		atributo2Lbl.setBounds(590, 280, 303, 76);
-		setlabelStyle(atributo2Lbl, 15, "FONTS/Normal.ttf", Color.black);
+		
 
 		vida1LBL = new JLabel("Vida: ");
 		vida1LBL.setBounds(20, 490, 303, 76);
@@ -215,7 +235,7 @@ public class Fortaleza extends JFrame {
 		vida2LBL.setBounds(870, 490, 303, 76);
 		setlabelStyle(vida2LBL, 20, "FONTS/Normal.ttf", Color.black);
 
-		vida2 = new JLabel(p1.getVida() + "");
+		vida2 = new JLabel(m.getVida() + "");
 		vida2.setBounds(920, 490, 303, 76);
 		setlabelStyle(vida2, 25, "FONTS/Normal.ttf", Color.black);
 
@@ -242,29 +262,26 @@ public class Fortaleza extends JFrame {
 		setPhotoConfig(fight, 400, -140, 250, 400, "./img/personajes/fight.png");
 
 		// Imagen Versus
-		versusLbl = new JLabel("");
-		setPhotoConfig(versusLbl, 430, 50, 400, 400, "./img/personajes/versus.png");
+		castilloLbl = new JLabel("");
+		setPhotoConfig(castilloLbl, 400, 50, 400, 400, "./img/personajes/castillo.png");
 
 		// Imagen personajes
 		personaje1 = new JLabel("");
 		setPhotoConfig(personaje1, 20, 0, 500, 500, p1.getUrlPhoto());
 
-		personaje2 = new JLabel("");
-		setPhotoConfig(personaje2, 730, 0, 500, 500, p2.getUrlPhoto());
+		monstruoLbl = new JLabel("");
+		setPhotoConfig(monstruoLbl, 570, 0, 500, 500, "./img/personajes/monstruo.png");
 
 		// Imagen Arma
 
-		armaImg1 = new JLabel("");
-		setPhotoConfig(armaImg1, 310, 150, 100, 120, p1.getArma().getUrlPhoto());
+//		armaImg1 = new JLabel("");
+//		setPhotoConfig(armaImg1, 310, 150, 100, 120, p1.getArma().getUrlPhoto());
+//
+//		
+//		atributoImg1 = new JLabel("");
+//		setPhotoConfig(atributoImg1, 310, 330, 100, 120, p1.getAtributo().getUrlPhoto());
 
-		armaImg2 = new JLabel("");
-		setPhotoConfig(armaImg2, 600, 150, 100, 120, p2.getArma().getUrlPhoto());
-
-		atributoImg1 = new JLabel("");
-		setPhotoConfig(atributoImg1, 310, 330, 100, 120, p1.getAtributo().getUrlPhoto());
-
-		atributoImg2 = new JLabel("");
-		setPhotoConfig(atributoImg2, 600, 330, 100, 120, p2.getAtributo().getUrlPhoto());
+		
 
 	}
 
@@ -312,7 +329,7 @@ public class Fortaleza extends JFrame {
 
 	public void actualizarVida(Personaje p, Monstruo mon) {
 
-		vida1.setText(p.getNombre() + " " + (p.getVida() > 0 ? p.getVida() : 0));
+		vida1.setText("" + (p.getVida() > 0 ? p.getVida() : 0));
 		vida2.setText("" + (mon.getVida() > 0 ? mon.getVida() : 0));
 
 		actualizarProgressBar(p, pVida1);
@@ -339,24 +356,25 @@ public class Fortaleza extends JFrame {
 		}
 	}
 
-	public void lblTurno2() {
+	public void lblTurno2(Personaje p) {
 
-		p2Lbl.setText("-" + p2.getNombre() + "-");
+		p2Lbl.setText("-Monstruo-");
 		p2Lbl.setForeground(Color.red);
-		p1Lbl.setText(p1.getNombre());
+		p1Lbl.setText(p.getNombre());
 		p1Lbl.setForeground(Color.black);
 		warningLbl.setVisible(false);
-
+		sleep();
 	}
 
-	public void lblTurno1() {
+	public void lblTurno1(Personaje p) {
 
-		p1Lbl.setText("-" + p1.getNombre() + "-");
+		p1Lbl.setText("-" + p.getNombre() + "-");
 		p1Lbl.setForeground(Color.red);
-		p2Lbl.setText(p2.getNombre());
+		p2Lbl.setText("Monstruo");
 		p2Lbl.setForeground(Color.black);
 		warningLbl.setVisible(false);
 
+		sleep();
 	}
 
 	private void disableAllButons() {

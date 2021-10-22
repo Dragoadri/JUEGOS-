@@ -144,12 +144,12 @@ public void muestraTurnoFort() {
 
 		break;
 	case 1:
-		this.fort.lblTurno1();
+		//this.fort.lblTurno1();
 
 		break;
 
 	case 2:
-		this.fort.lblTurno2();
+		//this.fort.lblTurno2();
 
 		break;
 

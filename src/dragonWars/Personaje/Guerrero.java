@@ -21,7 +21,7 @@ public class Guerrero extends Personaje {
 		if (this.getArma() instanceof Espada || this.getArma() instanceof Arco) {
 			danioInflingido = (this.getAtributo().getValorAtributo() + this.getArma().usar());
 
-			System.out.println("El mago aumenta su daño gracias al uso de su atributo! Daño a su oponete ("+danioInflingido+")");
+			System.out.println("El guerrero aumenta su daño gracias al uso de su atributo! Daño a su oponete ("+danioInflingido+")");
 			atacado.setVida(atacado.getVida()-danioInflingido);
 		
 		}else {
